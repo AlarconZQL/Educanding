@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Testeos</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <%= link_to root_path, class: 'navbar-left' do %>
+                <%= image_tag "educanding_azul.png", title: "Logo", width: "250"%>
+            <% end %>
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><button type="button" class="btn btn-primary">Ingresar a mi cuenta</button></a></li>
+            <li><a href="#"><button type="button" class="btn btn-primary">Crear una cuenta</button></a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <div>
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

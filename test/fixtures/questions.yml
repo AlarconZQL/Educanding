@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  contenido: MyString
+  num_visitas: 1
+  mejor_respuesta: 1
+
+two:
+  contenido: MyString
+  num_visitas: 1
+  mejor_respuesta: 1
