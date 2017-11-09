@@ -1,0 +1,16 @@
+#!/bin/bash
+
+rails generate model Question contenido:string
+rails generate model Answer contenido:string
+rails generate model QuestionComment contenido:string
+rails generate model AnswerComment contenido:string
+rails generate model Label nombre:string
+rails generate model AnswerVote tipo:boolean
+rails generate model QuestionVote tipo:boolean
+rails generate model QuestionCommentVote tipo:boolean
+rails generate model AnswerCommentVote tipo:boolean
+rails generate model Level nombre:string puntos:integer
+rails generate model Faculty nombre:string
+rails generate model User nombre:string apellido:string mail:string puntos:integer pass:string
+rails generate model Direction ciudad:string calle:string
+rails generate model QuestionLabel pregunta_id:integer etiqueta_id:integer

@@ -1,0 +1,30 @@
+#!/bin/bash
+
+rails g migration add_question_id_to_answers question_id:integer
+rails g migration add_user_id_to_answers user_id:integer
+
+rails g migration add_user_id_to_questions user_id:integer
+rails g migration add_faculty_id_to_questions faculty_id:integer
+
+rails g migration add_question_id_to_question_comments question_id:integer
+rails g migration add_user_id_to_question_comments user_id:integer
+
+rails g migration add_answer_id_to_answer_comments answer_id:integer
+rails g migration add_user_id_to_answer_comments user_id:integer
+
+rails g migration add_level_id_to_users level_id:integer
+rails g migration add_faculty_id_to_users faculty_id:integer
+
+rails g migration add_direction_id_to_faculties direction_id:integer
+
+rails g migration add_user_id_to_answer_votes user_id:integer
+rails g migration add_answer_id_to_answer_votes answer_id:integer
+
+rails g migration add_user_id_to_question_votes user_id:integer
+rails g migration add_question_id_to_question_votes question_id:integer
+
+rails g migration add_user_id_to_answer_comment_votes user_id:integer
+rails g migration add_comment_id_to_answer_comment_votes answer_comment_id:integer
+
+rails g migration add_user_id_to_question_comment_votes user_id:integer
+rails g migration add_comment_id_to_question_comment_votes question_id:integer
