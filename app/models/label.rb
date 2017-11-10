@@ -1,3 +1,3 @@
 class Label < ApplicationRecord
-  has_many :question_labels  
+  has_many :question_labels
 end

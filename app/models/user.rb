@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   belongs_to :level
-  belongs_to :faculties
+  belongs_to :faculty, optional:true
   has_many :questions
   has_many :answer
   has_many :question_comments
