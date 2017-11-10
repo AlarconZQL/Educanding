@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Edu2</title>
+    <title>Educanding</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+
+
+
+
   </head>
+
+  <%=
+  if session[:user_id] == nil
+    session[:user_id] = 0
+  end
+  %>
+
 
   <body>
     <%= yield %>
