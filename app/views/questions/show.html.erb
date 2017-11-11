@@ -1,0 +1,32 @@
+  <div class="row" style="padding-left: 10%;padding-right: 10%;margin-top: 25px;padding-top: 2%;">
+      <div class="list-group" style="overflow: auto;width: 70%;margin:auto">
+
+
+
+             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active" style="margin-bottom:10px">
+              <div style="padding-left: 10%;padding-right: 10%;">
+                  <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1 text-center"><%= @question.contenido %> </h5>
+                      <small> <%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
+                  </div>
+                  <small>Numero de visitas:<%= @question.num_visitas%></small>
+                  <p class="mb-1"><%= "#{User.find(@question.user_id).nombre} #{User.find(@question.user_id).apellido}"%></p>
+              </div>
+          </a>
+       
+  
+
+        <% Answer.where(question_id: @question.id).each do |resp| %>        
+          <% @resp=resp %>
+             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active" style="margin-bottom:10px">
+              <div style="padding-left: 10%;padding-right: 10%;">
+                  <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1 text-center"><%= @resp.contenido %> </h5>
+                      <small> <%= @resp.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
+                  </div>
+                  <p class="mb-1"><%= "#{User.find(@resp.user_id).nombre} #{User.find(@resp.user_id).apellido}"%></p>
+              </div>
+          </a>
+       
+      </div>
+      <%end%>
