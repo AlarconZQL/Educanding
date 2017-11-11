@@ -13,12 +13,12 @@
                   <p class="mb-1"><%= "#{User.find(@question.user_id).nombre} #{User.find(@question.user_id).apellido}"%></p>
               </div>
           </a>
-       
-  
 
-        <% Answer.where(question_id: @question.id).each do |resp| %>        
+
+
+        <% Answer.where(question_id: @question.id).each do |resp| %>
           <% @resp=resp %>
-             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active" style="margin-bottom:10px">
+             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active" style="margin-bottom:10px;background-color: #099e81;">
               <div style="padding-left: 10%;padding-right: 10%;">
                   <div class="d-flex w-100 justify-content-between">
                       <h5 class="mb-1 text-center"><%= @resp.contenido %> </h5>
@@ -27,6 +27,6 @@
                   <p class="mb-1"><%= "#{User.find(@resp.user_id).nombre} #{User.find(@resp.user_id).apellido}"%></p>
               </div>
           </a>
-       
+          <%end%>
+
       </div>
-      <%end%>
