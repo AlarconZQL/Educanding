@@ -9,4 +9,8 @@ class User < ApplicationRecord
   has_many :answer_votes
   has_many :question_comment_votes
   has_many :answer_comment_votes
+  validates :nombre, presence: true
+  validates :apellido, presence: true
+  validates :mail, presence: true
+  validates :pass, presence: true
 end
