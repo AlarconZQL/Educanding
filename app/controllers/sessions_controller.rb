@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 
             session[:user_id] = 1
 
-            redirect_to questions_index_path
+            redirect_to questions_path
 
         else
 
@@ -54,7 +54,7 @@ class SessionsController < ApplicationController
 
   session[:user_id] = 0
 
-  redirect_to questions_index_path
+  redirect_to questions_path
 
 
   end

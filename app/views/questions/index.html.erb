@@ -1,6 +1,6 @@
   <div class="row" style="padding-left: 10%;padding-right: 10%;margin-top: 25px;padding-top: 2%;">
       <div class="list-group" style="overflow: auto;width: 70%;margin:auto">
-        <% Question.all.each do |question| %>        
+        <% Question.order(:created_at).each do |question| %>        
           <% @question=question %>
           <%= render 'question'  %>
         <% end %>
