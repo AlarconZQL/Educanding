@@ -70,6 +70,40 @@ respuesta5=Answer.find_or_create_by!(question_id:pregunta3.id, contenido:"Es un 
 puts "Fin creacion de respuestas. #{Answer.count} respuestas"
 
 puts "Inicio creacion de comentario respuesta"
-AnswerComment.find_or_create_by!(answer_id:respuesta4.id, contenido:"Muy buena la exactitud, gracias", user_id: usuario2.id)
-AnswerComment.find_or_create_by!(answer_id:respuesta1.id,contenido:"¿Un poco mas detallado puede ser?", user_id: usuario1.id)
+respuestacoment1=AnswerComment.find_or_create_by!(answer_id:respuesta4.id, contenido:"Muy buena la exactitud, gracias", user_id: usuario2.id)
+respuestacoment2=AnswerComment.find_or_create_by!(answer_id:respuesta1.id,contenido:"¿Un poco mas detallado puede ser?", user_id: usuario1.id)
 puts "Fin creacion de comentario respuesta. #{AnswerComment.count} comentario respuesta"
+
+puts "Inicio asignacion de votos a preguntas"
+QuestionVote.find_or_create_by!(tipo:true, user_id:usuario1.id, question_id:pregunta2.id)
+QuestionVote.find_or_create_by!(tipo:false, user_id:usuario1.id, question_id:pregunta3.id)
+QuestionVote.find_or_create_by!(tipo:true, user_id:usuario2.id, question_id:pregunta1.id)
+QuestionVote.find_or_create_by!(tipo:true, user_id:usuario2.id, question_id:pregunta4.id)
+QuestionVote.find_or_create_by!(tipo:false, user_id:usuario3.id, question_id:pregunta1.id)
+QuestionVote.find_or_create_by!(tipo:false, user_id:usuario3.id, question_id:pregunta2.id)
+QuestionVote.find_or_create_by!(tipo:false, user_id:usuario3.id, question_id:pregunta3.id)
+QuestionVote.find_or_create_by!(tipo:false, user_id:usuario3.id, question_id:pregunta4.id)
+puts "Fin asignacion de votos a preguntas"
+
+puts "Inicio asignacion de votos a preguntas"
+QuestionVote.find_or_create_by!(tipo:true, user_id:usuario1.id, question_id:pregunta2.id)
+QuestionVote.find_or_create_by!(tipo:false, user_id:usuario1.id, question_id:pregunta3.id)
+QuestionVote.find_or_create_by!(tipo:true, user_id:usuario2.id, question_id:pregunta1.id)
+QuestionVote.find_or_create_by!(tipo:true, user_id:usuario2.id, question_id:pregunta4.id)
+QuestionVote.find_or_create_by!(tipo:false, user_id:usuario3.id, question_id:pregunta1.id)
+QuestionVote.find_or_create_by!(tipo:false, user_id:usuario3.id, question_id:pregunta2.id)
+QuestionVote.find_or_create_by!(tipo:false, user_id:usuario3.id, question_id:pregunta3.id)
+QuestionVote.find_or_create_by!(tipo:false, user_id:usuario3.id, question_id:pregunta4.id)
+puts "Fin asignacion de votos a preguntas"
+
+puts "Inicio asignacion de votos a respuestas"
+AnswerVote.find_or_create_by!(tipo:false, user_id:usuario1.id, answer_id:respuesta2.id)
+AnswerVote.find_or_create_by!(tipo:true, user_id:usuario1.id, answer_id:respuesta4.id)
+AnswerVote.find_or_create_by!(tipo:true, user_id:usuario2.id, answer_id:respuesta4.id)
+AnswerVote.find_or_create_by!(tipo:true, user_id:usuario3.id, answer_id:respuesta1.id)
+puts "Fin asignacion de votos a respuestas"
+
+puts "Inicio asignacion de votos a comentarios de respuestas"
+AnswerCommentVote.find_or_create_by!(tipo:false, user_id:usuario1.id, answer_comment_id:respuestacoment1.id)
+AnswerCommentVote.find_or_create_by!(tipo:true, user_id:usuario3.id, answer_comment_id:respuestacoment2.id)
+puts "Fin asignacion de votos a comentarios de respuestas"
