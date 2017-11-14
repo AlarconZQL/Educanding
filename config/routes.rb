@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :questions
   get 'users/index'
+  post 'users/create'
 
   get 'sessions/index'
 
