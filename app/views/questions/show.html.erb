@@ -3,16 +3,79 @@
 
 
 
-             <a class="list-group-item list-group-item-action flex-column align-items-start active" style="margin-bottom:10px">
-              <div style="padding-left: 10%;padding-right: 10%;">
-                  <div class="d-flex w-100 justify-content-between">
-                      <h5 class="mb-1 text-center"><%= @question.contenido %> </h5>
-                      <small> <%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
-                  </div>
-                  <small>Numero de visitas:<%= @question.num_visitas%></small>
-                  <p class="mb-1"><%= "#{@users.find(@question.user_id).nombre} #{@users.find(@question.user_id).apellido}"%></p>
+      <a  class="list-group-item list-group-item-action flex-column align-items-start active" style="margin-bottom:10px">
+        <div style="padding-left: 10%;padding-right: 10%;">
+              <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1 text-center"><%= @question.contenido %> </h5>
+                  <small> <%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
               </div>
-          </a>
+              <small>Numero de visitas:<%= @question.num_visitas%></small>
+              <p class="mb-1"><%= "#{@users.find(@question.user_id).nombre} #{@users.find(@question.user_id).apellido}"%></p>
+
+
+              <div class="btn-group">
+
+              <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+
+               <button type="button" class="btn btn-primary" onclick="probando()">
+                 <span class='glyphicon glyphicon-ok'></span>
+               </button>
+               <button type="button" class="btn btn-primary" onclick="probando()">
+                 <span class='glyphicon glyphicon-ok'></span>
+               </button>
+               <button type="button" class="btn btn-primary" onclick="probando()">
+                 <span class='glyphicon glyphicon-ok'></span>
+               </button>
+               <button type="button" class="btn btn-primary" onclick="probando()">
+                 <span class='glyphicon glyphicon-ok'></span>
+               </button>
+               <button type="button" class="btn btn-primary" onclick="verComentarios()">
+                 <span class='glyphicon glyphicon-plus'></span>
+               </button>
+
+
+
+             </div>
+
+
+
+              <script>
+
+                function probando()
+                {
+                document.getElementById("a").style.display='none'
+
+                }
+
+                function verComentarios()
+                {
+                document.getElementById("comentarios").style.display='block'
+                }
+
+              </script>
+
+              <div id="comentarios" style="margin-top:20px;height:100px;padding:30px;display:none;overflow:auto">
+
+                <div style="padding:30px;background-color: #099e51;border-radius: 5px 10px;">
+                    <h4 class="mb-1 text-center"><%= @question.contenido %></h5>
+                    <br>
+                    <small> <%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
+                </div>
+                <div style="margin-top:20px;padding:30px;background-color: #099e51;border-radius: 5px 10px;">
+                    <h4 class="mb-1 text-center"><%= @question.contenido %></h5>
+                    <br>
+                    <small> <%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
+                </div><div style="margin-top:20px;padding:30px;background-color: #099e51;border-radius: 5px 10px;">
+                    <h4 class="mb-1 text-center"><%= @question.contenido %></h5>
+                    <br>
+                    <small> <%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
+                </div>
+              </div>
+
+
+        </div>
+      </a>
+
 
 
 

@@ -1,11 +1,12 @@
 
 <a href=<%="#{questions_path}/#{@question.id}"%> class="list-group-item list-group-item-action flex-column align-items-start active" style="margin-bottom:10px">
-    <div style="padding-left: 10%;padding-right: 10%;">
-        <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1 text-center"><%= @question.contenido %> </h5>
-        	<small> <%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
-        </div>
+  <div style="padding-left: 10%;padding-right: 10%;">
+      <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1 text-center"><%= @question.contenido %> </h5>
+    	     <small> <%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
+      </div>
         <small>Numero de respuestas:<%= @answers.where(question_id:@question.id).count%></small>
+
         <p><small>Numero de visitas:<%= @question.num_visitas%></small></p>
         <%cantidad=0%>
         <%if @questionvotes.where(question_id:@question.id).count !=0%>
@@ -19,5 +20,6 @@
        	<%end%>
         <p><small>Numero de votos:<%= cantidad%></small></p>
     	<p class="mb-1"><%= "#{@users.find(@question.user_id).nombre} #{@users.find(@question.user_id).apellido}"%></p>
-	</div>
+
+     </div>
 </a>
