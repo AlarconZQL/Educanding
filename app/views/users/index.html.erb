@@ -27,7 +27,7 @@
             <label class="control-label" for="facultad">Seleccione Facultad</label>
             <select id="facultad" name="facultad_nombre" class="form-control">
             <% Faculty.all.each do |facultad| %>
-                <option><%=facultad.nombre%></option>
+                <option><%=facultad.nombre%> - <%=Direction.find(facultad.direction_id).ciudad%>, <%=Direction.find(facultad.direction_id).calle%></option>
             <% end %>
                 <option>Ninguna</option>
             </select>
