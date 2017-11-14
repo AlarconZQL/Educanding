@@ -22,6 +22,7 @@ class QuestionsController < ApplicationController
     @labels = Label.all
     @directions = Direction.all
     @users = User.all
+    @questionvotes = QuestionVote.all
 
 
 

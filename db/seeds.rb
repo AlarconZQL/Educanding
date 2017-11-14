@@ -19,9 +19,9 @@ etiqueta6=Label.find_or_create_by!(nombre:"Geologia")
 puts "Fin creacion de etiquetas. #{Label.count} etiquetas"
 
 puts "Inicio creacion de niveles"
-nivel1=Level.find_or_create_by!(nombre:"Iniciado")
-nivel2=Level.find_or_create_by!(nombre:"Experimentado")
-nivel3=Level.find_or_create_by!(nombre:"Moderador")
+nivel1=Level.find_or_create_by!(nombre:"Iniciado",puntos:0)
+nivel2=Level.find_or_create_by!(nombre:"Experimentado",puntos:100)
+nivel3=Level.find_or_create_by!(nombre:"Moderador",puntos:1000)
 puts "Fin creacion de niveles. #{Level.count} niveles"
 
 puts "Inicio creacion de direcciones"
