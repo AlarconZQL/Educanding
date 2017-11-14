@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   root 'questions#index'
 
   get 'questions/index'
+  post 'questions/create'
 
   get 'questions/show'
 
