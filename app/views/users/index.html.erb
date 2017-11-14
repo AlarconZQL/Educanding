@@ -26,8 +26,8 @@
         <div class="form-group">
             <label class="control-label" for="facultad">Seleccione Facultad</label>
             <select id="facultad" name="facultad_nombre" class="form-control">
-            <% Faculty.order(:nombre).each do |facultad| %>
-                <option><%=facultad.nombre%> - <%=Direction.find(facultad.direction_id).ciudad%>, <%=Direction.find(facultad.direction_id).calle%></option>
+            <% @faculties.order(:nombre).each do |facultad| %>
+                <option><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
             <% end %>
                 <option>Ninguna</option>
             </select>

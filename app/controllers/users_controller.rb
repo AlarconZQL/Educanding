@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   def index
+    @faculties = Faculty.all
+    @directions = Direction.all
   end
   def create
 

@@ -28,7 +28,7 @@ return false;
 
         <div id="divEtiquetas" class="form-group" style="margin-top:25px;height:200px;width:30%;overflow:auto">
 
-            <% Label.all.each do |label| %>
+            <% @labels.all.each do |label| %>
 
                   <div class="[ form-group ]">
                       <input type="checkbox" name="etiqueta" id="etiqueta<%=label.id%>" autocomplete="off" />

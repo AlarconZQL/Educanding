@@ -5,7 +5,8 @@
             <h5 class="mb-1 text-center"><%= @question.contenido %> </h5>
         	<small> <%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
         </div>
-        <small>Numero de visitas:<%= @question.num_visitas%></small>
-    	<p class="mb-1"><%= "#{User.find(@question.user_id).nombre} #{User.find(@question.user_id).apellido}"%></p>
+        <small>Numero de respuestas:<%= @answers.where(question_id:@question.id).count%></small>
+        <p><small>Numero de visitas:<%= @question.num_visitas%></small></p>
+    	<p class="mb-1"><%= "#{@users.find(@question.user_id).nombre} #{@users.find(@question.user_id).apellido}"%></p>
 	</div>
 </a>

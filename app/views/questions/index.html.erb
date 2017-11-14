@@ -20,8 +20,8 @@
                   <div class="form-group" style="margin-right: 25px;" data-pg-collapsed>
                     <label class="control-label" for="facultad" style="margin-right: 5px;" >Universidad</label>
                     <select id="facultad"  name="facultad" class="form-control" style="width:125px;">
-                        <% Faculty.order(:nombre).each do |facultad| %>
-                             <option><%=facultad.nombre%> - <%=Direction.find(facultad.direction_id).ciudad%>, <%=Direction.find(facultad.direction_id).calle%></option>
+                        <% @faculties.order(:nombre).each do |facultad| %>
+                             <option><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
                         <% end %>
                         <option>Ninguna</option>
                     </select>
@@ -30,7 +30,7 @@
                   <div class="form-group" style="margin-right: 25px;" data-pg-collapsed>
                     <label class="control-label" for="etiqueta" style="margin-right: 5px;">Etiquetas</label>
                     <select id="etiqueta"  name="etiqueta" class="form-control" style="width:125px;">
-                        <% Label.order(:nombre).each do |etiqueta| %>
+                        <% @labels.order(:nombre).each do |etiqueta| %>
                             <option><%= etiqueta.nombre%></option>
                         <% end %>
                         <option>Ninguna</option>
@@ -45,11 +45,13 @@
 
                 </form>
 
+                <% if session[:user_id]!=0%>
                 <ul class="nav navbar-nav" style="margin-left:50px">
                     <li >
                         <a href= <%= "#{new_question_path}" %> >Crear Pregunta</a>
                     </li>
                 </ul>
+                <%end%>
 
 
                 <ul class="nav navbar-nav navbar-right" style="margin-right:50px">
@@ -68,7 +70,7 @@
 
 <div class="row" style="padding-left: 10%;padding-right: 10%;margin-top: 25px;padding-top: 2%;">
   <div class="list-group" style="overflow: auto;width: 70%;margin:auto">
-    <% Question.order(:created_at).each do |question| %>
+    <% @questions.order(:created_at).each do |question| %>
     <% @question=question %>
     <%= render 'question'  %>
     <% end %>
