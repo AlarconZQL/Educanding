@@ -30,21 +30,49 @@
        <%end%>
     </div>
         <div class="col-md-4" style="width: 28%;margin-left: 5%;padding-top: 25px;">
-        <ol class="breadcrumb text-center">
 
         <% if session[:user_id] == 0 %>
+
+        <ol class="breadcrumb text-center">
+
           <li class="navIR">
             <%= link_to 'Ingresar',sessions_index_path %>
           </li>
           <li class="navIR">
             <%= link_to 'Registrarse',users_index_path %>
           </li>
+
+        </ol>
+
         <% else %>
+
+
+        <ol class="breadcrumb text-center">
+
+          <li class="navIR">
+          <%= link_to 'Etiquetas',sessions_destroy_path %>
+          </li>
+
+          <li class="navIR">
+          <%= link_to 'Facultades',sessions_destroy_path %>
+          </li>
+
+          <li class="navIR">
+          <%= link_to 'Perfil',sessions_destroy_path %>
+          </li>
+
+        </ol>
+        
+        <ol class="breadcrumb text-center">
+
           <li class="navIR">
             <%= link_to 'Cerrar Sesión',sessions_destroy_path %>
           </li>
-        <% end %>
+
         </ol>
+
+
+        <% end %>
     </div>
   </div>
 
