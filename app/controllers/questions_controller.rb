@@ -43,9 +43,9 @@ class QuestionsController < ApplicationController
   def new
      if session[:user_id]!=0
         @labels = Label.all
-  else
-      redirect_to root_path
-  end
+    else
+       redirect_to root_path
+    end
 
   end
 
@@ -60,11 +60,13 @@ class QuestionsController < ApplicationController
       if etiquetas.size >= 3 && etiquetas.size <= 5
 
         if params[:pregunta]!=""
-
+          pregunta=Question.new(num_visitas:0, contenido:params[:pregunta], user_id: session[:user_id], faculty_id: User.find(session[:user_id]).faculty_id)
           #hay que guardar la pregunta
-
-          flash[:message] = "pregunta creada"
-
+          if pregunta.save
+             flash[:message] = "pregunta creada"
+          else
+             flash[:message] = "Error no se creo la pregunta"
+          end
         else
           flash[:message] = "debe ingresar una pregunta"
         end
@@ -77,6 +79,7 @@ class QuestionsController < ApplicationController
       flash[:message] = "debe seleccionar entre 3 y 5 etiquetas"
     end
 
+     @labels = Label.all
 
     render :new
 

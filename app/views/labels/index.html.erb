@@ -1,6 +1,6 @@
 <ul class="list-group">
 
-  <%@etiquetas.each do |etiqueta|%>
+  <%@etiquetas.order(:nombre).each do |etiqueta|%>
   <li class="list-group-item">
   <%= etiqueta.nombre %>
   <button type="button" class="btn btn-warning">Modificar</button>
