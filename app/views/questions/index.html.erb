@@ -20,18 +20,20 @@
                   <div class="form-group" style="margin-right: 25px;" data-pg-collapsed>
                     <label class="control-label" for="facultad" style="margin-right: 5px;" >Universidad</label>
                     <select id="facultad"  name="facultad" class="form-control" style="width:125px;">
-                        <option>Exactas</option>
-                        <option>2</option>
-                        <option>3</option>
+                        <% Faculty.order(:nombre).each do |facultad| %>
+                             <option><%=facultad.nombre%> - <%=Direction.find(facultad.direction_id).ciudad%>, <%=Direction.find(facultad.direction_id).calle%></option>
+                        <% end %>
+                        <option>Ninguna</option>
                     </select>
                   </div>
 
                   <div class="form-group" style="margin-right: 25px;" data-pg-collapsed>
                     <label class="control-label" for="etiqueta" style="margin-right: 5px;">Etiquetas</label>
                     <select id="etiqueta"  name="etiqueta" class="form-control" style="width:125px;">
-                        <option>Matemática</option>
-                        <option>2</option>
-                        <option>3</option>
+                        <% Label.order(:nombre).each do |etiqueta| %>
+                            <option><%= etiqueta.nombre%></option>
+                        <% end %>
+                        <option>Ninguna</option>
                     </select>
                   </div>
 
