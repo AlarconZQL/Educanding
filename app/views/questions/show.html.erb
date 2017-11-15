@@ -55,7 +55,7 @@
                             <span class='glyphicon glyphicon-thumbs-down'></span>
                           </button>
                         <%end%>
-                        <a type="button" class="btn btn-primary" onclick=""> Responder Pregunta
+                        <a type="button" class="btn btn-primary" onclick="verResponderPregunta()"> Responder Pregunta
                           <span class='glyphicon glyphicon-share-alt'></span>
                         </a>
                         <a type="button" class="btn btn-primary" onclick="verEscribirComentario()"> Escribir Comentario
@@ -92,12 +92,20 @@
                     document.getElementById("comentariosPreg").style.display = 'block'
                     }
                 }
-               function verEscribirComentario()  // despliega el escribir comentario si esta ocultos y oculta si esta desplegado
+                function verEscribirComentario()  // despliega el escribir comentario si esta ocultos y oculta si esta desplegado
                 {
                   if (document.getElementById("escribircomentario").style.display == 'block') {
                     document.getElementById("escribircomentario").style.display = 'none'
                   } else {
                     document.getElementById("escribircomentario").style.display = 'block'
+                    }
+                }
+                function verResponderPregunta()
+                {
+                  if (document.getElementById("escribirrespuesta").style.display == 'block') {
+                    document.getElementById("escribirrespuesta").style.display = 'none'
+                  } else {
+                    document.getElementById("escribirrespuesta").style.display = 'block'
                     }
                 }
 
@@ -134,7 +142,6 @@
                 <input type="text" id="comentario" name="comentario"  class="form-control" style="width:50%;height:30px;" placeholder="Escriba su comentario" required>
                 <button class="btn btn-primary"  type="submit" style="margin-top: 20px;">Escribir</button>
               </form>
-
         </div>
       </div>
 
@@ -199,18 +206,19 @@
                           }
 
                         </script>
-
-
-
                        </form>
                     <%end%>
 
                   <%end%>
 
-
-
               </div>
           </a>
           <%end%>
-
+          <form action="/answers/create" method="post" id="escribirrespuesta" style="margin-top:20px;height:100px;padding:10px;display:none;overflow:auto">
+            <label for="comment">Escribir Respuesta:</label>
+            <input type="hidden" name="question_id" value=<%= @question.id%>>
+            <input type="text" id="respuesta" name="respuesta"  class="form-control" style="width:50%;height:60px;" placeholder="Escriba su respuesta" required>
+            <button class="btn btn-primary"  type="submit" style="margin-top: 20px;">Crear respuesta!</button>
+          </form>
       </div>
+    </div>

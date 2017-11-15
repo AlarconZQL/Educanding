@@ -11,6 +11,8 @@ class QuestionsCommentsController < ApplicationController
       if c.save == false
         flash[:message]="Error al guardar el comentario"
       end
+    else
+      flash[:message]="Su comentario debe tener contenido!"
     end
     redirect_to "#{questions_path}/#{question_id}"
   end

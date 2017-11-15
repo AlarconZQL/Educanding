@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   post 'labels/create'
   post 'questions_comments/create'
   post 'answers_comments/create'
-
+  post 'answers/create'
   post 'cars/create'
   post 'cats/create'
 
