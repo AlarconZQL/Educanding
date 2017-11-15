@@ -36,7 +36,6 @@ facu1=Faculty.find_or_create_by!(nombre:"Ingenieria", direction_id:dire3.id)
 facu2=Faculty.find_or_create_by!(nombre:"Informatica", direction_id:dire2.id)
 facu3=Faculty.find_or_create_by!(nombre:"Humanidades", direction_id:dire1.id)
 facu0=Faculty.find_or_create_by!(nombre:"Ninguna", direction_id:dire0.id)
-#usuario1=User.find_or_create_by!(nombre:"Juan")
 puts "Fin creacion de facultades. #{Faculty.count} facultades"
 
 puts "Inicio creacion de usuarios"
@@ -62,6 +61,13 @@ QuestionLabel.find_or_create_by!(question_id:pregunta2.id, label_id:etiqueta6.id
 puts "Fin creacion de tabla de relaciones. #{QuestionLabel.count} relaciones etiqueta-pregunta"
 
 
+puts "Inicio creacion de comentario pregunta"
+preguntacoment1=QuestionComment.find_or_create_by!(question_id:pregunta1.id, contenido:"Se poco, me interesaria saber una mejor respuesta", user_id: usuario2.id)
+preguntacoment2=QuestionComment.find_or_create_by!(question_id:pregunta4.id,contenido:"¿Nadie contesta?", user_id: usuario2.id)
+puts "Fin creacion de comentario pregunta. #{QuestionComment.count} comentario respuesta"
+
+
+
 puts "Inicio creacion de respuestas"
 respuesta1=Answer.find_or_create_by!(contenido:"Es lo que hacen las plantas", question_id:pregunta1.id, user_id: usuario2.id)
 respuesta2=Answer.find_or_create_by!(question_id:pregunta1.id, contenido:"Es la conversión de materia inorgánica en materia orgánica gracias a la energía que aporta la luz", user_id: usuario3.id)
@@ -75,16 +81,7 @@ respuestacoment1=AnswerComment.find_or_create_by!(answer_id:respuesta4.id, conte
 respuestacoment2=AnswerComment.find_or_create_by!(answer_id:respuesta1.id,contenido:"¿Un poco mas detallado puede ser?", user_id: usuario1.id)
 puts "Fin creacion de comentario respuesta. #{AnswerComment.count} comentario respuesta"
 
-puts "Inicio asignacion de votos a preguntas"
-QuestionVote.find_or_create_by!(tipo:true, user_id:usuario1.id, question_id:pregunta2.id)
-QuestionVote.find_or_create_by!(tipo:false, user_id:usuario1.id, question_id:pregunta3.id)
-QuestionVote.find_or_create_by!(tipo:true, user_id:usuario2.id, question_id:pregunta1.id)
-QuestionVote.find_or_create_by!(tipo:true, user_id:usuario2.id, question_id:pregunta4.id)
-QuestionVote.find_or_create_by!(tipo:false, user_id:usuario3.id, question_id:pregunta1.id)
-QuestionVote.find_or_create_by!(tipo:false, user_id:usuario3.id, question_id:pregunta2.id)
-QuestionVote.find_or_create_by!(tipo:false, user_id:usuario3.id, question_id:pregunta3.id)
-QuestionVote.find_or_create_by!(tipo:false, user_id:usuario3.id, question_id:pregunta4.id)
-puts "Fin asignacion de votos a preguntas"
+
 
 puts "Inicio asignacion de votos a preguntas"
 QuestionVote.find_or_create_by!(tipo:true, user_id:usuario1.id, question_id:pregunta2.id)
@@ -95,16 +92,25 @@ QuestionVote.find_or_create_by!(tipo:false, user_id:usuario3.id, question_id:pre
 QuestionVote.find_or_create_by!(tipo:false, user_id:usuario3.id, question_id:pregunta2.id)
 QuestionVote.find_or_create_by!(tipo:false, user_id:usuario3.id, question_id:pregunta3.id)
 QuestionVote.find_or_create_by!(tipo:false, user_id:usuario3.id, question_id:pregunta4.id)
-puts "Fin asignacion de votos a preguntas"
+puts "Fin asignacion de votos a preguntas. #{QuestionVote.count} votos de preguntas"
+
 
 puts "Inicio asignacion de votos a respuestas"
 AnswerVote.find_or_create_by!(tipo:false, user_id:usuario1.id, answer_id:respuesta2.id)
 AnswerVote.find_or_create_by!(tipo:true, user_id:usuario1.id, answer_id:respuesta4.id)
 AnswerVote.find_or_create_by!(tipo:true, user_id:usuario2.id, answer_id:respuesta4.id)
 AnswerVote.find_or_create_by!(tipo:true, user_id:usuario3.id, answer_id:respuesta1.id)
-puts "Fin asignacion de votos a respuestas"
+puts "Fin asignacion de votos a respuestas. #{AnswerVote.count} votos de respuestas"
+
+puts "Inicio asignacion de votos a comentarios de preguntas"
+QuestionCommentVote.find_or_create_by!(tipo:false, user_id:usuario1.id, question_comment_id:preguntacoment1.id)
+QuestionCommentVote.find_or_create_by!(tipo:true, user_id:usuario3.id, question_comment_id:preguntacoment2.id)
+puts "Fin asignacion de votos a comentarios de preguntas. #{QuestionCommentVote.count} votos de comentarios de preguntas"
+
 
 puts "Inicio asignacion de votos a comentarios de respuestas"
 AnswerCommentVote.find_or_create_by!(tipo:false, user_id:usuario1.id, answer_comment_id:respuestacoment1.id)
 AnswerCommentVote.find_or_create_by!(tipo:true, user_id:usuario3.id, answer_comment_id:respuestacoment2.id)
-puts "Fin asignacion de votos a comentarios de respuestas"
+puts "Fin asignacion de votos a comentarios de respuestas. #{AnswerCommentVote.count} votos de comentarios de respuestas"
+
+
