@@ -14,5 +14,5 @@ rails generate model Faculty nombre direction_id:integer
 rails generate model User nombre apellido mail puntos:integer pass level_id:integer faculty_id:integer
 rails generate model Direction ciudad calle
 rails generate model QuestionLabel question_id:integer label_id:integer
-rails g migration change_question_commet_votes question_comment_id:integer
 rails g migration RemoveQuestion_idFromQuestion_comment_votes question_id:integer
+rails g migration Add_question_commet_id_to_question_comment_votes question_comment_id:integer
