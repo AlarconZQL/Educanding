@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   post 'labels/create'
   post 'question_votes/create'
 
+  post 'cars/create'
+
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
