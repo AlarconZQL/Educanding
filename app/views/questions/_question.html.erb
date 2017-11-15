@@ -7,7 +7,7 @@
       </div>
         <small>Numero de respuestas:<%= @answers.where(question_id:@question.id).count%></small>
 
-        <p><small>Numero de visitas:<%= @question.num_visitas%></small></p>
+        <small><br>Numero de visitas:<%= @question.num_visitas%></small>
         <%cantidad=0%>
         <%if @questionvotes.where(question_id:@question.id).count !=0%>
         	<% @questionvotes.where(question_id:@question.id).each do|voto|%>
@@ -18,7 +18,7 @@
        		 	<%end%>
        		 <%end%>
        	<%end%>
-        <p><small>Numero de votos:<%= cantidad%></small></p>
+        <small><br>Numero de votos:<%= cantidad%><br></small>
     	<p class="mb-1"><%= "#{@users.find(@question.user_id).nombre} #{@users.find(@question.user_id).apellido}"%></p>
 
      </div>

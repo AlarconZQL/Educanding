@@ -9,6 +9,17 @@
                   <h5 class="mb-1 text-center"><%= @question.contenido %> </h5>
                   <small> <%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
               </div>
+              <%cantidad=0%>
+              <%if @questionvotes.where(question_id:@question.id).count !=0%>
+                <% @questionvotes.where(question_id:@question.id).each do|voto|%>
+                  <%if voto.tipo%>
+                    <%cantidad =cantidad+1%>
+                  <%else%>
+                    <%cantidad =cantidad-1%>
+                  <%end%>
+                <%end%>
+              <%end%>
+              <small>Numero de votos:<%= cantidad%><br></small>
               <small>Numero de visitas:<%= @question.num_visitas%></small>
               <p class="mb-1"><%= "#{@users.find(@question.user_id).nombre} #{@users.find(@question.user_id).apellido}"%></p>
 

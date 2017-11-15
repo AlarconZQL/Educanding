@@ -38,6 +38,7 @@ class QuestionsController < ApplicationController
         end
         @answers = Answer.all
         @users = User.all
+        @questionvotes = QuestionVote.all
 
   end
 
