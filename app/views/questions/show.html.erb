@@ -3,7 +3,7 @@
 
 
 
-      <a  class="list-group-item list-group-item-action flex-column align-items-start active" style="margin-bottom:10px">
+      <div  class="list-group-item list-group-item-action flex-column align-items-start active" style="margin-bottom:10px">
         <div style="padding-left: 10%;padding-right: 10%;">
               <div class="d-flex w-100 justify-content-between">
                   <h5 class="mb-1 text-center"><%= @question.contenido %> </h5>
@@ -28,18 +28,23 @@
               <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
               <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
               <%if session[:user_id]!=0%>
-                   <button type="button" class="btn btn-success" onclick="probando()">
+
+                  <form  action="/question_votes/create" method="post" >                
+                     <button type="submit">
                      <span class='glyphicon glyphicon-thumbs-up'></span>
-                   </button>
-                   <button type="button" class="btn btn-danger" onclick="probando()">
+                     </button>
+                   </form>                   
+                   <a type="button" class="btn btn-danger" onclick="probando()">
                      <span class='glyphicon glyphicon-thumbs-down'></span>
-                   </button>
-                   <button type="button" class="btn btn-primary" onclick="probando()"> Responder Pregunta
+                   </a>
+               
+                   <a type="button" class="btn btn-primary" onclick="probando()"> Responder Pregunta
                      <span class='glyphicon glyphicon-share-alt'></span>
-                   </button>
-                   <button type="button" class="btn btn-primary" onclick="probando()"> Escribir Comentario
+                   </a>
+                   <a type="button" class="btn btn-primary" onclick="probando()"> Escribir Comentario
                      <span class='glyphicon glyphicon-comment'></span>
-                   </button>
+                   </a>
+                   
               <%end%>
 
 
@@ -90,7 +95,7 @@
 
 
         </div>
-      </a>
+      </div>
 
 
 

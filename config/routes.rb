@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get 'labels/index'
 
   post 'labels/create'
+  post 'question_votes/create'
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
