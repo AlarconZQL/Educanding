@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   post 'question_votes/create'
 
   post 'cars/create'
+  post 'cats/create'
 
 
 

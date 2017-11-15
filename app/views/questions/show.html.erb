@@ -35,6 +35,8 @@
                     <input type="hidden" name="question_id" value=<%= @question.id%>>
                     <input type="hidden" name="votoP" id="votoP" value="0">
                     <input type="hidden" name="votoN" id="votoN" value="0">
+
+
                     <div class="btn-group">
 
                       <button type="submit" class="btn btn-success" onclick="votoPositivo()">
@@ -135,7 +137,7 @@
               </div>
 
 
-                   
+
               <div method="post" action="/" id="escribircomentario" class="form-group" style="margin-top:20px;height:100px;padding:10px;display:none;overflow:auto" >
                 <label for="comment">Escribir Comentario:</label>
                 <input type="text" id="comentario" name="comentario"  class="form-control" style="width:50%;height:30px;" placeholder="Escriba su comentario" required>
@@ -162,6 +164,55 @@
                       <small> <%= @resp.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
                   </div>
                   <p class="mb-1"><%= "#{@users.find(@resp.user_id).nombre} #{@users.find(@resp.user_id).apellido}"%></p>
+
+
+                  <%if session[:user_id]!=0%>
+                    <%if @answervotes.where(answer_id:@resp.id,user_id:session[:user_id]).count ==0%>
+                      <form  action="/cats/create" method="post" >
+
+                        <input type="hidden" name="question_id" value=<%= @question.id%>>
+                        <input type="hidden" name="answer_id" value=<%= @resp.id%>>
+
+                        <input type="hidden" name="votoP" id="votoP" value="0">
+                        <input type="hidden" name="votoN" id="votoN" value="0">
+
+
+                        <div class="btn-group">
+
+                          <button type="submit" class="btn btn-success" onclick="votoPositivo()">
+                            <span class='glyphicon glyphicon-thumbs-up'></span>
+                          </button>
+
+                          <button type="submit" class="btn btn-danger" onclick="votoNegativo()">
+                            <span class='glyphicon glyphicon-thumbs-down'></span>
+                          </button>
+
+                        </div>
+
+
+                        <script>
+
+                          function votoPositivo()
+                          {
+                          document.getElementById("votoP").value = "1"
+                          }
+
+                          function votoNegativo()
+                          {
+                          document.getElementById("votoN").value = "1"
+                          }
+
+                        </script>
+
+
+
+                       </form>
+                    <%end%>
+
+                  <%end%>
+
+
+
               </div>
           </a>
           <%end%>
