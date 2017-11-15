@@ -37,11 +37,7 @@
               <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
               <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 
-              <%if session[:user_id]!=0%>
-              <p><%=@question.user_id%></p>
-
-              <p><%=session[:user_id]%></p>
-                <%if (@questionvotes.where(question_id:@question.id,user_id:session[:user_id]).count ==0) && (session[:user_id]!=@question.user_id)%>
+              
                   <form  action="/cars/create" method="post" >
 
                     <input type="hidden" name="question_id" value=<%= @question.id%>>
@@ -50,17 +46,26 @@
 
 
                     <div class="btn-group">
-
-                      <button type="submit" class="btn btn-success" onclick="votoPositivo()">
-                        <span class='glyphicon glyphicon-thumbs-up'></span>
+                      <%if session[:user_id]!=0%>
+                        <%if (@questionvotes.where(question_id:@question.id,user_id:session[:user_id]).count ==0) && (session[:user_id]!=@question.user_id)%>
+                          <button type="submit" class="btn btn-success" onclick="votoPositivo()">
+                            <span class='glyphicon glyphicon-thumbs-up'></span>
+                          </button>
+                          <button type="submit" class="btn btn-danger" onclick="votoNegativo()">
+                            <span class='glyphicon glyphicon-thumbs-down'></span>
+                          </button>
+                        <%end%>
+                        <a type="button" class="btn btn-primary" onclick=""> Responder Pregunta
+                          <span class='glyphicon glyphicon-share-alt'></span>
+                        </a>
+                        <a type="button" class="btn btn-primary" onclick="verEscribirComentario()"> Escribir Comentario
+                          <span class='glyphicon glyphicon-comment'></span>
+                        </a>
+                      <%end%>
+                      <button type="button" class="btn btn-primary" onclick="verComentarios()"> Ver/Ocultar Comentarios
+                        <span class='glyphicon glyphicon-plus'></span>
                       </button>
-
-                      <button type="submit" class="btn btn-danger" onclick="votoNegativo()">
-                        <span class='glyphicon glyphicon-thumbs-down'></span>
-                      </button>
-
                     </div>
-
 
                     <script>
 
@@ -68,36 +73,14 @@
                       {
                       document.getElementById("votoP").value = "1"
                       }
-
                       function votoNegativo()
                       {
                       document.getElementById("votoN").value = "1"
                       }
-
                     </script>
-
-
-
-                   </form>
-                <%end%>
-
-
-                   <a type="button" class="btn btn-primary" onclick="verEscribirComentario()"> Escribir Comentario
-                     <span class='glyphicon glyphicon-comment'></span>
-                   </a>
-
-              <%end%>
-
-              <div class="btn-group">
-
-                <button type="button" class="btn btn-primary" onclick="verComentarios()"> Ver/Ocultar Comentarios
-                  <span class='glyphicon glyphicon-plus'></span>
-                </button>
+                  </form>
 
               </div>
-
-
-             </div>
 
               <script>
 
