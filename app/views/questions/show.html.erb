@@ -37,7 +37,7 @@
               <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
               <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 
-              
+
                   <form  action="/cars/create" method="post" >
 
                     <input type="hidden" name="question_id" value=<%= @question.id%>>
@@ -69,7 +69,7 @@
 
                     <script>
 
-                      function votoPositivo()
+                      function votoPositivoPreg()
                       {
                       document.getElementById("votoP").value = "1"
                       }
@@ -86,10 +86,10 @@
 
                 function verComentarios()  // despliega los comentarios si estan ocultos y oculta si estan desplegados
                 {
-                  if (document.getElementById("comentarios").style.display == 'block') {
-                    document.getElementById("comentarios").style.display = 'none'
+                  if (document.getElementById("comentariosPreg").style.display == 'block') {
+                    document.getElementById("comentariosPreg").style.display = 'none'
                   } else {
-                    document.getElementById("comentarios").style.display = 'block'
+                    document.getElementById("comentariosPreg").style.display = 'block'
                     }
                 }
                function verEscribirComentario()  // despliega el escribir comentario si esta ocultos y oculta si esta desplegado
@@ -101,13 +101,9 @@
                     }
                 }
 
-
-
-
-
               </script>
 
-              <div id="comentarios" style="margin-top:20px;height:100px;padding:10px;display:none;overflow:auto">
+              <div id="comentariosPreg" style="margin-top:20px;height:100px;padding:10px;display:none;overflow:auto">
 
                 <%if @questioncomments.where(question_id:@question.id).count != 0%>
                   <%@questioncomments.where(question_id:@question.id).each do |comentario|%>
@@ -115,8 +111,8 @@
                      <h4 class="mb-1 text-center"><%= comentario.contenido %></h5>
                      <small> <%= comentario.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
                      <%cantidad=0%>
-                     <%if @questioncommentvotes.where(question_id:@question.id).count !=0%>
-                       <% @questioncommentvotes.where(question_id:@question.id).each do|voto|%>
+                     <%if @questioncommentvotes.where(question_comment_id:@question.id).count !=0%>
+                       <% @questioncommentvotes.where(question_comment_id:@question.id).each do|voto|%>
                         <%if voto.tipo%>
                           <%cantidad =cantidad+1%>
                         <%else%>
@@ -132,23 +128,17 @@
               </div>
 
 
-
-              <div method="post" action="/" id="escribircomentario" class="form-group" style="margin-top:20px;height:100px;padding:10px;display:none;overflow:auto" >
+              <form action="/questions_comments/create" method="post" id="escribircomentario" style="margin-top:20px;height:100px;padding:10px;display:none;overflow:auto">
                 <label for="comment">Escribir Comentario:</label>
+                <input type="hidden" name="question_id" value=<%= @question.id%>>
                 <input type="text" id="comentario" name="comentario"  class="form-control" style="width:50%;height:30px;" placeholder="Escriba su comentario" required>
                 <button class="btn btn-primary"  type="submit" style="margin-top: 20px;">Escribir</button>
-              </div>
-
-
-
-
-
+              </form>
 
         </div>
       </div>
 
-
-
+<!-- ACA ARRANCA LA VISUALIZACION DE LAS RESPUESTAS -->
 
         <% @answers.where(question_id: @question.id).each do |resp| %>
           <% @resp=resp %>

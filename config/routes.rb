@@ -21,12 +21,11 @@ Rails.application.routes.draw do
   get 'labels/index'
 
   post 'labels/create'
-  post 'question_votes/create'
+  post 'questions_comments/create'
+  post 'answers_comments/create'
 
   post 'cars/create'
   post 'cats/create'
-
-
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
