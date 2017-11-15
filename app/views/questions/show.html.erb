@@ -29,25 +29,19 @@
               <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 
               <%if session[:user_id]!=0%>
-
+                <%if @questionvotes.where(question_id:@question.id,user_id:session[:user_id]).count ==0%>
                   <form  action="/cars/create" method="post" >
 
                     <input type="hidden" name="question_id" value=<%= @question.id%>>
-
-
                     <input type="hidden" name="votoP" id="votoP" value="0">
-
                     <input type="hidden" name="votoN" id="votoN" value="0">
-
-
-
                     <div class="btn-group">
 
-                      <button type="submit" class="btn btn-primary" onclick="votoPositivo()">
+                      <button type="submit" class="btn btn-success" onclick="votoPositivo()">
                         <span class='glyphicon glyphicon-thumbs-up'></span>
                       </button>
 
-                      <button type="submit" class="btn btn-primary" onclick="votoNegativo()">
+                      <button type="submit" class="btn btn-danger" onclick="votoNegativo()">
                         <span class='glyphicon glyphicon-thumbs-down'></span>
                       </button>
 
@@ -71,8 +65,12 @@
 
 
                    </form>
+                <%end%>
 
 
+                   <a type="button" class="btn btn-primary" onclick="verEscribirComentario()"> Escribir Comentario
+                     <span class='glyphicon glyphicon-comment'></span>
+                   </a>
 
               <%end%>
 
@@ -97,6 +95,18 @@
                     document.getElementById("comentarios").style.display = 'block'
                     }
                 }
+               function verEscribirComentario()  // despliega el escribir comentario si esta ocultos y oculta si esta desplegado
+                {
+                  if (document.getElementById("escribircomentario").style.display == 'block') {
+                    document.getElementById("escribircomentario").style.display = 'none'
+                  } else {
+                    document.getElementById("escribircomentario").style.display = 'block'
+                    }
+                }
+
+
+
+
 
               </script>
 
@@ -117,14 +127,24 @@
                         <%end%>
                        <%end%>
                      <%end%>
-
                <small><br>Numero de votos:<%= cantidad%><br></small>
                      <small> <%= @users.find(comentario.user_id).nombre%> <%= @users.find(comentario.user_id).apellido%></small>
                     </div>
                   <%end%>
                 <%end%>
-
               </div>
+
+
+                   
+              <div method="post" action="/" id="escribircomentario" class="form-group" style="margin-top:20px;height:100px;padding:10px;display:none;overflow:auto" >
+                <label for="comment">Escribir Comentario:</label>
+                <input type="text" id="comentario" name="comentario"  class="form-control" style="width:50%;height:30px;" placeholder="Escriba su comentario" required>
+                <button class="btn btn-primary"  type="submit" style="margin-top: 20px;">Escribir</button>
+              </div>
+
+
+
+
 
 
         </div>
