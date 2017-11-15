@@ -39,6 +39,9 @@ class QuestionsController < ApplicationController
         @answers = Answer.all
         @users = User.all
         @questionvotes = QuestionVote.all
+        @questioncomments = QuestionComment.all
+        @questioncommentvotes = QuestionCommentVote.all
+        @answercomments = AnswerComment.all
 
   end
 

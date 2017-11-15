@@ -25,22 +25,25 @@
 
 
               <div class="btn-group">
-
+              <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
               <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+              <%if session[:user_id]!=0%>
+                   <button type="button" class="btn btn-success" onclick="probando()">
+                     <span class='glyphicon glyphicon-thumbs-up'></span>
+                   </button>
+                   <button type="button" class="btn btn-danger" onclick="probando()">
+                     <span class='glyphicon glyphicon-thumbs-down'></span>
+                   </button>
+                   <button type="button" class="btn btn-primary" onclick="probando()"> Responder Pregunta 
+                     <span class='glyphicon glyphicon-share-alt'></span>
+                   </button>
+                   <button type="button" class="btn btn-primary" onclick="probando()"> Escribir Comentario 
+                     <span class='glyphicon glyphicon-comment'></span>
+                   </button>
+              <%end%>
 
-               <button type="button" class="btn btn-primary" onclick="probando()">
-                 <span class='glyphicon glyphicon-ok'></span>
-               </button>
-               <button type="button" class="btn btn-primary" onclick="probando()">
-                 <span class='glyphicon glyphicon-ok'></span>
-               </button>
-               <button type="button" class="btn btn-primary" onclick="probando()">
-                 <span class='glyphicon glyphicon-ok'></span>
-               </button>
-               <button type="button" class="btn btn-primary" onclick="probando()">
-                 <span class='glyphicon glyphicon-ok'></span>
-               </button>
-               <button type="button" class="btn btn-primary" onclick="verComentarios()">
+
+               <button type="button" class="btn btn-primary" onclick="verComentarios()"> Ver Comentarios 
                  <span class='glyphicon glyphicon-plus'></span>
                </button>
 
@@ -65,22 +68,30 @@
 
               </script>
 
-              <div id="comentarios" style="margin-top:20px;height:100px;padding:30px;display:none;overflow:auto">
+              <div id="comentarios" style="margin-top:20px;height:100px;padding:10px;display:none;overflow:auto">
 
-                <div style="padding:30px;background-color: #099e51;border-radius: 5px 10px;">
-                    <h4 class="mb-1 text-center"><%= @question.contenido %></h5>
-                    <br>
-                    <small> <%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
-                </div>
-                <div style="margin-top:20px;padding:30px;background-color: #099e51;border-radius: 5px 10px;">
-                    <h4 class="mb-1 text-center"><%= @question.contenido %></h5>
-                    <br>
-                    <small> <%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
-                </div><div style="margin-top:20px;padding:30px;background-color: #099e51;border-radius: 5px 10px;">
-                    <h4 class="mb-1 text-center"><%= @question.contenido %></h5>
-                    <br>
-                    <small> <%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
-                </div>
+                <%if @questioncomments.where(question_id:@question.id).count != 0%>
+                  <%@questioncomments.where(question_id:@question.id).each do |comentario|%>
+                    <div style="padding:10px;background-color: #099e51;border-radius: 5px 10px;">
+                     <h4 class="mb-1 text-center"><%= comentario.contenido %></h5>
+                     <small> <%= comentario.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
+                     <%cantidad=0%>
+                     <%if @questioncommentvotes.where(question_id:@question.id).count !=0%>
+                       <% @questioncommentvotes.where(question_id:@question.id).each do|voto|%>
+                        <%if voto.tipo%>
+                          <%cantidad =cantidad+1%>
+                        <%else%>
+                          <%cantidad =cantidad-1%>
+                        <%end%>
+                       <%end%>
+                     <%end%>
+                     
+               <small><br>Numero de votos:<%= cantidad%><br></small>
+                     <small> <%= @users.find(comentario.user_id).nombre%> <%= @users.find(comentario.user_id).apellido%></small>
+                    </div>
+                  <%end%>
+                <%end%>
+
               </div>
 
 
