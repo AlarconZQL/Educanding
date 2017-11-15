@@ -48,10 +48,10 @@
                     <div class="btn-group">
                       <%if session[:user_id]!=0%>
                         <%if (@questionvotes.where(question_id:@question.id,user_id:session[:user_id]).count ==0) && (session[:user_id]!=@question.user_id)%>
-                          <button type="submit" class="btn btn-success" onclick="votoPositivo()">
+                          <button type="submit" class="btn btn-success" onclick="votoPositivoPreg()">
                             <span class='glyphicon glyphicon-thumbs-up'></span>
                           </button>
-                          <button type="submit" class="btn btn-danger" onclick="votoNegativo()">
+                          <button type="submit" class="btn btn-danger" onclick="votoNegativoPreg()">
                             <span class='glyphicon glyphicon-thumbs-down'></span>
                           </button>
                         <%end%>
@@ -73,7 +73,7 @@
                       {
                       document.getElementById("votoP").value = "1"
                       }
-                      function votoNegativo()
+                      function votoNegativoPreg()
                       {
                       document.getElementById("votoN").value = "1"
                       }
@@ -170,7 +170,7 @@
 
 
                   <%if session[:user_id]!=0%>
-                    <%if @answervotes.where(answer_id:@resp.id,user_id:session[:user_id]).count ==0%>
+                    <%if @answervotes.where(answer_id:@resp.id,user_id:session[:user_id]).count ==0 && session[:user_id]!=@resp.user_id%>
                       <form  action="/cats/create" method="post" >
 
                         <input type="hidden" name="question_id" value=<%= @question.id%>>
