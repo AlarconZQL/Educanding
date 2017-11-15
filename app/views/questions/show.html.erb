@@ -137,17 +137,17 @@
                       <form  action="/dogs/create" method="post" >
                          <input type="hidden" name="question_comment_id" value=<%= comentario.id%>>
 
-                         <input type="hidden" name="votoP_CQ" id="votoP_CQ<%=comentario.id%>" value="0"> #modificado
-                         <input type="hidden" name="votoN_CQ" id="votoN_CQ<%= comentario.id%>" value="0"> #modificado
+                         <input type="hidden" name="votoP_CQ" id="votoP_CQ<%=comentario.id%>" value="0"> 
+                         <input type="hidden" name="votoN_CQ" id="votoN_CQ<%=comentario.id%>" value="0"> 
 
                          <input type="hidden" name="question_id" value=<%=@question.id%>>
                          <div class="btn-group">
                             <%if session[:user_id]!=0%>
                               <%if (@questioncommentvotes.where(question_comment_id:comentario.id,user_id:session[:user_id]).count ==0) && (session[:user_id]!=comentario.user_id)%>
-                                <button type="submit" class="btn btn-success" onclick='votoPositivoCQ(<%=comentario.id%>)'> #modificado
+                                <button type="submit" class="btn btn-success" onclick='votoPositivoCQ(<%=comentario.id%>)'> 
                                   <span class='glyphicon glyphicon-thumbs-up'></span>
                                 </button>
-                                <button type="submit" class="btn btn-danger" onclick='votoNegativoCQ(<%=comentario.id%>)'> #modificado
+                                <button type="submit" class="btn btn-danger" onclick='votoNegativoCQ(<%=comentario.id%>)'> 
                                  <span class='glyphicon glyphicon-thumbs-down'></span>
                                 </button>
                               <%end%>
@@ -167,7 +167,7 @@
 
                 <script>
 
-                  function votoPositivoCQ(comment_id) #modificado
+                  function votoPositivoCQ(comment_id) 
                   {
 
                     votoP_id = "votoP_CQ" + comment_id;
@@ -176,7 +176,7 @@
                   document.getElementById(votoP_id).value = "1"
                   }
 
-                  function votoNegativoCQ(comment_id) #modificado
+                  function votoNegativoCQ(comment_id) 
                   {
 
                     votoN_id = "votoN_CQ" + comment_id;
@@ -230,17 +230,17 @@
                         <input type="hidden" name="question_id" value=<%= @question.id%>>
                         <input type="hidden" name="answer_id" value=<%= @resp.id%>>
 
-                        <input type="hidden" name="votoP_A" id="votoP_A" value="0">
-                        <input type="hidden" name="votoN_A" id="votoN_A" value="0">
+                        <input type="hidden" name="votoP_A" id="votoP_A<%=resp.id%>" value="0">
+                        <input type="hidden" name="votoN_A" id="votoN_A<%=resp.id%>" value="0">
 
 
                         <div class="btn-group">
 
-                          <button type="submit" class="btn btn-success" onclick="votoPositivo_A()">
+                          <button type="submit" class="btn btn-success" onclick="votoPositivo_A(<%=resp.id%>)">
                             <span class='glyphicon glyphicon-thumbs-up'></span>
                           </button>
 
-                          <button type="submit" class="btn btn-danger" onclick="votoNegativo_A()">
+                          <button type="submit" class="btn btn-danger" onclick="votoNegativo_A(<%=resp.id%>)">
                             <span class='glyphicon glyphicon-thumbs-down'></span>
                           </button>
 
@@ -249,14 +249,16 @@
 
                         <script>
 
-                          function votoPositivo_A()
+                          function votoPositivo_A(answers_id)
                           {
-                          document.getElementById("votoP_A").value = "1"
+                          votoP_A_id = "votoP_A" + answers_id;
+                          document.getElementById(votoP_A_id).value = "1"
                           }
 
-                          function votoNegativo_A()
+                          function votoNegativo_A(answers_id)
                           {
-                          document.getElementById("votoN_A").value = "1"
+                          votoN_A_id = "votoN_A" + answers_id;
+                          document.getElementById(votoN_A_id).value = "1"
                           }
 
                         </script>
