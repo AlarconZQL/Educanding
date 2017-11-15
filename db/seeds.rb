@@ -28,20 +28,21 @@ puts "Inicio creacion de direcciones"
 dire1=Direction.find_or_create_by!(calle:"9 de Julio", ciudad:"Buenos Aires")
 dire2=Direction.find_or_create_by!(calle:"Calle 1", ciudad:"La Plata")
 dire3=Direction.find_or_create_by!(calle:"Calle 50", ciudad:"La Plata")
+dire0=Direction.find_or_create_by!(calle:"No tiene",ciudad: "No tiene")
 puts "Fin creacion de direcciones. #{Direction.count} direcciones"
 
 puts "Inicio creacion de facultad"
 facu1=Faculty.find_or_create_by!(nombre:"Ingenieria", direction_id:dire3.id)
 facu2=Faculty.find_or_create_by!(nombre:"Informatica", direction_id:dire2.id)
 facu3=Faculty.find_or_create_by!(nombre:"Humanidades", direction_id:dire1.id)
-#Faculty.find_or_create_by!(nombre:"Humanidades2", direction_id:dire1.id)
+facu0=Faculty.find_or_create_by!(nombre:"Ninguna", direction_id:dire0.id)
 #usuario1=User.find_or_create_by!(nombre:"Juan")
 puts "Fin creacion de facultades. #{Faculty.count} facultades"
 
 puts "Inicio creacion de usuarios"
 usuario1=User.find_or_create_by!(nombre:"Juan", apellido:"Perez", mail:"jp@hotmail.com", puntos:0, pass:"123456", faculty_id:facu2.id, level_id:nivel1.id)
 usuario2=User.find_or_create_by!(nombre:"Maria", apellido:"Gomez", mail:"mg@hotmail.com", puntos:0, pass:"123456", faculty_id:facu1.id, level_id:nivel3.id)
-usuario3=User.find_or_create_by!(nombre:"Pablo", apellido:"Neruda", mail:"pn@hotmail.com", puntos:0, pass:"123456", level_id:nivel2.id)
+usuario3=User.find_or_create_by!(nombre:"Pablo", apellido:"Neruda", mail:"pn@hotmail.com", puntos:0, pass:"123456", faculty_id:facu0.id, level_id:nivel2.id)
 puts "Fin creacion de usuarios. #{User.count} usuarios"
 
 puts "Inicio creacion de preguntas"

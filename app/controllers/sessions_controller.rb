@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
 
         if var == 1 #Se inicia la session
 
-            session[:user_id] = 1
+            session[:user_id] = User.where(mail:params[:email]).first.id
 
             redirect_to root_path
 

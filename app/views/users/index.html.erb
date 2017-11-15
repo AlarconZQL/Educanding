@@ -28,9 +28,8 @@
             <label class="control-label" for="facultad">Seleccione Facultad</label>
             <select id="facultad" name="facultad_nombre" class="form-control">
             <% @faculties.order(:nombre).each do |facultad| %>
-                <option><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                <option value=<%=facultad.nombre%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
             <% end %>
-                <option>Ninguna</option>
             </select>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-top: 20px;">Crear Cuenta</button>

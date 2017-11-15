@@ -68,7 +68,9 @@ class QuestionsController < ApplicationController
       if etiquetas.size >= 3 && etiquetas.size <= 5
 
         if params[:pregunta]!=""
+          
           pregunta=Question.new(num_visitas:0, contenido:params[:pregunta], user_id: session[:user_id], faculty_id: User.find(session[:user_id]).faculty_id)
+          
           #hay que guardar la pregunta
           if pregunta.save
              flash[:message] = "pregunta creada"

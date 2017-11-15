@@ -21,9 +21,8 @@
                     <label class="control-label" for="facultad" style="margin-right: 5px;" >Universidad</label>
                     <select id="facultad"  name="facultad" class="form-control" style="width:125px;">
                         <% @faculties.order(:nombre).each do |facultad| %>
-                             <option><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                             <option value=<%=facultad.nombre%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
                         <% end %>
-                        <option>Ninguna</option>
                     </select>
                   </div>
 
@@ -33,7 +32,6 @@
                         <% @labels.order(:nombre).each do |etiqueta| %>
                             <option><%= etiqueta.nombre%></option>
                         <% end %>
-                        <option>Ninguna</option>
                     </select>
                   </div>
 

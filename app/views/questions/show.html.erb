@@ -1,7 +1,16 @@
   <div class="row" style="padding-left: 10%;padding-right: 10%;margin-top: 25px;padding-top: 2%;">
       <div class="list-group" style="overflow: auto;width: 70%;margin:auto">
+      <% if flash[:message] != nil %>
 
+          <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+          <div class="w3-panel w3-blue w3-display-container" style="margin-top: 50px;">
+          <span onclick="this.parentElement.style.display='none'"class="w3-button w3-blue w3-large w3-display-topright">&times;</span>
+          <h4>Atención!</h4>
+          <br>
+          <p><%= flash[:message] %></p>
+          </div>
 
+        <% end %>
 
       <div  class="list-group-item list-group-item-action flex-column align-items-start active" style="margin-bottom:10px">
         <div style="padding-left: 10%;padding-right: 10%;">
@@ -29,7 +38,10 @@
               <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 
               <%if session[:user_id]!=0%>
-                <%if @questionvotes.where(question_id:@question.id,user_id:session[:user_id]).count ==0%>
+              <p><%=@question.user_id%></p>
+
+              <p><%=session[:user_id]%></p>
+                <%if (@questionvotes.where(question_id:@question.id,user_id:session[:user_id]).count ==0) && (session[:user_id]!=@question.user_id)%>
                   <form  action="/cars/create" method="post" >
 
                     <input type="hidden" name="question_id" value=<%= @question.id%>>
@@ -163,6 +175,17 @@
                       <h5 class="mb-1 text-center"><%= @resp.contenido %> </h5>
                       <small> <%= @resp.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
                   </div>
+                   <%cantidad=0%>
+              <%if @answervotes.where(answer_id:@resp.id).count !=0%>
+                <% @answervotes.where(answer_id:@resp.id).each do|voto|%>
+                  <%if voto.tipo%>
+                    <%cantidad =cantidad+1%>
+                  <%else%>
+                    <%cantidad =cantidad-1%>
+                  <%end%>
+                <%end%>
+              <%end%>
+              <small>Numero de votos:<%= cantidad%><br></small>
                   <p class="mb-1"><%= "#{@users.find(@resp.user_id).nombre} #{@users.find(@resp.user_id).apellido}"%></p>
 
 
@@ -173,17 +196,17 @@
                         <input type="hidden" name="question_id" value=<%= @question.id%>>
                         <input type="hidden" name="answer_id" value=<%= @resp.id%>>
 
-                        <input type="hidden" name="votoP" id="votoP" value="0">
-                        <input type="hidden" name="votoN" id="votoN" value="0">
+                        <input type="hidden" name="votoP_A" id="votoP_A" value="0">
+                        <input type="hidden" name="votoN_A" id="votoN_A" value="0">
 
 
                         <div class="btn-group">
 
-                          <button type="submit" class="btn btn-success" onclick="votoPositivo()">
+                          <button type="submit" class="btn btn-success" onclick="votoPositivo_A()">
                             <span class='glyphicon glyphicon-thumbs-up'></span>
                           </button>
 
-                          <button type="submit" class="btn btn-danger" onclick="votoNegativo()">
+                          <button type="submit" class="btn btn-danger" onclick="votoNegativo_A()">
                             <span class='glyphicon glyphicon-thumbs-down'></span>
                           </button>
 
@@ -192,14 +215,14 @@
 
                         <script>
 
-                          function votoPositivo()
+                          function votoPositivo_A()
                           {
-                          document.getElementById("votoP").value = "1"
+                          document.getElementById("votoP_A").value = "1"
                           }
 
-                          function votoNegativo()
+                          function votoNegativo_A()
                           {
-                          document.getElementById("votoN").value = "1"
+                          document.getElementById("votoN_A").value = "1"
                           }
 
                         </script>

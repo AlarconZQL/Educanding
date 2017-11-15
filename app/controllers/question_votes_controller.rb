@@ -1,16 +1,21 @@
 class QuestionsVotesController < ApplicationController
   def create
-  	if param[:tipo]
-  		voto=QuestionsVotes.new(user_id:session[:user_id],question_id:param[:question_id],tipo:param[:tipo])
-  	else
-  		voto=QuestionsVotes.new(user_id:session[:user_id],question_id:param[:question_id],tipo:param[:tipo])
-  	end
-  	if voto.save
-      redirect_to root_path
 
-  	else
-  		redirect_to root_path
-  	end
+
+      question_id = params[:question_id]
+
+      if params[:votoN]=="1"
+        voto=QuestionVote.new(user_id: session[:user_id],question_id: question_id,tipo: false)
+      end
+      if params[:votoP]=="1"
+        voto=QuestionVote.new(user_id: session[:user_id],question_id: question_id,tipo: true)
+      end
+      if voto.save
+        flash[:message]="Voto con exito"
+      else
+        flash[:message]="Error en el voto"
+      end
+      redirect_to "#{questions_path}/#{question_id}"
 
   end
 end

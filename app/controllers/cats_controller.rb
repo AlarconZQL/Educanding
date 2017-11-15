@@ -6,10 +6,10 @@ class CatsController < ApplicationController
 
       answer_id = params[:answer_id]
 
-      if params[:votoN]=="1"
+      if params[:votoN_A]=="1"
       	voto=AnswerVote.new(user_id: session[:user_id],answer_id: answer_id,tipo: false)
       end
-      if params[:votoP]=="1"
+      if params[:votoP_A]=="1"
       	voto=AnswerVote.new(user_id: session[:user_id],answer_id: answer_id,tipo: true)
       end
       if voto.save
