@@ -34,36 +34,30 @@
                    <button type="button" class="btn btn-danger" onclick="probando()">
                      <span class='glyphicon glyphicon-thumbs-down'></span>
                    </button>
-                   <button type="button" class="btn btn-primary" onclick="probando()"> Responder Pregunta 
+                   <button type="button" class="btn btn-primary" onclick="probando()"> Responder Pregunta
                      <span class='glyphicon glyphicon-share-alt'></span>
                    </button>
-                   <button type="button" class="btn btn-primary" onclick="probando()"> Escribir Comentario 
+                   <button type="button" class="btn btn-primary" onclick="probando()"> Escribir Comentario
                      <span class='glyphicon glyphicon-comment'></span>
                    </button>
               <%end%>
 
 
-               <button type="button" class="btn btn-primary" onclick="verComentarios()"> Ver Comentarios 
+               <button type="button" class="btn btn-primary" onclick="verComentarios()"> Ver/Ocultar Comentarios
                  <span class='glyphicon glyphicon-plus'></span>
                </button>
 
-
-
              </div>
-
-
 
               <script>
 
-                function probando()
+                function verComentarios()  // despliega los comentarios si estan ocultos y oculta si estan desplegados
                 {
-                document.getElementById("a").style.display='none'
-
-                }
-
-                function verComentarios()
-                {
-                document.getElementById("comentarios").style.display='block'
+                  if (document.getElementById("comentarios").style.display == 'block') {
+                    document.getElementById("comentarios").style.display = 'none'
+                  } else {
+                    document.getElementById("comentarios").style.display = 'block'
+                    }
                 }
 
               </script>
@@ -85,7 +79,7 @@
                         <%end%>
                        <%end%>
                      <%end%>
-                     
+
                <small><br>Numero de votos:<%= cantidad%><br></small>
                      <small> <%= @users.find(comentario.user_id).nombre%> <%= @users.find(comentario.user_id).apellido%></small>
                     </div>
