@@ -16,9 +16,11 @@
 <small><%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%><br></small>
 <small>Valoracion: <%= valoracion%><br></small>
 <small>Numero de visitas: <%= @question.num_visitas%><br></small>
-<% linkeos = @questionlabel.where(question_id:@question_id)%>
-<small>Etiquetas: <%= @questionlabel.where(question_id:@question_id).count%>
-<% @questionlabel.where(question_id:@question_id).each do |l| %>
-  <%=@labels.find(l.label_id).nombre %>
-<%end%>
-<br><br></small>
+<small>Etiquetas:
+  <div class="btn-group btn-group-xs">
+    <% @questionlabel.where(question_id:@question.id).each do |l| %>
+      <button type="button" class="btn btn-info"><%=@labels.find(l.label_id).nombre %></button>
+    <%end%>
+  </div>
+  <br><br>
+</small>

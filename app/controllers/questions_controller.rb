@@ -51,9 +51,7 @@ class QuestionsController < ApplicationController
     etiquetas = params[:etiqueta]
     descripcion = params[:descripcion]
     if etiquetas != nil
-
       if etiquetas.size >= 1 && etiquetas.size <= 5
-
         if params[:pregunta]!=""
           pregunta=Question.new(num_visitas:0, contenido:params[:pregunta], desc:descripcion, user_id: session[:user_id], faculty_id: User.find(session[:user_id]).faculty_id)
           #hay que guardar la pregunta
