@@ -25,8 +25,6 @@ class QuestionsController < ApplicationController
     @questionvotes = QuestionVote.all
 
 
-
-
   end
   def show
         #Mostrar una pregunta, la de id del parametro
@@ -44,7 +42,7 @@ class QuestionsController < ApplicationController
         @answervotes = AnswerVote.all
         @answercomments = AnswerComment.all
         @answercommentvotes = AnswerCommentVote.all
-        
+
   end
 
   def new

@@ -54,17 +54,18 @@
               <%= render 'answerinfo'%>
               <%= render 'answerbuttons'%>
               <!-- Visualizacion e interaccion de comentarios a la pregunta -->
-              <div id="comentariosResp" style="margin-top:20px;height:200px;padding:10px;display:none;overflow:auto;background-color: #3A01DF;border-radius: 5px 10px">
+              <div id="comen<%=@resp.id%>" style="margin-top:20px;height:200px;padding:10px;display:none;overflow:auto;background-color: #3A01DF;border-radius: 5px 10px">
                 <%if @answercomments.where(answer_id:@resp.id).count != 0%> <!-- Si la respuesta tiene comentarios -->
                   <%@answercomments.where(answer_id:@resp.id).each do |comentario|%> <!-- Recorro todos los comentarios -->
                     <%@comentarioR = comentario%>
-                    <%=render 'answercommentinfo' %>
+                    <%=render 'answercommentinfo'%>
+                    <%=render 'answercommentbuttons'%>
                   <%end%>
                 <%end%>
               </div>
             </div>
            </div>
-           <div id="<%= @resp.id %>" style="margin-bottom:10px;display:none;padding-left: 5%;padding-right: 5%;background-color: #3A01DF;" class="list-group-item list-group-item-action flex-column" >
+           <div id="<%=@resp.id%>" style="margin-bottom:10px;display:none;padding-left: 5%;padding-right: 5%;background-color: #3A01DF;" class="list-group-item list-group-item-action flex-column" >
              <form action="/answer_comments/create" method="post" style="margin-top:20px;height:150px;">
                <label style="color:white;" for="comment">Escribir Comentario:</label>
                <input type="hidden" name="question_id" value=<%= @question.id%>>

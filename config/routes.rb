@@ -27,7 +27,8 @@ Rails.application.routes.draw do
   post 'cars/create'
   post 'cats/create'
   post 'dogs/create'
-  
+  post 'cows/create'
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

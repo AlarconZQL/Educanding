@@ -18,32 +18,34 @@
       <a type="button" class="btn btn-success" onclick='verEscribirComentarioResp(<%=@resp.id%>)'> Escribir Comentario
         <span class='glyphicon glyphicon-comment'></span>
       </a>
-      <script>
-        function votoPositivo_A(answers_id) {
-        votoP_A_id = "votoP_A" + answers_id;
-        document.getElementById(votoP_A_id).value = "1" }
-
-        function votoNegativo_A(answers_id) {
-        votoN_A_id = "votoN_A" + answers_id;
-        document.getElementById(votoN_A_id).value = "1" }
-
-        function verEscribirComentarioResp(id) {  // despliega el escribir comentario si esta oculto y oculta si esta desplegado
-          if (document.getElementById(id).style.display == 'block') {
-            document.getElementById(id).style.display = 'none' }
-          else {
-            document.getElementById(id).style.display = 'block' }
-            document.getElementById("comentariosResp").style.display = 'none' }
-
-        function verComentariosResp() {  // despliega los comentarios si estan ocultos y oculta si estan desplegados
-          if (document.getElementById("comentariosResp").style.display == 'block') {
-            document.getElementById("comentariosResp").style.display = 'none' }
-          else {
-            document.getElementById("comentariosResp").style.display = 'block' }
-            document.getElementById("escribirComentarioResp").style.display = 'none' }
-      </script>
     <%end%>
-    <button type="button" class="btn btn-success" onclick="verComentariosResp()"> Ver/Ocultar Comentarios
+    <button type="button" class="btn btn-success" onclick="verComentariosResp(<%=@resp.id%>)"> Ver/Ocultar Comentarios
       <span class='glyphicon glyphicon-plus'></span>
     </button>
   </form>
+  <script>
+    function votoPositivo_A(answers_id) {
+    votoP_A_id = "votoP_A" + answers_id;
+    document.getElementById(votoP_A_id).value = "1" }
+
+    function votoNegativo_A(answers_id) {
+    votoN_A_id = "votoN_A" + answers_id;
+    document.getElementById(votoN_A_id).value = "1" }
+
+    function verEscribirComentarioResp(id) {  // despliega el escribir comentario si esta oculto y oculta si esta desplegado
+      comen = "comen" + id;
+      if (document.getElementById(id).style.display == 'block') {
+        document.getElementById(id).style.display = 'none' }
+      else {
+        document.getElementById(id).style.display = 'block' }
+        document.getElementById(comen).style.display = 'none' }
+
+    function verComentariosResp(id) {  // despliega los comentarios si estan ocultos y oculta si estan desplegados
+      comen = "comen" + id;
+      if (document.getElementById(comen).style.display == 'block') {
+        document.getElementById(comen).style.display = 'none' }
+      else {
+        document.getElementById(comen).style.display = 'block' }
+        document.getElementById(id).style.display = 'none' }
+  </script>
 </div>
