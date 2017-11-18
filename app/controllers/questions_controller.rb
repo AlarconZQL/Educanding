@@ -56,8 +56,19 @@ class QuestionsController < ApplicationController
           pregunta=Question.new(num_visitas:0, contenido:params[:pregunta], desc:descripcion, user_id: session[:user_id], faculty_id: User.find(session[:user_id]).faculty_id)
           #hay que guardar la pregunta
           if pregunta.save
+             for i in (0..etiquetas.size-1)
+              etiquetasPregunta=QuestionLabel.new(question_id:pregunta.id,label_id:etiquetas[i])
+              if !etiquetasPregunta.save
+                 break;
+              end
+              end
+              if i !=etiquetas.size-1
+                pregunta.destroy
+                flash[:message] = "Error no se creo la pregunta"
+              else
              flash[:message] = "Pregunta Creada"
              $recargar=nil
+           end
           else
              flash[:message] = "Error no se creo la pregunta"
           end

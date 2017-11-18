@@ -54,10 +54,10 @@ puts "Fin creacion de preguntas. #{Question.count} preguntas"
 puts "Inicio creacion de tabla de relaciones"
 QuestionLabel.find_or_create_by!(question_id:pregunta1.id, label_id:etiqueta1.id)
 QuestionLabel.find_or_create_by!(question_id:pregunta1.id, label_id:etiqueta2.id)
-QuestionLabel.find_or_create_by!(question_id:pregunta1.id, label_id:etiqueta3.id)
+QuestionLabel.find_or_create_by!(question_id:pregunta2.id, label_id:etiqueta3.id)
 QuestionLabel.find_or_create_by!(question_id:pregunta2.id, label_id:etiqueta4.id)
-QuestionLabel.find_or_create_by!(question_id:pregunta2.id, label_id:etiqueta5.id)
-QuestionLabel.find_or_create_by!(question_id:pregunta2.id, label_id:etiqueta6.id)
+QuestionLabel.find_or_create_by!(question_id:pregunta3.id, label_id:etiqueta5.id)
+QuestionLabel.find_or_create_by!(question_id:pregunta4.id, label_id:etiqueta6.id)
 puts "Fin creacion de tabla de relaciones. #{QuestionLabel.count} relaciones etiqueta-pregunta"
 
 
