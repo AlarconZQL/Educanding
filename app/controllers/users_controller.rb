@@ -33,6 +33,5 @@ class UsersController < ApplicationController
         flash[:message] = "Debe completar bien los datos"
         redirect_to users_index_path
     end
-    
   end
 end

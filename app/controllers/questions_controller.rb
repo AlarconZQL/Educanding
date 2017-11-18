@@ -41,9 +41,10 @@ class QuestionsController < ApplicationController
         @questionvotes = QuestionVote.all
         @questioncomments = QuestionComment.all
         @questioncommentvotes = QuestionCommentVote.all
-        @answercomments = AnswerComment.all
         @answervotes = AnswerVote.all
-
+        @answercomments = AnswerComment.all
+        @answercommentvotes = AnswerCommentVote.all
+        
   end
 
   def new
