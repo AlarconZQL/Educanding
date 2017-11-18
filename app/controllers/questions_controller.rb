@@ -56,19 +56,18 @@ class QuestionsController < ApplicationController
 
   def create
 
-
+    $recargar=params#Si llega a fallar, en $recargar, queda todos los parametros del formulario, para el rellenado
     etiquetas = params[:etiqueta]
-
-
     if etiquetas != nil
 
-      if etiquetas.size >= 3 && etiquetas.size <= 5
+      if etiquetas.size >= 1 && etiquetas.size <= 5
 
         if params[:pregunta]!=""
           pregunta=Question.new(num_visitas:0, contenido:params[:pregunta], user_id: session[:user_id], faculty_id: User.find(session[:user_id]).faculty_id)
           #hay que guardar la pregunta
           if pregunta.save
-             flash[:message] = "pregunta creada"
+             flash[:message] = "Pregunta Creada"
+             $recargar=nil
           else
              flash[:message] = "Error no se creo la pregunta"
           end
@@ -77,17 +76,20 @@ class QuestionsController < ApplicationController
         end
 
       else
-        flash[:message] = "debe seleccionar entre 3 y 5 etiquetas"
+        flash[:message] = "debe seleccionar entre 1 y 5 etiquetas"
       end
 
     else
-      flash[:message] = "debe seleccionar entre 3 y 5 etiquetas"
+      flash[:message] = "debe seleccionar entre 1 y 5 etiquetas"
     end
 
      @labels = Label.all
 
-    render :new
-
+    if flash[:message] != "Pregunta Creada"
+      render :new
+    else
+      redirect_to root_path
+    end
 
 
   end

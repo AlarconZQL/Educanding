@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     @directions = Direction.all
   end
   def create
-
+    $recargar=params#Si llega a fallar, en $recargar, queda todos los parametros del formulario, para el rellenado
     if params[:nombre] != "" && params[:apellido] != "" && params[:email] != "" && params[:password] != "" && params[:password2] != ""
 
         # llamar al modelo y chequear los datos
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
         else#Este mail ya esta registrado
     		#este es un mensaje que se guarda en la variable global flash
         	flash[:message] = "Este mail ya esta registrado, intente con otro"
-        	redirect_to users_index_path        	
+        	redirect_to users_index_path       	
         end
     else#No completo todos los campos bien
         #este es un mensaje que se guarda en la variable global flash

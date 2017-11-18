@@ -64,10 +64,20 @@
 </div>
 
 
-
-
 <div class="row" style="padding-left: 10%;padding-right: 10%;margin-top: 25px;padding-top: 2%;">
   <div class="list-group" style="overflow: auto;width: 70%;margin:auto">
+  <% if flash[:message] != nil %>
+
+          <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+          <div class="w3-panel w3-blue w3-display-container" style="margin-top: 50px;">
+          <span onclick="this.parentElement.style.display='none'"class="w3-button w3-blue w3-large w3-display-topright">&times;</span>
+          <h4>Atención!</h4>
+          <br>
+          <p><%= flash[:message] %></p>          
+          <%flash[:message]=nil%>
+          </div>
+    <% end %>
+
     <% @questions.order(created_at: :DESC).each do |question| %>
     <% @question=question %>
     <%= render 'question'  %>
