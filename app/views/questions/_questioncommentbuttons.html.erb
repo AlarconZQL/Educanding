@@ -1,0 +1,41 @@
+<div class="btn-group">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <form  action="/dogs/create" method="post" >
+     <input type="hidden" name="question_comment_id" value=<%= @comentario.id%>>
+     <input type="hidden" name="votoP_CQ" id="votoP_CQ<%=@comentario.id%>" value="0">
+     <input type="hidden" name="votoN_CQ" id="votoN_CQ<%=@comentario.id%>" value="0">
+     <input type="hidden" name="question_id" value=<%=@question.id%>>
+     <div class="btn-group">
+        <%if session[:user_id]!=0%>
+          <%if (@questioncommentvotes.where(question_comment_id:@comentario.id,user_id:session[:user_id]).count ==0) && (session[:user_id]!=@comentario.user_id)%>
+            <button type="submit" class="btn btn-success" onclick='votoPositivoCQ(<%=@comentario.id%>)'>
+              <span class='glyphicon glyphicon-thumbs-up'></span>
+            </button>
+            <button type="submit" class="btn btn-danger" onclick='votoNegativoCQ(<%=@comentario.id%>)'>
+             <span class='glyphicon glyphicon-thumbs-down'></span>
+            </button>
+          <%end%>
+        <%end%>
+    </div>
+  </form>
+</div>
+
+<script>
+
+  function votoPositivoCQ(comment_id)
+  {
+
+    votoP_id = "votoP_CQ" + comment_id;
+    document.getElementById(votoP_id).value = "1"
+  }
+
+  function votoNegativoCQ(comment_id)
+  {
+
+    votoN_id = "votoN_CQ" + comment_id;
+
+  document.getElementById(votoN_id).value = "1"
+  }
+
+</script>

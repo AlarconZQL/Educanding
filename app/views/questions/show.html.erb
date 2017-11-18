@@ -1,280 +1,76 @@
-  <div class="row" style="padding-left: 10%;padding-right: 10%;margin-top: 25px;padding-top: 2%;">
+<div class="row" style="padding-left: 10%;padding-right: 10%;margin-top: 25px;padding-top: 2%;">
       <div class="list-group" style="overflow: auto;width: 70%;margin:auto">
-      <% if flash[:message] != nil %>
-
-          <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-          <div class="w3-panel w3-blue w3-display-container" style="margin-top: 50px;">
-          <span onclick="this.parentElement.style.display='none'"class="w3-button w3-blue w3-large w3-display-topright">&times;</span>
-          <h4>Atención!</h4>
-          <br>
-          <p><%= flash[:message] %></p>
-          </div>
-
+        <% if flash[:message] != nil %>
+            <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+            <div class="w3-panel w3-blue w3-display-container" style="margin-top: 50px;">
+            <span onclick="this.parentElement.style.display='none'"class="w3-button w3-blue w3-large w3-display-topright">&times;</span>
+            <h4>Atención!</h4>
+            <br>
+            <p><%= flash[:message] %></p>
+            </div>
         <% end %>
 
-      <div  class="list-group-item list-group-item-action flex-column align-items-start active" style="margin-bottom:10px">
-        <div style="padding-left: 10%;padding-right: 10%;">
-              <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1 text-center"><%= @question.contenido %> </h5>
-                  <small> <%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
-              </div>
-              <%cantidad=0%>
-              <%if @questionvotes.where(question_id:@question.id).count !=0%>
-                <% @questionvotes.where(question_id:@question.id).each do|voto|%>
-                  <%if voto.tipo%>
-                    <%cantidad =cantidad+1%>
-                  <%else%>
-                    <%cantidad =cantidad-1%>
-                  <%end%>
-                <%end%>
-              <%end%>
-              <small>Numero de votos:<%= cantidad%><br></small>
-              <small>Numero de visitas:<%= @question.num_visitas%></small>
-              <p class="mb-1"><%= "#{@users.find(@question.user_id).nombre} #{@users.find(@question.user_id).apellido}"%></p>
+        <div  class="list-group-item list-group-item-action flex-column align-items-start active" style="margin-bottom:10px">
+          <div style="padding-left: 5%;padding-right: 5%;">
+                <!-- Visualizacion e interaccion de la pregunta -->
+                <%= render 'questioninfo' %>
+                <%= render 'questionbuttons'%>
 
-
-              <div class="btn-group">
-              <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-              <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-
-
-                  <form  action="/cars/create" method="post" >
-
-                    <input type="hidden" name="question_id" value=<%= @question.id%>>
-                    <input type="hidden" name="votoP" id="votoP" value="0">
-                    <input type="hidden" name="votoN" id="votoN" value="0">
-
-
-                    <div class="btn-group">
-                      <%if session[:user_id]!=0%>
-                        <%if (@questionvotes.where(question_id:@question.id,user_id:session[:user_id]).count ==0) && (session[:user_id]!=@question.user_id)%>
-                          <button type="submit" class="btn btn-success" onclick="votoPositivoPreg()">
-                            <span class='glyphicon glyphicon-thumbs-up'></span>
-                          </button>
-                          <button type="submit" class="btn btn-danger" onclick="votoNegativoPreg()">
-                            <span class='glyphicon glyphicon-thumbs-down'></span>
-                          </button>
-                        <%end%>
-                        <a type="button" class="btn btn-primary" onclick="verResponderPregunta()"> Responder Pregunta
-                          <span class='glyphicon glyphicon-share-alt'></span>
-                        </a>
-                        <a type="button" class="btn btn-primary" onclick="verEscribirComentario()"> Escribir Comentario
-                          <span class='glyphicon glyphicon-comment'></span>
-                        </a>
+                <!-- Visualizacion e interaccion de comentarios a la pregunta -->
+                <div id="comentariosPreg" style="margin-top:20px;height:200px;padding:10px;display:none;background-color: #B45F04;border-radius: 5px 10px;overflow:auto">
+                    <%if @questioncomments.where(question_id:@question.id).count != 0%> <!-- Si la pregunta tiene comentarios -->
+                      <%@questioncomments.where(question_id:@question.id).each do |comentario|%> <!-- Recorro todos los comentarios -->
+                        <%@comentario = comentario%>
+                        <%=render 'questioncommentinfo' %>
+                        <%=render 'questioncommentbuttons' %>
                       <%end%>
-                      <button type="button" class="btn btn-primary" onclick="verComentarios()"> Ver/Ocultar Comentarios
-                        <span class='glyphicon glyphicon-plus'></span>
-                      </button>
-                    </div>
-
-                    <script>
-
-                      function votoPositivoPreg()
-                      {
-                      document.getElementById("votoP").value = "1"
-                      }
-                      function votoNegativoPreg()
-                      {
-                      document.getElementById("votoN").value = "1"
-                      }
-                    </script>
-                  </form>
-
-              </div>
-
-              <script>
-
-                function verComentarios()  // despliega los comentarios si estan ocultos y oculta si estan desplegados
-                {
-                  if (document.getElementById("comentariosPreg").style.display == 'block') {
-                    document.getElementById("comentariosPreg").style.display = 'none'
-                  } else {
-                    document.getElementById("comentariosPreg").style.display = 'block'
-                    }
-                }
-                function verEscribirComentario()  // despliega el escribir comentario si esta ocultos y oculta si esta desplegado
-                {
-                  if (document.getElementById("escribircomentario").style.display == 'block') {
-                    document.getElementById("escribircomentario").style.display = 'none'
-                  } else {
-                    document.getElementById("escribircomentario").style.display = 'block'
-                    }
-                }
-                function verResponderPregunta()
-                {
-                  if (document.getElementById("escribirrespuesta").style.display == 'block') {
-                    document.getElementById("escribirrespuesta").style.display = 'none'
-                  } else {
-                    document.getElementById("escribirrespuesta").style.display = 'block'
-                    }
-                }
-
-              </script>
-
-              <div id="comentariosPreg" style="margin-top:20px;height:100px;padding:10px;display:none;overflow:auto">
-
-                <%if @questioncomments.where(question_id:@question.id).count != 0%>
-                  <%@questioncomments.where(question_id:@question.id).each do |comentario|%>
-                    <div style="padding:10px;background-color: #099e51;border-radius: 5px 10px;">
-                     <h4 class="mb-1 text-center"><%= comentario.contenido %></h5>
-                     <small> <%= comentario.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
-                     <%cantidad=0%>
-                     <%if @questioncommentvotes.where(question_comment_id:@question.id).count !=0%>
-                       <% @questioncommentvotes.where(question_comment_id:@question.id).each do|voto|%>
-                        <%if voto.tipo%>
-                          <%cantidad =cantidad+1%>
-                        <%else%>
-                          <%cantidad =cantidad-1%>
-                        <%end%>
-                       <%end%>
-                     <%end%>
-                      <small><br>Numero de votos:<%= cantidad%><br></small>
-                     <small> <%= @users.find(comentario.user_id).nombre%> <%= @users.find(comentario.user_id).apellido%></small>
-
-                     <div class="btn-group">
-                      <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-                      <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-                      <form  action="/dogs/create" method="post" >
-                         <input type="hidden" name="question_comment_id" value=<%= comentario.id%>>
-
-                         <input type="hidden" name="votoP_CQ" id="votoP_CQ<%=comentario.id%>" value="0"> 
-                         <input type="hidden" name="votoN_CQ" id="votoN_CQ<%=comentario.id%>" value="0"> 
-
-                         <input type="hidden" name="question_id" value=<%=@question.id%>>
-                         <div class="btn-group">
-                            <%if session[:user_id]!=0%>
-                              <%if (@questioncommentvotes.where(question_comment_id:comentario.id,user_id:session[:user_id]).count ==0) && (session[:user_id]!=comentario.user_id)%>
-                                <button type="submit" class="btn btn-success" onclick='votoPositivoCQ(<%=comentario.id%>)'> 
-                                  <span class='glyphicon glyphicon-thumbs-up'></span>
-                                </button>
-                                <button type="submit" class="btn btn-danger" onclick='votoNegativoCQ(<%=comentario.id%>)'> 
-                                 <span class='glyphicon glyphicon-thumbs-down'></span>
-                                </button>
-                              <%end%>
-                              <%end%>
-                          </div>
-
-
-
-                  </form>
-
-              </div>
-
-                    </div>
-                  <%end%>
-                <%end%>
-
-
-                <script>
-
-                  function votoPositivoCQ(comment_id) 
-                  {
-
-                    votoP_id = "votoP_CQ" + comment_id;
-
-
-                  document.getElementById(votoP_id).value = "1"
-                  }
-
-                  function votoNegativoCQ(comment_id) 
-                  {
-
-                    votoN_id = "votoN_CQ" + comment_id;
-
-                  document.getElementById(votoN_id).value = "1"
-                  }
-
-                </script>
-
-
-              </div>
-
-
-              <form action="/questions_comments/create" method="post" id="escribircomentario" style="margin-top:20px;height:100px;padding:10px;display:none;overflow:auto">
-                <label for="comment">Escribir Comentario:</label>
-                <input type="hidden" name="question_id" value=<%= @question.id%>>
-                <input type="text" id="comentario" name="comentario"  class="form-control" style="width:50%;height:30px;" placeholder="Escriba su comentario" required>
-                <button class="btn btn-primary"  type="submit" style="margin-top: 20px;">Escribir</button>
-              </form>
-        </div>
-      </div>
-
-<!-- ACA ARRANCA LA VISUALIZACION DE LAS RESPUESTAS -->
-
-        <% @answers.where(question_id: @question.id).each do |resp| %>
-          <% @resp=resp %>
-             <a  class="list-group-item list-group-item-action flex-column align-items-start active" style="margin-bottom:10px;background-color: #099e81;">
-              <div style="padding-left: 10%;padding-right: 10%;">
-                  <div class="d-flex w-100 justify-content-between">
-                      <h5 class="mb-1 text-center"><%= @resp.contenido %> </h5>
-                      <small> <%= @resp.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
-                  </div>
-                   <%cantidad=0%>
-              <%if @answervotes.where(answer_id:@resp.id).count !=0%>
-                <% @answervotes.where(answer_id:@resp.id).each do|voto|%>
-                  <%if voto.tipo%>
-                    <%cantidad =cantidad+1%>
-                  <%else%>
-                    <%cantidad =cantidad-1%>
-                  <%end%>
-                <%end%>
-              <%end%>
-              <small>Numero de votos:<%= cantidad%><br></small>
-                  <p class="mb-1"><%= "#{@users.find(@resp.user_id).nombre} #{@users.find(@resp.user_id).apellido}"%></p>
-
-
-                  <%if session[:user_id]!=0%>
-                    <%if @answervotes.where(answer_id:@resp.id,user_id:session[:user_id]).count ==0 && session[:user_id]!=@resp.user_id%>
-                      <form  action="/cats/create" method="post" >
-
-                        <input type="hidden" name="question_id" value=<%= @question.id%>>
-                        <input type="hidden" name="answer_id" value=<%= @resp.id%>>
-
-                        <input type="hidden" name="votoP_A" id="votoP_A<%=resp.id%>" value="0">
-                        <input type="hidden" name="votoN_A" id="votoN_A<%=resp.id%>" value="0">
-
-
-                        <div class="btn-group">
-
-                          <button type="submit" class="btn btn-success" onclick="votoPositivo_A(<%=resp.id%>)">
-                            <span class='glyphicon glyphicon-thumbs-up'></span>
-                          </button>
-
-                          <button type="submit" class="btn btn-danger" onclick="votoNegativo_A(<%=resp.id%>)">
-                            <span class='glyphicon glyphicon-thumbs-down'></span>
-                          </button>
-
-                        </div>
-
-
-                        <script>
-
-                          function votoPositivo_A(answers_id)
-                          {
-                          votoP_A_id = "votoP_A" + answers_id;
-                          document.getElementById(votoP_A_id).value = "1"
-                          }
-
-                          function votoNegativo_A(answers_id)
-                          {
-                          votoN_A_id = "votoN_A" + answers_id;
-                          document.getElementById(votoN_A_id).value = "1"
-                          }
-
-                        </script>
-                       </form>
                     <%end%>
-
-                  <%end%>
-
-              </div>
-          </a>
-          <%end%>
-          <form action="/answers/create" method="post" id="escribirrespuesta" style="margin-top:20px;height:100px;padding:10px;display:none;overflow:auto">
-            <label for="comment">Escribir Respuesta:</label>
+                </div>
+          </div>
+        </div>
+        <div   id="escribircomentario" style="margin-bottom:10px;display:none;padding-left: 5%;padding-right: 5%;background-color: #B45F04;" class="list-group-item list-group-item-action flex-column" >
+          <form action="/questions_comments/create" method="post" style="margin-top:20px;height:150px;">
+            <label style="color:white;" for="comment">Escribir Comentario:</label>
             <input type="hidden" name="question_id" value=<%= @question.id%>>
-            <input type="text" id="respuesta" name="respuesta"  class="form-control" style="width:50%;height:60px;" placeholder="Escriba su respuesta" required>
-            <button class="btn btn-primary"  type="submit" style="margin-top: 20px;">Crear respuesta!</button>
+            <input type="text" id="comentario" name="comentario"  class="form-control" style="width:50%;height:30px;" placeholder="Escriba su comentario..." required>
+            <button class="btn" type="submit" style="margin-top: 10px;">Escribir</button>
           </form>
+        </div>
+        <div   id="escribirrespuesta" style="margin-bottom:10px;display:none;padding-left: 5%;padding-right: 5%;background-color: #099e81;" class="list-group-item list-group-item-action flex-column" >
+          <form action="/answers/create" method="post" style="margin-top:20px;height:150px">
+            <label style="color:white;" for="comment">Escribir Respuesta:</label>
+            <input type="hidden" name="question_id" value=<%= @question.id%>>
+            <input type="text" id="respuesta" name="respuesta"  class="form-control" style="width:50%;height:30px;" placeholder="Escriba su respuesta" required>
+            <button class="btn" type="submit" style="margin-top: 10px;">Crear respuesta!</button>
+          </form>
+        </div>
+
+        <!-- Visualizacion e interaccion de las respuestas -->
+        <% @answers.where(question_id: @question.id).each do |resp| %>
+           <% @resp=resp %>
+           <div  class="list-group-item list-group-item-action flex-column align-items-start active" style="margin-bottom:10px;background-color: #099e81;">
+            <div style="padding-left: 5%;padding-right: 5%;">
+              <%= render 'answerinfo'%>
+              <%= render 'answerbuttons'%>
+              <!-- Visualizacion e interaccion de comentarios a la pregunta -->
+              <div id="comentariosResp" style="margin-top:20px;height:200px;padding:10px;display:none;overflow:auto;background-color: #3A01DF;border-radius: 5px 10px">
+                <%if @answercomments.where(answer_id:@resp.id).count != 0%> <!-- Si la respuesta tiene comentarios -->
+                  <%@answercomments.where(answer_id:@resp.id).each do |comentario|%> <!-- Recorro todos los comentarios -->
+                    <%@comentarioR = comentario%>
+                    <%=render 'answercommentinfo' %>
+                  <%end%>
+                <%end%>
+              </div>
+            </div>
+           </div>
+           <div id="<%= @resp.id %>" style="margin-bottom:10px;display:none;padding-left: 5%;padding-right: 5%;background-color: #3A01DF;" class="list-group-item list-group-item-action flex-column" >
+             <form action="/answer_comments/create" method="post" style="margin-top:20px;height:150px;">
+               <label style="color:white;" for="comment">Escribir Comentario:</label>
+               <input type="hidden" name="question_id" value=<%= @question.id%>>
+               <input type="text" id="comentario" name="comentario"  class="form-control" style="width:50%;height:30px;" placeholder="Escriba su comentario..." required>
+               <button class="btn" type="submit" style="margin-top: 10px;">Escribir</button>
+             </form>
+           </div>
+        <%end%>
       </div>
-    </div>
+</div>

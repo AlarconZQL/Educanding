@@ -1,0 +1,14 @@
+<%valoracion=0%>
+ <%if @questioncommentvotes.where(question_comment_id:@comentario.id).count !=0%>
+   <% @questioncommentvotes.where(question_comment_id:@comentario.id).each do|voto|%>
+    <%if voto.tipo%>
+      <%valoracion =valoracion+1%>
+    <%else%>
+      <%valoracion =valoracion-1%>
+    <%end%>
+   <%end%>
+ <%end%>
+<h5 class="mb-1 text-center"><%= @comentario.contenido %></h5>
+<medium> <%= @users.find(@comentario.user_id).nombre%> <%= @users.find(@comentario.user_id).apellido%><br></medium>
+<small> <%= @comentario.created_at.strftime("%d/%m/%Y %H:%M:%S")%><br></small>
+<small>Valoracion: <%= valoracion%><br><br></small>

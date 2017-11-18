@@ -1,0 +1,14 @@
+<%valoracion=0%>
+<%if @answervotes.where(answer_id:@resp.id).count !=0%>
+  <% @answervotes.where(answer_id:@resp.id).each do|voto|%>
+    <%if voto.tipo%>
+      <%valoracion =valoracion+1%>
+    <%else%>
+      <%valoracion =valoracion-1%>
+    <%end%>
+  <%end%>
+<%end%>
+<h5 class="mb-1 text-center"><%= @resp.contenido %><br></h5>
+<medium><%= "#{@users.find(@resp.user_id).nombre} #{@users.find(@resp.user_id).apellido}"%><br></medium>
+<small> <%= @resp.created_at.strftime("%d/%m/%Y %H:%M:%S")%><br></small>
+<small>Valoracion:<%= valoracion%><br><br></small>

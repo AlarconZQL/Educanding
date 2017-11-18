@@ -1,0 +1,66 @@
+<div class="btn-group">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+
+  <form  action="/cars/create" method="post" >
+    <input type="hidden" name="question_id" value=<%= @question.id%>>
+    <input type="hidden" name="votoP" id="votoP" value="0">
+    <input type="hidden" name="votoN" id="votoN" value="0">
+
+    <div class="btn-group">
+      <%if session[:user_id]!=0%>  <!-- Verifica si el usuario esta logeado -->
+        <%if (@questionvotes.where(question_id:@question.id,user_id:session[:user_id]).count ==0) && (session[:user_id]!=@question.user_id)%> <!-- Verifica que el usuario no haya votado la pregunta y que no sea quien la hizo -->
+          <button type="submit" class="btn btn-success" onclick="votoPositivoPreg()">
+            <span class='glyphicon glyphicon-thumbs-up'></span>
+          </button>
+          <button type="submit" class="btn btn-danger" onclick="votoNegativoPreg()">
+            <span class='glyphicon glyphicon-thumbs-down'></span>
+          </button>
+        <%end%>
+        <a type="button" class="btn btn-primary" onclick="verResponderPregunta()"> Responder Pregunta
+          <span class='glyphicon glyphicon-share-alt'></span>
+        </a>
+        <a type="button" class="btn btn-primary" onclick="verEscribirComentario()"> Escribir Comentario
+          <span class='glyphicon glyphicon-comment'></span>
+        </a>
+      <%end%>
+      <button type="button" class="btn btn-primary" onclick="verComentarios()"> Ver/Ocultar Comentarios
+        <span class='glyphicon glyphicon-plus'></span>
+      </button>
+    </div>
+  </form>
+  <script>
+    function votoPositivoPreg() {
+    document.getElementById("votoP").value = "1" }
+
+    function votoNegativoPreg() {
+    document.getElementById("votoN").value = "1" }
+
+    function verComentarios() {  // despliega los comentarios si estan ocultos y oculta si estan desplegados
+      if (document.getElementById("comentariosPreg").style.display == 'block') {
+        document.getElementById("comentariosPreg").style.display = 'none' }
+      else {
+        document.getElementById("comentariosPreg").style.display = 'block' }
+        document.getElementById("escribircomentario").style.display = 'none'
+        document.getElementById("escribirrespuesta").style.display = 'none'
+    }
+
+    function verEscribirComentario() {  // despliega el escribir comentario si esta ocultos y oculta si esta desplegado
+      if (document.getElementById("escribircomentario").style.display == 'block') {
+        document.getElementById("escribircomentario").style.display = 'none' }
+      else {
+        document.getElementById("escribircomentario").style.display = 'block' }
+        document.getElementById("comentariosPreg").style.display = 'none'
+        document.getElementById("escribirrespuesta").style.display = 'none'
+    }
+
+    function verResponderPregunta() {
+      if (document.getElementById("escribirrespuesta").style.display == 'block') {
+        document.getElementById("escribirrespuesta").style.display = 'none' }
+      else {
+        document.getElementById("escribirrespuesta").style.display = 'block' }
+      document.getElementById("escribircomentario").style.display = 'none'
+      document.getElementById("comentariosPreg").style.display = 'none'
+    }
+  </script>
+</div>

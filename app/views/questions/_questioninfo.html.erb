@@ -1,0 +1,15 @@
+<%valoracion=0%>
+<%if @questionvotes.where(question_id:@question.id).count !=0%>
+  <% @questionvotes.where(question_id:@question.id).each do|voto|%>
+    <%if voto.tipo%>
+      <%valoracion =valoracion+1%>
+    <%else%>
+      <%valoracion =valoracion-1%>
+    <%end%>
+  <%end%>
+<%end%>
+<h5 class="mb-1 text-center"><%= @question.contenido %> </h5>
+<medium><%= "#{@users.find(@question.user_id).nombre} #{@users.find(@question.user_id).apellido}"%><br></medium>
+<small><%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%><br></small>
+<small>Valoracion:<%= valoracion%><br></small>
+<small>Numero de visitas:<%= @question.num_visitas%><br><br></small>

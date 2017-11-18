@@ -21,6 +21,4 @@ class DogsController < ApplicationController
 
   end
 
-
-
 end

@@ -1,0 +1,49 @@
+<div class="btn-group">
+  <form  action="/cats/create" method="post" >
+    <%if session[:user_id]!=0%>
+      <%if @answervotes.where(answer_id:@resp.id,user_id:session[:user_id]).count ==0 && session[:user_id]!=@resp.user_id%>
+
+          <input type="hidden" name="question_id" value=<%= @question.id%>>
+          <input type="hidden" name="answer_id" value=<%= @resp.id%>>
+          <input type="hidden" name="votoP_A" id="votoP_A<%=@resp.id%>" value="0">
+          <input type="hidden" name="votoN_A" id="votoN_A<%=@resp.id%>" value="0">
+
+          <button type="submit" class="btn btn-success" onclick="votoPositivo_A(<%=@resp.id%>)">
+            <span class='glyphicon glyphicon-thumbs-up'></span>
+          </button>
+          <button type="submit" class="btn btn-danger" onclick="votoNegativo_A(<%=@resp.id%>)">
+            <span class='glyphicon glyphicon-thumbs-down'></span>
+          </button>
+      <%end%>
+      <a type="button" class="btn btn-success" onclick='verEscribirComentarioResp(<%=@resp.id%>)'> Escribir Comentario
+        <span class='glyphicon glyphicon-comment'></span>
+      </a>
+      <script>
+        function votoPositivo_A(answers_id) {
+        votoP_A_id = "votoP_A" + answers_id;
+        document.getElementById(votoP_A_id).value = "1" }
+
+        function votoNegativo_A(answers_id) {
+        votoN_A_id = "votoN_A" + answers_id;
+        document.getElementById(votoN_A_id).value = "1" }
+
+        function verEscribirComentarioResp(id) {  // despliega el escribir comentario si esta oculto y oculta si esta desplegado
+          if (document.getElementById(id).style.display == 'block') {
+            document.getElementById(id).style.display = 'none' }
+          else {
+            document.getElementById(id).style.display = 'block' }
+            document.getElementById("comentariosResp").style.display = 'none' }
+
+        function verComentariosResp() {  // despliega los comentarios si estan ocultos y oculta si estan desplegados
+          if (document.getElementById("comentariosResp").style.display == 'block') {
+            document.getElementById("comentariosResp").style.display = 'none' }
+          else {
+            document.getElementById("comentariosResp").style.display = 'block' }
+            document.getElementById("escribirComentarioResp").style.display = 'none' }
+      </script>
+    <%end%>
+    <button type="button" class="btn btn-success" onclick="verComentariosResp()"> Ver/Ocultar Comentarios
+      <span class='glyphicon glyphicon-plus'></span>
+    </button>
+  </form>
+</div>
