@@ -1,21 +1,13 @@
 class QuestionsController < ApplicationController
+
   def index
-
     if session[:user_id] != 0
-
         # ver si el usuario tiene seleccionado una facultad, y entonces seleccionar preguntas
         # de esa facultad
-
         @questions = Question.all
-
-
     else
-
         # iniciar preguntas
-
         @questions = Question.all
-
-
     end
     @faculties = Faculty.all
     @answers = Answer.all
@@ -23,9 +15,8 @@ class QuestionsController < ApplicationController
     @directions = Direction.all
     @users = User.all
     @questionvotes = QuestionVote.all
-
-
   end
+
   def show
         #Mostrar una pregunta, la de id del parametro
         @question=Question.find(params[:id])
@@ -42,7 +33,8 @@ class QuestionsController < ApplicationController
         @answervotes = AnswerVote.all
         @answercomments = AnswerComment.all
         @answercommentvotes = AnswerCommentVote.all
-
+        @questionlabel = QuestionLabel.all
+        @labels = Label.all
   end
 
   def new
@@ -51,19 +43,19 @@ class QuestionsController < ApplicationController
     else
        redirect_to root_path
     end
-
   end
 
   def create
 
     $recargar=params#Si llega a fallar, en $recargar, queda todos los parametros del formulario, para el rellenado
     etiquetas = params[:etiqueta]
+    descripcion = params[:descripcion]
     if etiquetas != nil
 
       if etiquetas.size >= 1 && etiquetas.size <= 5
 
         if params[:pregunta]!=""
-          pregunta=Question.new(num_visitas:0, contenido:params[:pregunta], user_id: session[:user_id], faculty_id: User.find(session[:user_id]).faculty_id)
+          pregunta=Question.new(num_visitas:0, contenido:params[:pregunta], desc:descripcion, user_id: session[:user_id], faculty_id: User.find(session[:user_id]).faculty_id)
           #hay que guardar la pregunta
           if pregunta.save
              flash[:message] = "Pregunta Creada"
@@ -72,13 +64,11 @@ class QuestionsController < ApplicationController
              flash[:message] = "Error no se creo la pregunta"
           end
         else
-          flash[:message] = "debe ingresar una pregunta"
+          flash[:message] = "Debe ingresar una pregunta"
         end
-
       else
         flash[:message] = "debe seleccionar entre 1 y 5 etiquetas"
       end
-
     else
       flash[:message] = "debe seleccionar entre 1 y 5 etiquetas"
     end

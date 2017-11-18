@@ -1,25 +1,21 @@
 
 <a href=<%="#{questions_path}/#{@question.id}"%> class="list-group-item list-group-item-action flex-column align-items-start active" style="margin-bottom:10px">
   <div style="padding-left: 10%;padding-right: 10%;">
-      <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1 text-center"><%= @question.contenido %> </h5>
-    	     <small> <%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%> </small>
-      </div>
-        <small>Numero de respuestas:<%= @answers.where(question_id:@question.id).count%></small>
-
-        <small><br>Numero de visitas:<%= @question.num_visitas%></small>
-        <%cantidad=0%>
+        <%valoracion=0%>
         <%if @questionvotes.where(question_id:@question.id).count !=0%>
         	<% @questionvotes.where(question_id:@question.id).each do|voto|%>
         		<%if voto.tipo%>
-        			<%cantidad =cantidad+1%>
+        			<%valoracion =valoracion+1%>
        			 <%else%>
-       				<%cantidad =cantidad-1%>
+       				<%valoracion =valoracion-1%>
        		 	<%end%>
        		 <%end%>
        	<%end%>
-        <small><br>Numero de votos:<%= cantidad%><br></small>
-    	<p class="mb-1"><%= "#{@users.find(@question.user_id).nombre} #{@users.find(@question.user_id).apellido}"%></p>
-
-     </div>
+        <h5 class="mb-1 text-center"><%= @question.contenido %> </h5>
+        <medium><%= "#{@users.find(@question.user_id).nombre} #{@users.find(@question.user_id).apellido}"%><br></medium>
+        <small> <%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%><br></small>
+        <small>Valoracion: <%= valoracion%><br></small>
+        <small>Numero de visitas: <%= @question.num_visitas%><br></small>
+        <small>Numero de respuestas: <%= @answers.where(question_id:@question.id).count%></small>
+  </div>
 </a>

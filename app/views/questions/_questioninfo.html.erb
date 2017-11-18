@@ -8,8 +8,17 @@
     <%end%>
   <%end%>
 <%end%>
-<h5 class="mb-1 text-center"><%= @question.contenido %> </h5>
+<h4 class="mb-1 text-center"><%= @question.contenido %> </h4>
+<% if @question.desc != ""%>
+  <h5 class="mb-1 text-center"><%= @question.desc %> </h5>
+<% end %>
 <medium><%= "#{@users.find(@question.user_id).nombre} #{@users.find(@question.user_id).apellido}"%><br></medium>
 <small><%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%><br></small>
-<small>Valoracion:<%= valoracion%><br></small>
-<small>Numero de visitas:<%= @question.num_visitas%><br><br></small>
+<small>Valoracion: <%= valoracion%><br></small>
+<small>Numero de visitas: <%= @question.num_visitas%><br></small>
+<% linkeos = @questionlabel.where(question_id:@question_id)%>
+<small>Etiquetas: <%= @questionlabel.where(question_id:@question_id).count%>
+<% @questionlabel.where(question_id:@question_id).each do |l| %>
+  <%=@labels.find(l.label_id).nombre %>
+<%end%>
+<br><br></small>
