@@ -27,4 +27,20 @@ class LabelsController < ApplicationController
 
   def destroy
   end
+
+  def update
+    label=Label.find(params[:label_id])
+    label.nombre=params[:nombre]
+    label.save
+    redirect_to labels_index_path
+  end
+  def delete
+    if session[:user_id]!=0 #Falta el chequeo de nivel de usuario
+      eti=Label.find(params[:format])
+      eti.destroy
+      eti.save
+      redirect_to labels_index_path
+    end
+  end
+  
 end

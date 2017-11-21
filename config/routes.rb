@@ -29,6 +29,9 @@ Rails.application.routes.draw do
   post 'dogs/create'
   post 'cows/create'
 
+  get 'labels/delete'
+  get 'labels/update'
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
