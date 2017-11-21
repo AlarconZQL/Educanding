@@ -81,10 +81,10 @@ class QuestionsController < ApplicationController
           flash[:message] = "Debe ingresar una pregunta"
         end
       else
-        flash[:message] = "debe seleccionar entre 1 y 5 etiquetas"
+        flash[:message] = "Debe seleccionar entre 1 y 5 etiquetas"
       end
     else
-      flash[:message] = "debe seleccionar entre 1 y 5 etiquetas"
+      flash[:message] = "Debe seleccionar entre 1 y 5 etiquetas"
     end
 
      @labels = Label.all
