@@ -1,14 +1,25 @@
 class QuestionsController < ApplicationController
 
   def index
+    @questions = Question.all
+
     if session[:user_id] != 0
-        # ver si el usuario tiene seleccionado una facultad, y entonces seleccionar preguntas
-        # de esa facultad
-        @questions = Question.all
-    else
-        # iniciar preguntas
-        @questions = Question.all
+      fac = User.find(session[:user_id]).faculty_id
+      if fac != Faculty.where(nombre: "Ninguna")
+        @questions = @questions.where(faculty_id: fac).order(created_at: :desc)
+      end
+      if @resultado != nil
+        if @resultado.count != 0
+          if fac != Faculty.where(nombre: "Ninguna")
+            @questions = @resultado.where(faculty_id: fac)
+          end
+            @questions = @resultado.order(created_at: :desc)
+        else
+          flash [:message]
+        end
+      end
     end
+
     @faculties = Faculty.all
     @answers = Answer.all
     @labels = Label.all
@@ -95,7 +106,20 @@ class QuestionsController < ApplicationController
       redirect_to root_path
     end
 
+  end
 
+  def search
+    contenido = params[:contenido]
+    @resultado = []
+    i = 0
+    Question.all.each do |preg|
+      if preg.contenido.include?(contenido)
+        @resultado [i] = preg
+        i = i + 1
+      end
+    end
+
+    redirect_to index_path
   end
 
 end
