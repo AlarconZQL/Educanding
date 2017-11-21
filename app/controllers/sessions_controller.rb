@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
 
 
   def index
+    flash[:auxIngReg] = "1" #esta variable es usada en application.html.erb para determinar si se esta llendo a iniciar sesion o registrarse
   end
 
   def create
@@ -10,7 +11,7 @@ class SessionsController < ApplicationController
     if params[:email] != "" && params[:password] != ""
 
         # llamar al modelo y chequear los datos
-       
+
         if User.where(mail:params[:email]).count==1
           if User.where(mail:params[:email]).first.pass==params[:password]
             var = 1
@@ -18,12 +19,14 @@ class SessionsController < ApplicationController
             var = -1
           end
         else
-          var = 0                              
+          var = 0
         end
 
         if var == 1 #Se inicia la session
 
             session[:user_id] = User.where(mail:params[:email]).first.id
+
+            flash[:auxIngReg] = nil #se pone en nula para que aparezca el cartel de ingresar/registrarse
 
             redirect_to root_path
 

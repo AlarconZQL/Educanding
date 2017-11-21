@@ -15,6 +15,11 @@ class QuestionsController < ApplicationController
     @directions = Direction.all
     @users = User.all
     @questionvotes = QuestionVote.all
+
+
+    flash[:auxIngReg] = nil #se pone en nula para que aparezca el cartel de ingresar/registrarse
+
+
   end
 
   def show

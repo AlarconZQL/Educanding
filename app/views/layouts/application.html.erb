@@ -32,21 +32,26 @@
      </ol>
 
         <% if session[:user_id] == 0 %>
-        <ol class="breadcrumb text-center">
 
-          <li class="navIR">
-            <%= link_to 'Ingresar',sessions_index_path %>
-          </li>
-          <li class="navIR">
-            <%= link_to 'Registrarse',users_index_path %>
-          </li>
+          <% if flash[:auxIngReg] == nil  #esta variable auxIngReg se pone no nula cuando se ingresa a iniciar sesion o a registrase %>
 
-        </ol>
+            <ol class="breadcrumb text-center">
+
+              <li class="navIR">
+                <%= link_to 'Ingresar',sessions_index_path %>
+              </li>
+              <li class="navIR">
+                <%= link_to 'Registrarse',users_index_path %>
+              </li>
+
+            </ol>
+
+          <% end %>
 
         <% else %>
         <ol class="breadcrumb text-center">
         <li class="navIR">
-          <%= link_to "Perfil: #{User.find(session[:user_id]).nombre} #{User.find(session[:user_id]).apellido}",sessions_destroy_path%> 
+          <%= link_to "Perfil: #{User.find(session[:user_id]).nombre} #{User.find(session[:user_id]).apellido}",sessions_destroy_path%>
         </li>
           <li class="navIR">
             <%= link_to 'Cerrar Sesión',sessions_destroy_path %>
