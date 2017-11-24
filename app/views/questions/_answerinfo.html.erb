@@ -8,10 +8,15 @@
     <%end%>
   <%end%>
 <%end%>
+
+
+
 <h5 class="mb-1 text-center"><%= @resp.contenido %><br></h5>
+<div>
+  <% if @resp.id == @question.mejor_respuesta %>
+       <span class='glyphicon glyphicon-star' style="color:yellow; font-size: 20px"></span> Mejor respuesta
+  <%end%>
+</div>
 <medium><%= "#{@users.find(@resp.user_id).nombre} #{@users.find(@resp.user_id).apellido}"%><br></medium>
 <small> <%= @resp.created_at.strftime("%d/%m/%Y %H:%M:%S")%><br></small>
 <small>Valoracion:<%= valoracion%><br><br></small>
-<% if @resp.id == @question.mejor_respuesta %>
-     <span class='glyphicon glyphicon-star'></span>
-<%end%>   
