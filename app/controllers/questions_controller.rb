@@ -29,9 +29,7 @@ class QuestionsController < ApplicationController
     @users = User.all
     @questionvotes = QuestionVote.all
 
-
     flash[:auxIngReg] = nil #se pone en nula para que aparezca el cartel de ingresar/registrarse
-
 
   end
 
@@ -43,6 +41,11 @@ class QuestionsController < ApplicationController
       @question.num_visitas=@question.num_visitas+1
       @question.save
     end
+    if params.has_key?(:answer_id) && @question.mejor_respuesta == nil
+      @question.mejor_respuesta = params[:answer_id]
+      @question.save
+    end
+
 
     @answers = Answer.all
     @users = User.all
@@ -123,19 +126,19 @@ class QuestionsController < ApplicationController
   def filtered_questions
     result = Question.all
     user_id = session[:user_id]
-    if session[:user_id] != 0
+    if user_id != 0
       fac_id = User.find(user_id).faculty_id  # obtengo el id de facultd del usuario
       if Faculty.find(fac_id).nombre != "Ninguna"
         result = result.where(faculty_id: fac_id) # si se tiene una facultad elegida filtro por esa facultad
       end
     end
-    if params[:busqueda] != ""
-      result = result.where("contenido LIKE '%#{params[:busqueda]}%'") # si se esta buscando algo se filtra en base a eso
+    if params.has_key?(:busqueda)
+      result = Question.all.where("contenido LIKE '%#{params[:busqueda]}%'") # si se esta buscando algo se filtra en base a eso
       if result.count == 0
         flash[:message] = "No se han encontrado resultados para su busqueda"
       end
     end
-    result.order(created_at: :desc)
+    result.order(created_at: :desc) # se ordenan las preguntas a mostrar por fecha de creacion de mas reciente a mas antigua
   end
 
 end

@@ -52,7 +52,7 @@
         document.getElementById(id).style.display = 'none' }
   </script>
 </div>
-<form  action="" method="get" > <!-- Falta definir a que controller llamar -->
+<form  action="#{questions_path}/#{question_id}" method="get" > <!-- Falta definir a que controller llamar -->
   <%if @question.user_id == session[:user_id] && @resp.user_id != session[:user_id]  %>
     <% if @question.mejor_respuesta == nil %>
       <input type="hidden" name="id" value=<%= @question.id%>>
