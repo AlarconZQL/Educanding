@@ -15,6 +15,7 @@
             <span class='glyphicon glyphicon-thumbs-down'></span>
           </button>
       <%end%>
+
       <a type="button" class="btn btn-success" onclick='verEscribirComentarioResp(<%=@resp.id%>)'> Escribir Comentario
         <span class='glyphicon glyphicon-comment'></span>
       </a>
@@ -23,7 +24,9 @@
       <span class='glyphicon glyphicon-plus'></span>
     </button>
   </form>
+
   <script>
+
     function votoPositivo_A(answers_id) {
     votoP_A_id = "votoP_A" + answers_id;
     document.getElementById(votoP_A_id).value = "1" }
@@ -49,3 +52,14 @@
         document.getElementById(id).style.display = 'none' }
   </script>
 </div>
+<form  action="" method="get" > <!-- Falta definir a que controller llamar -->
+  <%if @question.user_id == session[:user_id] && @resp.user_id != session[:user_id]  %>
+    <% if @question.mejor_respuesta == nil %>
+      <input type="hidden" name="id" value=<%= @question.id%>>
+      <input type="hidden" name="answer_id" value=<%= @resp.id%>>
+      <button type="submit" class="btn btn-warning" style="margin-top:5px ; margin-left:90%">
+        <span class='glyphicon glyphicon-star'></span>
+      </button>
+    <%end%>
+  <%end%>
+</form>

@@ -17,5 +17,6 @@
         <small>Valoracion: <%= valoracion%><br></small>
         <small>Numero de visitas: <%= @question.num_visitas%><br></small>
         <small>Numero de respuestas: <%= @answers.where(question_id:@question.id).count%></small>
+        <small><br>Facultad: <%= @faculties.find(@question.faculty_id).nombre%><br></small>
   </div>
 </a>

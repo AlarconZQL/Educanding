@@ -1,12 +1,13 @@
 class QuestionsController < ApplicationController
 
   def index
-    @questions = Question.all
-
+    $recargar=params
+    @questions = filtered_questions
+=begin
     if session[:user_id] != 0
       fac = User.find(session[:user_id]).faculty_id
       if fac != Faculty.where(nombre: "Ninguna")
-        @questions = @questions.where(faculty_id: fac).order(created_at: :desc)
+       @questions = @questions.where(faculty_id: fac).order(created_at: :desc)
       end
       if @resultado != nil
         if @resultado.count != 0
@@ -19,6 +20,7 @@ class QuestionsController < ApplicationController
         end
       end
     end
+=end
 
     @faculties = Faculty.all
     @answers = Answer.all
@@ -34,23 +36,33 @@ class QuestionsController < ApplicationController
   end
 
   def show
-        #Mostrar una pregunta, la de id del parametro
-        @question=Question.find(params[:id])
-        #Si el usuario que entra no es el que creo la pregunta el contador de visitas se actualiza+1
-        if session[:user_id]!=@question.user_id
-          @question.num_visitas=@question.num_visitas+1
-          @question.save
-        end
-        @answers = Answer.all
-        @users = User.all
-        @questionvotes = QuestionVote.all
-        @questioncomments = QuestionComment.all
-        @questioncommentvotes = QuestionCommentVote.all
-        @answervotes = AnswerVote.all
-        @answercomments = AnswerComment.all
-        @answercommentvotes = AnswerCommentVote.all
-        @questionlabel = QuestionLabel.all
-        @labels = Label.all
+    #Mostrar una pregunta, la de id del parametro
+    @question=Question.find(params[:id])
+    #Si el usuario que entra no es el que creo la pregunta el contador de visitas se actualiza+1
+    if session[:user_id]!=@question.user_id
+      @question.num_visitas=@question.num_visitas+1
+      @question.save
+    end
+
+    @answers = Answer.all
+    @users = User.all
+    @questionvotes = QuestionVote.all
+    @questioncomments = QuestionComment.all
+    @questioncommentvotes = QuestionCommentVote.all
+    @answervotes = AnswerVote.all
+    @answercomments = AnswerComment.all
+    @answercommentvotes = AnswerCommentVote.all
+    @questionlabel = QuestionLabel.all
+    @labels = Label.all
+    @faculties = Faculty.all
+  end
+
+  def mejor
+    question_id = @question.id
+    if params[:answer_id] != nil && @question.mejor_respuesta == nil
+      @question.mejor_respuesta = params[:answer_id]
+    end
+    redirect_to "#{questions_path}/#{question_id}"
   end
 
   def new
@@ -108,18 +120,22 @@ class QuestionsController < ApplicationController
 
   end
 
-  def search
-    contenido = params[:contenido]
-    @resultado = []
-    i = 0
-    Question.all.each do |preg|
-      if preg.contenido.include?(contenido)
-        @resultado [i] = preg
-        i = i + 1
+  def filtered_questions
+    result = Question.all
+    user_id = session[:user_id]
+    if session[:user_id] != 0
+      fac_id = User.find(user_id).faculty_id  # obtengo el id de facultd del usuario
+      if Faculty.find(fac_id).nombre != "Ninguna"
+        result = result.where(faculty_id: fac_id) # si se tiene una facultad elegida filtro por esa facultad
       end
     end
-
-    redirect_to index_path
+    if params[:busqueda] != ""
+      result = result.where("contenido LIKE '%#{params[:busqueda]}%'") # si se esta buscando algo se filtra en base a eso
+      if result.count == 0
+        flash[:message] = "No se han encontrado resultados para su busqueda"
+      end
+    end
+    result.order(created_at: :desc)
   end
 
 end

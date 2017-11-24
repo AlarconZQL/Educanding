@@ -11,12 +11,12 @@
                 <a class="navbar-brand" href="#">Educandig</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <form class="navbar-form navbar-left" role="search" action="/questions/search" method="get">
+                <form class="navbar-form navbar-left" role="search" action="/questions" method="get">
                   <div class="form-group" style="margin-right: 25px;" data-pg-collapsed>
                     <label class="control-label" for="facultad" style="margin-right: 5px;" >Universidad</label>
                     <select id="facultad"  name="facultad" class="form-control" style="width:125px;">
                         <% @faculties.order(:nombre).each do |facultad| %>
-                             <option value=<%=facultad.nombre%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                             <option value=<%=facultad.id%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
                         <% end %>
                     </select>
                   </div>
@@ -28,8 +28,15 @@
                         <% end %>
                     </select>
                   </div>
+                  <script type="text/javascript"><!-- Script que al terminar de cargar la pagina, carga los valores de la anterior -->
+                    window.onload = function()
+                    {
+                        document.getElementById("busqueda").value = "<%=$recargar[:busqueda]%>";                       
+                    }
+                   </script>
+                   <%$recargar=nil%>
                   <div class="form-group">
-                      <input type="text" name="busqueda" class="form-control" placeholder="Buscar">
+                      <input id="busqueda" type="text" name="busqueda" class="form-control" placeholder="Buscar">
                   </div>
                   <button type="submit" class="btn btn-default">Buscar</button>
                 </form>

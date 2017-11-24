@@ -12,3 +12,6 @@
 <medium><%= "#{@users.find(@resp.user_id).nombre} #{@users.find(@resp.user_id).apellido}"%><br></medium>
 <small> <%= @resp.created_at.strftime("%d/%m/%Y %H:%M:%S")%><br></small>
 <small>Valoracion:<%= valoracion%><br><br></small>
+<% if @resp.id == @question.mejor_respuesta %>
+     <span class='glyphicon glyphicon-star'></span>
+<%end%>   
