@@ -15,14 +15,25 @@
                   <div class="form-group" style="margin-right: 25px;" data-pg-collapsed>
                     <label class="control-label" for="facultad" style="margin-right: 5px;" >Universidad</label>
                     <select id="facultad"  name="facultad" class="form-control" style="width:125px;">
+                        <option value =0 selected>Todas</option>
                         <% @faculties.order(:nombre).each do |facultad| %>
+                            <%if session[:user_id]!=0%>
+                              <%if @users.find(session[:user_id]).faculty_id==facultad.id%>
+                                <option value=<%=facultad.id%> selected><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                              <%else%>
+                                <option value=<%=facultad.id%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                              <%end%>
+
+                            <%else%>
                              <option value=<%=facultad.id%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                            <%end%>
                         <% end %>
                     </select>
                   </div>
                   <div class="form-group" style="margin-right: 25px;" data-pg-collapsed>
                     <label class="control-label" for="etiqueta" style="margin-right: 5px;">Etiquetas</label>
                     <select id="etiqueta"  name="etiqueta" class="form-control" style="width:125px;">
+                        <option value=0>Todas</option>
                         <% @labels.order(:nombre).each do |etiqueta| %>
                             <option><%= etiqueta.nombre%></option>
                         <% end %>
@@ -36,7 +47,7 @@
                    </script>
                    <%$recargar=nil%>
                   <div class="form-group">
-                      <input id="busqueda" type="text" name="busqueda" class="form-control" placeholder="Buscar" required>
+                      <input id="busqueda" type="text" name="busqueda" class="form-control" placeholder="Buscar" >
                   </div>
                   <button type="submit" class="btn btn-default">Buscar</button>
                 </form>

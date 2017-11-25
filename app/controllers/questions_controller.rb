@@ -128,15 +128,32 @@ class QuestionsController < ApplicationController
     user_id = session[:user_id]
     if user_id != 0
       fac_id = User.find(user_id).faculty_id  # obtengo el id de facultd del usuario
-      if Faculty.find(fac_id).nombre != "Ninguna"
+      if fac_id != 0
         result = result.where(faculty_id: fac_id) # si se tiene una facultad elegida filtro por esa facultad
       end
     end
+
+
     if params.has_key?(:busqueda)
       result = Question.all.where("contenido LIKE '%#{params[:busqueda]}%'") # si se esta buscando algo se filtra en base a eso
-      if result.count == 0
-        flash[:message] = "No se han encontrado resultados para su busqueda"
+    
+    end
+
+    if params.has_key?(:facultad) 
+      if params[:facultad] != 0
+        if params.has_key?(:busqueda)
+          result=result.where(faculty_id: params[:facultad])
+         else
+          result = Question.all.where(faculty_id: params[:facultad])
+        end
+      else
+         result = result
+
       end
+    end
+
+    if result.count == 0
+      flash[:message] = "No se han encontrado resultados para su busqueda"
     end
     result.order(created_at: :desc) # se ordenan las preguntas a mostrar por fecha de creacion de mas reciente a mas antigua
   end
