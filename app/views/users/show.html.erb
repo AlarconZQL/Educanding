@@ -1,4 +1,5 @@
 <div class="container">
+
   <% if flash[:message] != nil %>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <div class="w3-panel w3-blue w3-display-container" style="margin-top: 50px;">
@@ -9,11 +10,16 @@
     <%flash[:message]=nil%>
     </div>
   <%end%>
+
   <form class="form-inline" action="/users/update" method="get">
     <% nro = 0 %>
     <div class="well">
       Nombre : <%= @user.nombre  %>
+
+
       <button id="editbutton<%= nro %>" style="margin-left: 2%; visibility:hidden " type="button" class="btn" onclick="mostrarCampo(<%= nro%>)">Editar</button>
+
+
       <input type="text"  name="nombre" id="campo<%= nro %>" style="visibility:hidden">
       <% nro = nro + 1 %>
     </div>
@@ -49,7 +55,14 @@
     <div class="well">
       Nivel : <%= @niveles.find(@user.level_id).nombre  %>
     </div>
+
+    <% if @user.id == @userPerfil.id %>
+
     <button id="startbutton" style="margin-left: 2%" type="button" class="btn" onclick="mostrarBotones(<%=nro%>)">Editar mi perfil</button>
+
+    <% end %>
+
+
     <input type="hidden" class="form-control" name="user_id" id="user_id" value=<%=@user.id%>>
     <button id="confirmbutton" style="margin-left: 2%; visibility:hidden" type="submit" class="btn btn-primary">Enviar cambios</button>
     <button id="cancelbutton" style="margin-left: 2%; visibility:hidden" type="button" class="btn btn-danger" onclick="cancelarEdicion(<%=nro%>)">Cancelar</button>

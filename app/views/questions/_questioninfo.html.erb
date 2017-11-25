@@ -12,7 +12,9 @@
 <% if @question.desc != ""%>
   <h5 class="mb-1 text-center"><%= @question.desc %> </h5>
 <% end %>
+<%= link_to users_show_path(@question.user_id) do %>
 <medium><%= "#{@users.find(@question.user_id).nombre} #{@users.find(@question.user_id).apellido}"%><br></medium>
+<%end%>
 <small><%= @question.created_at.strftime("%d/%m/%Y %H:%M:%S")%><br></small>
 <small>Valoracion: <%= valoracion%><br></small>
 <small>Numero de visitas: <%= @question.num_visitas%><br></small>

@@ -38,7 +38,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(session[:user_id])
+
+    @user = User.find(params[:format])
+
+    @userPerfil = User.find(session[:user_id])
+
     @preguntas = Question.all.where(user_id: @user.id)
     @answers = Answer.all
     @niveles = Level.all

@@ -126,7 +126,7 @@ class QuestionsController < ApplicationController
   def filtered_questions
     result = Question.all
     user_id = session[:user_id]
-    if user_id != 0
+    if user_id > 0
       fac_id = User.find(user_id).faculty_id  # obtengo el id de facultd del usuario
       if Faculty.find(fac_id).nombre != "Ninguna"
         result = result.where(faculty_id: fac_id) # si se tiene una facultad elegida filtro por esa facultad
