@@ -22,6 +22,7 @@ puts "Inicio creacion de niveles"
 nivel1=Level.find_or_create_by!(nombre:"Iniciado",puntos:0)
 nivel2=Level.find_or_create_by!(nombre:"Experimentado",puntos:100)
 nivel3=Level.find_or_create_by!(nombre:"Moderador",puntos:1000)
+nivel4=Level.find_or_create_by!(nombre:"Super Administrador",puntos:5000)
 puts "Fin creacion de niveles. #{Level.count} niveles"
 
 puts "Inicio creacion de direcciones"
@@ -40,6 +41,7 @@ puts "Inicio creacion de usuarios"
 usuario1=User.find_or_create_by!(nombre:"Juan", apellido:"Perez", mail:"jp@hotmail.com", puntos:0, pass:"123456", faculty_id:facu2.id, level_id:nivel1.id)
 usuario2=User.find_or_create_by!(nombre:"Maria", apellido:"Gomez", mail:"mg@hotmail.com", puntos:0, pass:"123456", faculty_id:facu1.id, level_id:nivel3.id)
 usuario3=User.find_or_create_by!(nombre:"Pablo", apellido:"Neruda", mail:"pn@hotmail.com", puntos:0, pass:"123456",faculty_id:0, level_id:nivel2.id)
+User.find_or_create_by(nombre:"Admin",apellido:"Istrador",mail:"admin@hotmail.com",puntos:10000,pass:"admin",faculty_id:0,level_id:nivel4.id)
 puts "Fin creacion de usuarios. #{User.count} usuarios"
 
 puts "Inicio creacion de preguntas"

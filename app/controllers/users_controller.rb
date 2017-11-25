@@ -43,9 +43,12 @@ class UsersController < ApplicationController
   end
 
   def show
-
-    @user = User.find(params[:format])
-
+    if params[:format]!=nil
+      @user = User.find(params[:format])
+    else
+      @user = User.find(session[:user_id])
+    end
+    
     @userPerfil = User.find(session[:user_id])
 
     @preguntas = Question.all.where(user_id: @user.id)
