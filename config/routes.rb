@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   post 'questions/create'
 
   get 'questions/show'
+  get 'users/show'
+  get 'users/update'
 
   post 'sessions/create'
 

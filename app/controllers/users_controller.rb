@@ -35,8 +35,68 @@ class UsersController < ApplicationController
         flash[:message] = "Debe completar bien los datos"
         redirect_to users_index_path
     end
-
-
-
   end
+
+  def show
+    @user = User.find(session[:user_id])
+    @preguntas = Question.all.where(user_id: @user.id)
+    @answers = Answer.all
+    @niveles = Level.all
+    @facultades = Faculty.all
+    @direcciones = Direction.all
+    @questionvotes = QuestionVote.all
+  end
+
+  def update
+    user = User.find(params[:user_id])
+    exito_guardar = true
+    guardados = 0
+    if params[:nombre] != ""
+      user.nombre = params[:nombre]
+      if user.save == false
+        flash[:message] = "Fallo al actualizar nombre"
+        exito_guardar = false
+      else
+        guardados = guardados + 1
+      end
+    end
+    if params[:apellido] != ""
+      user.apellido = params[:apellido]
+      if user.save == false
+        flash[:message] = "Fallo al actualizar apellido"
+        exito_guardar = false
+      else
+        guardados = guardados + 1
+      end
+    end
+    if params[:facultad_id] != "-" && Faculty.all.where(id:params[:facultad_id]).count != 0
+      user.faculty_id = params[:facultad_id]
+      if user.save == false
+        flash[:message] = "Fallo al actualizar facultad"
+        exito_guardar = false
+      else
+        guardados = guardados + 1
+      end
+    end
+    if params[:email] != ""
+      if User.all.where(mail:params[:email]).count == 0
+        user.mail = params[:email]
+        if user.save == false
+          flash[:message] = "Fallo al actualizar email"
+          exito_guardar = false
+        else
+          guardados = guardados + 1
+        end
+      else
+        flash[:message] = "El mail elegido ya esta registrado"
+        exito_guardar = false
+      end
+    end
+    if guardados > 0
+      flash[:message] = "Sus datos se han modificado con exito!"
+    end
+
+    redirect_to users_show_path
+  end
+
 end

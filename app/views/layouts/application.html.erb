@@ -51,7 +51,7 @@
         <% else %>
         <ol class="breadcrumb text-center">
         <li class="navIR">
-          <%= link_to "Perfil: #{User.find(session[:user_id]).nombre} #{User.find(session[:user_id]).apellido}",sessions_destroy_path%>
+          <%= link_to "Perfil: #{User.find(session[:user_id]).nombre} #{User.find(session[:user_id]).apellido}", users_show_path%>
         </li>
           <li class="navIR">
             <%= link_to 'Cerrar Sesión',sessions_destroy_path %>
