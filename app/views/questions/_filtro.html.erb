@@ -17,15 +17,38 @@
                     <select id="facultad"  name="facultad" class="form-control" style="width:125px;">
                         <option value =0 selected>Todas</option>
                         <% @faculties.order(:nombre).each do |facultad| %>
-                            <%if session[:user_id]!=0%>
-                              <%if @users.find(session[:user_id]).faculty_id==facultad.id%>
-                                <option value=<%=facultad.id%> selected><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
-                              <%else%>
-                                <option value=<%=facultad.id%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                            <%if session[:user_id]!=0%><!--El usuario esta registrado -->
+                              <%if $recargar[:facultad]!=nil%><!-- Se mando a buscar -->
+                                  <%if $recargar[:facultad]!="0"%><!-- La busqueda no es Todas -->
+                                      <%if $recargar[:facultad]=="#{facultad.id}"%><!-- La facultad coincide con la facultad buscada -->
+                                        <option value=<%=facultad.id%> selected><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                                      <%else%>
+                                        <option value=<%=facultad.id%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                                      <%end%>
+                                  <%else%><!-- La busqueda es Todas -->
+                                    <option value=<%=facultad.id%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                                  <%end%>
+                              <%else%><!-- No se mando a buscar -->
+                                  <%if @users.find(session[:user_id]).faculty_id==facultad.id%>
+                                    <option value=<%=facultad.id%> selected><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                                  <%else%>
+                                    <option value=<%=facultad.id%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                                  <%end%>
                               <%end%>
-
-                            <%else%>
-                             <option value=<%=facultad.id%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                            <%else%><!-- El usuario no esta registrado -->
+                            <%if $recargar[:facultad]!=nil%><!-- Se mando a buscar -->
+                                  <%if $recargar[:facultad]!="0"%><!-- La busqueda no es Todas -->
+                                      <%if $recargar[:facultad]=="#{facultad.id}"%><!-- La facultad coincide con la facultad buscada -->
+                                        <option value=<%=facultad.id%> selected><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                                      <%else%>
+                                        <option value=<%=facultad.id%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                                      <%end%>
+                                  <%else%><!-- La busqueda es Todas -->
+                                    <option value=<%=facultad.id%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                                  <%end%>
+                              <%else%><!-- No se mando a buscar -->
+                               <option value=<%=facultad.id%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                              <%end%>
                             <%end%>
                         <% end %>
                     </select>
@@ -42,7 +65,7 @@
                   <script type="text/javascript"><!-- Script que al terminar de cargar la pagina, carga los valores de la anterior -->
                     window.onload = function()
                     {
-                        document.getElementById("busqueda").value = "<%=$recargar[:busqueda]%>";
+                        document.getElementById("busqueda").value = "<%=$recargar[:busqueda]%>";                           
                     }
                    </script>
                    <%$recargar=nil%>

@@ -3,25 +3,6 @@ class QuestionsController < ApplicationController
   def index
     $recargar=params
     @questions = filtered_questions
-=begin
-    if session[:user_id] != 0
-      fac = User.find(session[:user_id]).faculty_id
-      if fac != Faculty.where(nombre: "Ninguna")
-       @questions = @questions.where(faculty_id: fac).order(created_at: :desc)
-      end
-      if @resultado != nil
-        if @resultado.count != 0
-          if fac != Faculty.where(nombre: "Ninguna")
-            @questions = @resultado.where(faculty_id: fac)
-          end
-            @questions = @resultado.order(created_at: :desc)
-        else
-          flash [:message]
-        end
-      end
-    end
-=end
-
     @faculties = Faculty.all
     @answers = Answer.all
     @labels = Label.all
@@ -135,21 +116,20 @@ class QuestionsController < ApplicationController
 
 
 
-    if params.has_key?(:facultad) 
-      if params[:facultad] != "0"
-                  if params.has_key?(:busqueda)
+    if params.has_key?(:facultad) # Si se clickeo el boton Buscar
+      if params[:facultad] != "0" # Si la facultad elegida no es todas
+                  if params.has_key?(:busqueda)# Si ingreso algo a buscar, dentro de una facultad
                     result = Question.all.where("contenido LIKE '%#{params[:busqueda]}%'") # si se esta buscando algo se filtra en base a eso
                     result=result.where(faculty_id: params[:facultad])
-                   else
+                   else # Mostrar todas las preguntas de una facultad 
                     result = Question.all.where(faculty_id: params[:facultad])
                   end
       else
-                  if params.has_key?(:busqueda)
-                    result = Question.all.where("contenido LIKE '%#{params[:busqueda]}%'") # si se esta buscando algo se filtra en base a eso
-                   else
+                  if params.has_key?(:busqueda)# Si ingreso algo a buscar, en todas las facultades
+                    result = Question.all.where("contenido ILIKE '%#{params[:busqueda]}%'") # si se esta buscando algo se filtra en base a eso
+                   else # Muestro todas las preguntas
                     result = Question.all
                   end
-
       end
     end
 
