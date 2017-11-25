@@ -36,11 +36,16 @@
       <% nro = nro + 1 %>
     </div>
     <div class="well">
-      Facultad : <%= @facultades.find(@user.faculty_id).nombre  %>
+      <%if @user.faculty_id !=0%>
+        Facultad : <%= @facultades.find(@user.faculty_id).nombre  %>
+      <%else%>
+        Facultad : Ninguna  %>
+      <%end%>
       <button id="editbutton<%= nro %>" style="margin-left: 2%; visibility:hidden " type="button" class="btn" onclick="mostrarCampo(<%= nro%>)">Editar</button>
       <div class="form-group" id="campo<%= nro %>" style="visibility:hidden">
           <select id="facultad_id" name="facultad_id" class="form-control">
-          <<option value="-">-</option>>
+          <option value="-">-</option>
+          <option value=0>Ninguna</option>
           <% @facultades.order(:nombre).each do |facultad| %>
               <% if facultad.id != @user.faculty_id %>
                 <option value=<%=facultad.id%>> <%=facultad.nombre%> - <%=@direcciones.find(facultad.direction_id).ciudad%>, <%=@direcciones.find(facultad.direction_id).calle%></option>

@@ -11,8 +11,13 @@ class UsersController < ApplicationController
         # llamar al modelo y chequear los datos
         if User.where(mail:params[:email]).count == 0#Se pregunta si el mail no existe
        		if params[:password] == params[:password2]#Se pregunta si las contraseñas son iguales
-       			@usuario= User.create(nombre: params[:nombre],apellido: params[:apellido],mail: params[:email],pass: params[:password],puntos:0,faculty_id:Faculty.where(nombre:params[:facultad_nombre]).first.id,level_id: Level.where(nombre:"Iniciado").first.id)
-       			if @usuario.save   #Guarda el usuario
+       			@usuario= User.create(nombre: params[:nombre],apellido: params[:apellido],mail: params[:email],pass: params[:password],puntos:0,level_id: Level.where(nombre:"Iniciado").first.id)
+       			if params[:facultad_nombre]!="0"
+              @usuario.faculty_id = Faculty.where(nombre:params[:facultad_nombre]).first.id
+            else
+              @usuario.faculty_id = 0
+            end
+            if @usuario.save   #Guarda el usuario
                 flash[:auxIngReg] = nil #se pone en nula para que aparezca el cartel de ingresar/registrarse
         	    	redirect_to root_path
         		else#Si no se guardo, sale el error
