@@ -52,6 +52,9 @@ class QuestionsController < ApplicationController
   def new
      if session[:user_id]!=0
         @labels = Label.all
+        @users = User.all
+        @faculties =Faculty.all
+        @directions=Direction.all
     else
        redirect_to root_path
     end
@@ -65,13 +68,13 @@ class QuestionsController < ApplicationController
     if etiquetas != nil
       if etiquetas.size >= 1 && etiquetas.size <= 5
         if params[:pregunta]!=""
-          pregunta=Question.new(num_visitas:0, contenido:params[:pregunta], desc:descripcion, user_id: session[:user_id], faculty_id: User.find(session[:user_id]).faculty_id)
+          pregunta=Question.new(num_visitas:0, contenido:params[:pregunta], desc:descripcion, user_id: session[:user_id], faculty_id: params[:facultad])
           #hay que guardar la pregunta
           if pregunta.save
              for i in (0..etiquetas.size-1)
               etiquetasPregunta=QuestionLabel.new(question_id:pregunta.id,label_id:etiquetas[i])
               if !etiquetasPregunta.save
-                 break;
+                 break
               end
               end
               if i !=etiquetas.size-1

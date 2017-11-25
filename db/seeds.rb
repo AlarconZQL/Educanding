@@ -10,38 +10,38 @@
 
 
 puts "Inicio creacion de etiquetas"
-etiqueta1=Label.find_or_create_by!(nombre:"Matematica")
-etiqueta2=Label.find_or_create_by!(nombre:"Fisica")
-etiqueta3=Label.find_or_create_by!(nombre:"Historia")
-etiqueta4=Label.find_or_create_by!(nombre:"Biologia")
-etiqueta5=Label.find_or_create_by!(nombre:"Geografia")
-etiqueta6=Label.find_or_create_by!(nombre:"Geologia")
+etiqueta1=Label.find_or_create_by!(nombre:"Matematica",activo:true)
+etiqueta2=Label.find_or_create_by!(nombre:"Fisica",activo:true)
+etiqueta3=Label.find_or_create_by!(nombre:"Historia",activo:true)
+etiqueta4=Label.find_or_create_by!(nombre:"Biologia",activo:true)
+etiqueta5=Label.find_or_create_by!(nombre:"Geografia",activo:true)
+etiqueta6=Label.find_or_create_by!(nombre:"Geologia",activo:true)
 puts "Fin creacion de etiquetas. #{Label.count} etiquetas"
 
 puts "Inicio creacion de niveles"
-nivel1=Level.find_or_create_by!(nombre:"Iniciado",puntos:0)
-nivel2=Level.find_or_create_by!(nombre:"Experimentado",puntos:100)
-nivel3=Level.find_or_create_by!(nombre:"Moderador",puntos:1000)
-nivel4=Level.find_or_create_by!(nombre:"Super Administrador",puntos:5000)
+nivel1=Level.find_or_create_by!(nombre:"Iniciado",puntos:0,activo:true)
+nivel2=Level.find_or_create_by!(nombre:"Experimentado",puntos:100,activo:true)
+nivel3=Level.find_or_create_by!(nombre:"Moderador",puntos:1000,activo:true)
+nivel4=Level.find_or_create_by!(nombre:"Super Administrador",puntos:5000,activo:true)
 puts "Fin creacion de niveles. #{Level.count} niveles"
 
 puts "Inicio creacion de direcciones"
-dire1=Direction.find_or_create_by!(calle:"9 de Julio", ciudad:"Buenos Aires")
-dire2=Direction.find_or_create_by!(calle:"Calle 1", ciudad:"La Plata")
-dire3=Direction.find_or_create_by!(calle:"Calle 50", ciudad:"La Plata")
+dire1=Direction.find_or_create_by!(calle:"9 de Julio", ciudad:"Buenos Aires",activo:true)
+dire2=Direction.find_or_create_by!(calle:"Calle 1", ciudad:"La Plata",activo:true)
+dire3=Direction.find_or_create_by!(calle:"Calle 50", ciudad:"La Plata",activo:true)
 puts "Fin creacion de direcciones. #{Direction.count} direcciones"
 
 puts "Inicio creacion de facultad"
-facu1=Faculty.find_or_create_by!(nombre:"Ingenieria", direction_id:dire3.id)
-facu2=Faculty.find_or_create_by!(nombre:"Informatica", direction_id:dire2.id)
-facu3=Faculty.find_or_create_by!(nombre:"Humanidades", direction_id:dire1.id)
+facu1=Faculty.find_or_create_by!(nombre:"Ingenieria", direction_id:dire3.id,activo:true)
+facu2=Faculty.find_or_create_by!(nombre:"Informatica", direction_id:dire2.id,activo:true)
+facu3=Faculty.find_or_create_by!(nombre:"Humanidades", direction_id:dire1.id,activo:true)
 puts "Fin creacion de facultades. #{Faculty.count} facultades"
 
 puts "Inicio creacion de usuarios"
-usuario1=User.find_or_create_by!(nombre:"Juan", apellido:"Perez", mail:"jp@hotmail.com", puntos:0, pass:"123456", faculty_id:facu2.id, level_id:nivel1.id)
-usuario2=User.find_or_create_by!(nombre:"Maria", apellido:"Gomez", mail:"mg@hotmail.com", puntos:0, pass:"123456", faculty_id:facu1.id, level_id:nivel3.id)
-usuario3=User.find_or_create_by!(nombre:"Pablo", apellido:"Neruda", mail:"pn@hotmail.com", puntos:0, pass:"123456",faculty_id:0, level_id:nivel2.id)
-User.find_or_create_by(nombre:"Admin",apellido:"Istrador",mail:"admin@hotmail.com",puntos:10000,pass:"admin",faculty_id:0,level_id:nivel4.id)
+usuario1=User.find_or_create_by!(nombre:"Juan", apellido:"Perez", mail:"jp@hotmail.com", puntos:0, pass:"123456", faculty_id:facu2.id, level_id:nivel1.id,activo:true)
+usuario2=User.find_or_create_by!(nombre:"Maria", apellido:"Gomez", mail:"mg@hotmail.com", puntos:0, pass:"123456", faculty_id:facu1.id, level_id:nivel3.id,activo:true)
+usuario3=User.find_or_create_by!(nombre:"Pablo", apellido:"Neruda", mail:"pn@hotmail.com", puntos:0, pass:"123456",faculty_id:0, level_id:nivel2.id,activo:true)
+User.find_or_create_by(nombre:"Admin",apellido:"Istrador",mail:"admin@hotmail.com",puntos:10000,pass:"admin",faculty_id:0,level_id:nivel4.id,activo:true)
 puts "Fin creacion de usuarios. #{User.count} usuarios"
 
 puts "Inicio creacion de preguntas"

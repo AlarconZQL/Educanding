@@ -6,7 +6,7 @@ class LabelsController < ApplicationController
   def create
     if params[:nombre]!=""#si no esta vacio
       if Label.where(nombre:params[:nombre]).count==0#Si no existe la etiqueta
-         etiqueta=Label.new(nombre: params[:nombre])
+         etiqueta=Label.new(nombre: params[:nombre],activo:true)
          if etiqueta.save#si se puede guardar
            redirect_to labels_index_path
          else#Si no se guardo, sale el error
@@ -37,7 +37,7 @@ class LabelsController < ApplicationController
   def delete
     if session[:user_id]!=0 #Falta el chequeo de nivel de usuario
       eti=Label.find(params[:format])
-      eti.destroy
+      eti.activo = false
       eti.save
       redirect_to labels_index_path
     end

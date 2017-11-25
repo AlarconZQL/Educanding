@@ -11,7 +11,7 @@ class UsersController < ApplicationController
         # llamar al modelo y chequear los datos
         if User.where(mail:params[:email]).count == 0#Se pregunta si el mail no existe
        		if params[:password] == params[:password2]#Se pregunta si las contraseñas son iguales
-       			@usuario= User.create(nombre: params[:nombre],apellido: params[:apellido],mail: params[:email],pass: params[:password],puntos:0,level_id: Level.where(nombre:"Iniciado").first.id)
+       			@usuario= User.create(nombre: params[:nombre],apellido: params[:apellido],mail: params[:email],pass: params[:password],puntos:0,level_id: Level.where(nombre:"Iniciado").first.id,activo:true)
        			if params[:facultad_nombre]!="0"
               @usuario.faculty_id = Faculty.where(nombre:params[:facultad_nombre]).first.id
             else

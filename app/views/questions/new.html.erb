@@ -42,6 +42,7 @@ function probando() {
       <label for="divEtiquetas" class="control-label" style="margin-top:30px;">Seleccione Etiquetas (entre 1 y 5)</label>
       <div id="divEtiquetas" class="form-group" style="margin-top:25px;height:200px;width:30%;overflow:auto">
           <% @labels.order(:nombre).each do |label| %>
+              <%if label.activo == true %>
                 <div class="[ form-group ]">
                     <input type="checkbox" name="etiqueta[]" id="etiqueta<%=label.id%>" autocomplete="off" value= <%=label.id%> />
                     <div class="[ btn-group ]">
@@ -54,8 +55,28 @@ function probando() {
                         </label>
                     </div>
                 </div>
+              <%end%>
           <% end %>
       </div>
+      <div class="form-group" style="margin-right: 25px;" data-pg-collapsed>
+            <label class="control-label" for="facultad" style="margin-right: 5px;" >Universidad</label>
+            <select id="facultad"  name="facultad" class="form-control" style="width:125px;">
+              <%if @users.find(session[:user_id]).faculty_id == 0%>
+                <% @faculties.order(:nombre).each do |facultad| %>
+                   <option value=<%=facultad.id%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                  <%end%>
+              <%else%>
+                  <option value=<%=@users.find(session[:user_id]).faculty_id%>>
+                    <%= @faculties.find(@users.find(session[:user_id]).faculty_id).nombre%> - <%= @directions.find(@faculties.find(@users.find(session[:user_id]).faculty_id).id).ciudad%>, <%= @directions.find(@faculties.find(@users.find(session[:user_id]).faculty_id).id).ciudad%>
+                  </option>
+              <%end%>
+            </select>
+      </div>
+                      
+
+
+
+
       <button class="btn btn-primary"  type="submit" style="margin-top: 20px;">Crear Pregunta</button>
   </form>
 </div>

@@ -1,5 +1,5 @@
 class CatsController < ApplicationController
-
+# Votos Respuestas
   def create
 
       question_id = params[:question_id]
