@@ -134,20 +134,21 @@ class QuestionsController < ApplicationController
     end
 
 
-    if params.has_key?(:busqueda)
-      result = Question.all.where("contenido LIKE '%#{params[:busqueda]}%'") # si se esta buscando algo se filtra en base a eso
-    
-    end
 
     if params.has_key?(:facultad) 
-      if params[:facultad] != 0
-        if params.has_key?(:busqueda)
-          result=result.where(faculty_id: params[:facultad])
-         else
-          result = Question.all.where(faculty_id: params[:facultad])
-        end
+      if params[:facultad] != "0"
+                  if params.has_key?(:busqueda)
+                    result = Question.all.where("contenido LIKE '%#{params[:busqueda]}%'") # si se esta buscando algo se filtra en base a eso
+                    result=result.where(faculty_id: params[:facultad])
+                   else
+                    result = Question.all.where(faculty_id: params[:facultad])
+                  end
       else
-         result = result
+                  if params.has_key?(:busqueda)
+                    result = Question.all.where("contenido LIKE '%#{params[:busqueda]}%'") # si se esta buscando algo se filtra en base a eso
+                   else
+                    result = Question.all
+                  end
 
       end
     end
