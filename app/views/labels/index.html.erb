@@ -12,23 +12,23 @@ function Mostrar(label_id)
 
 
   <%@etiquetas.order(:nombre).each do |etiqueta|%>
-  <li class="list-group-item">
-  <%= etiqueta.nombre %>
-
-  <button type="button" class="btn btn-warning" onclick="Mostrar(<%=etiqueta.id%>)">Modificar</button>
-   <%= link_to labels_delete_path(etiqueta.id) do %>
-  <button type="button" class="btn btn-danger">Eliminar</button>
+  <%if etiqueta.activo == true %>
+    <li class="list-group-item">
+    <%= etiqueta.nombre %>
+    <button type="button" class="btn btn-warning" onclick="Mostrar(<%=etiqueta.id%>)">Modificar</button>
+    <%= link_to labels_delete_path(etiqueta.id) do %>
+      <button type="button" class="btn btn-danger">Eliminar</button>
+    <%end%>
+    <form form class="" action="/labels/update" id="formUpdate<%=etiqueta.id%>" method="get" style="display:none;margin-top:10px">
+      <div class="form-group">
+        <label for="nombre">Nuevo Nombre:</label>
+        <input type="text"  name="nombre" id="nombre" required>
+        <button class="btn  btn-primary" type="submit" >Modificar Etiqueta</button>
+        <input type="hidden" class="form-control" name="label_id" id="label_id" value=<%=etiqueta.id%>>
+      </div>
+      </form> 
+    </li>
   <%end%>
-  <form form class="" action="/labels/update" id="formUpdate<%=etiqueta.id%>" method="get" style="display:none;margin-top:10px">
-    <div class="form-group">
-      <label for="nombre">Nuevo Nombre:</label>
-      <input type="text"  name="nombre" id="nombre" required>
-      <button class="btn  btn-primary" type="submit" >Modificar Etiqueta</button>
-      <input type="hidden" class="form-control" name="label_id" id="label_id" value=<%=etiqueta.id%>>
-    </div>
-  </form> 
- </li>
-
   <%end%>
 <% if session[:user_id] != 0 %>
   <li class="list-group-item">

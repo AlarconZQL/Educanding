@@ -1,0 +1,48 @@
+<li class="list-group-item" style="margin-bottom:10px">
+
+  <div class="container" style="width:100%;padding:20px">
+
+    <div class="text-center" style="width:15%;float:left">
+
+    <p><label><%= @level.nombre %></p>
+
+    <p><label><%= "Puntos: #{@level.puntos}" %></p>
+
+    </div>
+
+    <div class="" style="width:15%;float:left;padding:15px">
+      <button class="btn btn-warning" onclick="Mostrar(<%=@level.id%>)">Modificar</button>
+    </div>
+
+    <div class="" style="width:15%;float:left;padding:15px" >
+      <%= link_to levels_delete_path(@level.id) do %>
+        <button class="btn btn-danger">Eliminar</button>
+      <%end%>
+    </div>
+
+
+  </div>
+
+
+
+    <div class="form-group" id="formUpdate<%=@level.id%>" style="display:none;width:25%;float:bottom;margin-top:10px;margin-left:50px;padding:20px">
+
+      <form form class="" action="/levels/update" method="get">
+
+          <input type="hidden" class="form-control" name="level_id" id="level_id" value=<%=@level.id%> >
+
+          <label for="nombre">Nuevo Nombre:</label>
+          <input type="text"  name="nombre" id="nombre" style="margin-bottom:10px" required>
+
+          <label for="puntos">Nuevo Puntaje:</label>
+          <input type="number"  name="puntos" id="puntos" style="margin-bottom:10px" required >
+          <input type="submit" class="btn btn-primary" style="margin-bottom:10px" value="Modificar Nivel">
+
+
+      </form>
+
+    </div>
+
+
+
+</li>

@@ -1,5 +1,5 @@
 class DogsController < ApplicationController
-
+# Votos Comentario Preguntas
   def create
 
       question_id = params[:question_id]

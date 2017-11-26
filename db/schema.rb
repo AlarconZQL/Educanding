@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171118184343) do
+ActiveRecord::Schema.define(version: 20171125225213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20171118184343) do
     t.string "calle"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "activo"
   end
 
   create_table "faculties", force: :cascade do |t|
@@ -59,12 +60,14 @@ ActiveRecord::Schema.define(version: 20171118184343) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "direction_id"
+    t.boolean "activo"
   end
 
   create_table "labels", force: :cascade do |t|
     t.string "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "activo"
   end
 
   create_table "levels", force: :cascade do |t|
@@ -72,6 +75,7 @@ ActiveRecord::Schema.define(version: 20171118184343) do
     t.integer "puntos"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "activo"
   end
 
   create_table "question_comment_votes", force: :cascade do |t|
@@ -126,6 +130,8 @@ ActiveRecord::Schema.define(version: 20171118184343) do
     t.datetime "updated_at", null: false
     t.integer "level_id"
     t.integer "faculty_id"
+    t.boolean "admin"
+    t.boolean "activo"
   end
 
 end

@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
 
 
+  get 'levels/index'
+  post 'levels/create'
+  get 'levels/delete'
+  get 'levels/update'
+
+  
+
   resources :questions
   get 'users/index'
   post 'users/create'
@@ -24,6 +31,7 @@ Rails.application.routes.draw do
 
 
   post 'labels/create'
+
   post 'questions_comments/create'
   post 'answers_comments/create'
   post 'answers/create'
