@@ -42,5 +42,5 @@ class LabelsController < ApplicationController
       redirect_to labels_index_path
     end
   end
-  
+
 end

@@ -67,6 +67,16 @@
           <%= link_to 'Facultades',sessions_destroy_path %>
           </li>
 
+          <% if 1==1 #User.find(session[:user_id]).admin == true %>
+
+                <li class="navIR">
+                <%= link_to 'Niveles',levels_index_path %>
+                </li>
+
+          <% end %>
+
+
+
         </ol>
 
         <% end %>
