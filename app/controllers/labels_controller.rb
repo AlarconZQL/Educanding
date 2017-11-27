@@ -5,8 +5,10 @@ class LabelsController < ApplicationController
 
   def create
     if params[:nombre]!=""#si no esta vacio
-      if Label.where(nombre:params[:nombre]).count==0#Si no existe la etiqueta
-         etiqueta=Label.new(nombre: params[:nombre],activo:true)
+      nombreFormato=params[:nombre].capitalize
+      if Label.where(nombre:nombreFormato).count==0#Si no existe la etiqueta
+
+         etiqueta=Label.new(nombre: nombreFormato,activo:true)
          if etiqueta.save#si se puede guardar
            redirect_to labels_index_path
          else#Si no se guardo, sale el error
@@ -15,12 +17,12 @@ class LabelsController < ApplicationController
            redirect_to labels_index_path
          end
        else#Si la etiqueta existe
-        if Label.where(nombre:params[:nombre]).first.activo==true
+        if Label.where(nombre:nombreFormato).first.activo==true
          #este es un mensaje que se guarda en la variable global flash
          flash[:message] = "La etiqueta ya existe"
          redirect_to labels_index_path
         else
-          etiqueta=Label.where(nombre:params[:nombre]).first
+          etiqueta=Label.where(nombre:nombreFormato).first
           etiqueta.activo = true
           if !etiqueta.save#Si no se guardo, sale el error
            flash[:message] = "No se pudo crear la etiqueta"
@@ -39,7 +41,7 @@ class LabelsController < ApplicationController
 
   def update
     label=Label.find(params[:label_id])
-    label.nombre=params[:nombre]
+    label.nombre=params[:nombre].capitalize
     label.save
     redirect_to labels_index_path
   end

@@ -23,7 +23,7 @@ function Mostrar(label_id)
     <form form class="" action="/labels/update" id="formUpdate<%=etiqueta.id%>" method="get" style="display:none;margin-top:10px">
       <div class="form-group">
         <label for="nombre">Nuevo Nombre:</label>
-        <input type="text"  name="nombre" id="nombre" required>
+        <input type="text"  name="nombre" id="nombre" required style="text-transform: capitalize">
         <button class="btn  btn-primary" type="submit" >Modificar Etiqueta</button>
         <input type="hidden" class="form-control" name="label_id" id="label_id" value=<%=etiqueta.id%>>
       </div>
@@ -36,7 +36,7 @@ function Mostrar(label_id)
         <form class="form-inline" action="/labels/create" method="post">
           <div class="form-group">
            <label for="nombre">Nombre:</label>
-           <input type="text" class="form-control" name="nombre" id="nombre">
+           <input type="text" class="form-control" name="nombre" id="nombre" style="text-transform: capitalize" pattern="[A-Za-z0-9]+" title="Solo letras y Numeros">
            <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-top: 20px;">Crear Etiqueta</button>
           </div>
 
