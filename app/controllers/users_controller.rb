@@ -82,7 +82,7 @@ class UsersController < ApplicationController
         guardados = guardados + 1
       end
     end
-    if params[:facultad_id] != "-" && Faculty.all.where(id:params[:facultad_id]).count != 0
+    if params[:facultad_id] != "-"
       user.faculty_id = params[:facultad_id]
       if user.save == false
         flash[:message] = "Fallo al actualizar facultad"
