@@ -17,8 +17,7 @@ class CowsController < ApplicationController
       if voto.save
       	flash[:message]="Voto con exito"
         usuarioPunto= User.find(AnswerComment.find(answer_comment_id).user_id)
-        usuarioPunto.puntos=usuarioPunto.puntos+modificacionPuntuacion
-        usuarioPunto.save
+        render 'actualizarpuntosynivel'
       else
       	flash[:message]="Error en el voto"
   	  end

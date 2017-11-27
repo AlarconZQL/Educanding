@@ -15,11 +15,7 @@
     <% nro = 0 %>
     <div class="well">
       Nombre : <%= @user.nombre  %>
-
-
       <button id="editbutton<%= nro %>" style="margin-left: 2%; visibility:hidden " type="button" class="btn" onclick="mostrarCampo(<%= nro%>)">Editar</button>
-
-
       <input type="text"  name="nombre" id="campo<%= nro %>" style="visibility:hidden">
       <% nro = nro + 1 %>
     </div>
@@ -29,7 +25,7 @@
       <input type="text"  name="apellido" id="campo<%= nro %>" style="visibility:hidden">
       <% nro = nro + 1 %>
     </div>
-    <div class="well">
+    <div class="well" >
       Mail : <%= @user.mail  %>
       <button id="editbutton<%= nro %>" style="margin-left: 2%; visibility:hidden " type="button" class="btn" onclick="mostrarCampo(<%= nro%>)">Editar</button>
       <input type="email"  name="email" id="campo<%= nro %>" style="visibility:hidden">
@@ -55,20 +51,37 @@
       </div>
     </div>
     <div class="well">
-      Puntos : <%= @user.puntos  %>
+      Puntos : <span class="badge"><%= @user.puntos  %></span>
     </div>
     <div class="well">
       Nivel : <%= @niveles.find(@user.level_id).nombre  %>
     </div>
 
     <% if @user.id == @userPerfil.id %>
-      <button id="startbutton" style="margin-left: 2%" type="button" class="btn" onclick="mostrarBotones(<%=nro%>)">Editar mi perfil</button>
+      <button id="startbutton" type="button" class="btn" onclick="mostrarBotones(<%=nro%>)">Editar mi perfil</button>
     <% end %>
 
     <input type="hidden" class="form-control" name="user_id" id="user_id" value=<%=@user.id%>>
     <button id="confirmbutton" style="margin-left: 2%; visibility:hidden" type="submit" class="btn btn-primary">Enviar cambios</button>
     <button id="cancelbutton" style="margin-left: 2%; visibility:hidden" type="button" class="btn btn-danger" onclick="cancelarEdicion(<%=nro%>)">Cancelar</button>
+
   </form>
+  <% if @user.id == @userPerfil.id %>
+    <button id="passbutton" style="margin-top: 1%" type="button" class="btn" onclick="mostrarContrasena()">Cambiar contrasena</button>
+  <%end%>
+  <form class="form-inline" action="/users/update" method="get">
+    <div class="well" style="display:none; margin-top: 1%" id="passWell">
+      <div style="visibility:hidden" id="passForm">
+        <input type="text" name="nombre" style="display:none">
+        <input type="text" name="apellido" style="display:none">
+        <input type="email" name="email" style="display:none">
+        <input type="password" name="pass" id="pass" placeholder="Nueva contrasena" required>
+        <input type="password" name="passconfirm" id="passconfirm" placeholder="Repita la contrasena" required>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </form>
+
   <div class="well" style="margin-top: 2%">
     Preguntas realizadas : <br>
   </div>
@@ -90,6 +103,7 @@
     }
     document.getElementById("confirmbutton").style.visibility = 'visible'
     document.getElementById("cancelbutton").style.visibility = 'visible'
+    document.getElementById("passbutton").style.visibility = 'visible'
     document.getElementById("startbutton").style.visibility = 'hidden'
   }
   function mostrarCampo (nro) {
@@ -110,7 +124,6 @@
     }
     limpiarCampos()
   }
-
   function limpiarCampos () {
     document.getElementById("confirmbutton").style.visibility = 'hidden'
     document.getElementById("cancelbutton").style.visibility = 'hidden'
@@ -119,6 +132,14 @@
     document.getElementById("campo1").value = ""
     document.getElementById("campo2").value = ""
     document.getElementById("facultad_id").selectedIndex = 0
+  }
+  function mostrarContrasena () {
+    if (document.getElementById("passWell").style.display == 'none')
+      document.getElementById("passWell").style.display = 'block'
+    else
+      document.getElementById("passWell").style.display = 'none'
+    document.getElementById("passForm").style.visibility = 'visible'
+
   }
 
 </script>

@@ -10,7 +10,7 @@
  <%end%>
 <h5 class="mb-1 text-center"><%= @comentario.contenido %></h5>
 <%= link_to users_show_path(@comentario.user_id) do %>
-<medium> <%= @users.find(@comentario.user_id).nombre%> <%= @users.find(@comentario.user_id).apellido%><br></medium>
+  <kbd> <%= @users.find(@comentario.user_id).nombre%> <%= @users.find(@comentario.user_id).apellido%><br></kbd>
 <%end%>
 <small> <%= @comentario.created_at.strftime("%d/%m/%Y %H:%M:%S")%><br></small>
 <small>Valoracion: <%= valoracion%><br><br></small>

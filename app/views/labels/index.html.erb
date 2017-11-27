@@ -1,3 +1,4 @@
+<%flash[:auxVerPerfil] = nil%>
 <ul class="list-group">
 <script type="text/javascript">
 function Mostrar(label_id)
@@ -26,7 +27,7 @@ function Mostrar(label_id)
         <button class="btn  btn-primary" type="submit" >Modificar Etiqueta</button>
         <input type="hidden" class="form-control" name="label_id" id="label_id" value=<%=etiqueta.id%>>
       </div>
-      </form> 
+    </form>
     </li>
   <%end%>
   <%end%>

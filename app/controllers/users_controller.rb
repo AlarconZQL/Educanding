@@ -43,7 +43,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    
+    flash[:auxVerPerfil] = "1"
     if params[:format]!=nil
       @user = User.find(params[:format])
     else
@@ -61,7 +61,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = User.find(params[:user_id])
+    user = User.find(session[:user_id])
     exito_guardar = true
     guardados = 0
     if params[:nombre] != ""
@@ -105,6 +105,20 @@ class UsersController < ApplicationController
         exito_guardar = false
       end
     end
+    if params[:pass] != "" && params[:passconfirm] != ""
+      if params[:pass] == params[:passconfirm]
+        user.pass = params[:pass]
+        if user.save
+          flash[:message] = "Su contrasena ha sido modificada con exito!"
+        else
+          flash[:message] = user.errors
+          #flash[:message] = "Fallo al cambiar su contrasena"
+        end
+      else
+        flash[:message] = "Las contrasenas no coinciden"
+      end
+    end
+
     if guardados > 0
       flash[:message] = "Sus datos se han modificado con exito!"
     end

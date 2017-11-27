@@ -1,5 +1,6 @@
 <%= render 'filtro' %>
 
+<%flash[:auxVerPerfil] = nil%>
 <div class="row" style="padding-left: 10%;padding-right: 10%;margin-top: 25px;padding-top: 2%;">
   <div class="list-group" style="overflow: auto;width: 70%;margin:auto">
   <% if flash[:message] != nil %>
@@ -13,7 +14,24 @@
           <%flash[:message]=nil%>
           </div>
     <% end %>
-
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <% @questions.order(created_at: :DESC).each do |question| %>
     <% @question=question %>
     <%= render 'question'  %>
