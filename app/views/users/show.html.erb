@@ -35,7 +35,7 @@
       <%if @user.faculty_id !=0%>
         Facultad : <%= @facultades.find(@user.faculty_id).nombre  %>
       <%else%>
-        Facultad : Ninguna  %>
+        Facultad : Ninguna  
       <%end%>
       <button id="editbutton<%= nro %>" style="margin-left: 2%; visibility:hidden " type="button" class="btn" onclick="mostrarCampo(<%= nro%>)">Editar</button>
       <div class="form-group" id="campo<%= nro %>" style="visibility:hidden">
