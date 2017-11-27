@@ -8,9 +8,10 @@ class LevelsController < ApplicationController
   def create
 
     if params[:nombre]!="" && params[:puntos]!=nil#si no esta vacio
+      nombreFormato=params[:nombre].capitalize
       if params[:puntos].to_i >= 0
-        if Level.where(nombre:params[:nombre]).count==0 && Level.where(puntos:params[:puntos]).count==0 #Si no existe el nivel
-          level=Level.new(nombre: params[:nombre],puntos: params[:puntos],activo: true)
+        if Level.where(nombre:nombreFormato).count==0 && Level.where(puntos:params[:puntos]).count==0 #Si no existe el nivel
+          level=Level.new(nombre: nombreFormato,puntos: params[:puntos],activo: true)
           if level.save#si se puede guardar
             actualizarpuntosynivel
             redirect_to levels_index_path

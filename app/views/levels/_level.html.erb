@@ -32,7 +32,7 @@
           <input type="hidden" class="form-control" name="level_id" id="level_id" value=<%=@level.id%> >
 
           <label for="nombre">Nuevo Nombre:</label>
-          <input type="text"  name="nombre" id="nombre" style="margin-bottom:10px" required>
+          <input type="text"  name="nombre" id="nombre" required style="text-transform: capitalize;margin-bottom:10px" pattern="[A-Za-z0-9]+" title="Solo letras y Numeros">
 
           <label for="puntos">Nuevo Puntaje:</label>
           <input type="number"  name="puntos" id="puntos" style="margin-bottom:10px" required >

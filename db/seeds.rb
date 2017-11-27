@@ -39,8 +39,8 @@ puts "Fin creacion de facultades. #{Faculty.count} facultades"
 
 puts "Inicio creacion de usuarios"
 usuario1=User.find_or_create_by!(nombre:"Juan", apellido:"Perez", mail:"jp@hotmail.com", puntos:0, pass:"123456", faculty_id:facu2.id, level_id:nivel1.id,activo:true,admin:false)
-usuario2=User.find_or_create_by!(nombre:"Maria", apellido:"Gomez", mail:"mg@hotmail.com", puntos:0, pass:"123456", faculty_id:facu1.id, level_id:nivel3.id,activo:true,admin:false)
-usuario3=User.find_or_create_by!(nombre:"Pablo", apellido:"Neruda", mail:"pn@hotmail.com", puntos:0, pass:"123456",faculty_id:0, level_id:nivel2.id,activo:true,admin:false)
+usuario2=User.find_or_create_by!(nombre:"Maria", apellido:"Gomez", mail:"mg@hotmail.com", puntos:1000, pass:"123456", faculty_id:facu1.id, level_id:nivel3.id,activo:true,admin:false)
+usuario3=User.find_or_create_by!(nombre:"Pablo", apellido:"Neruda", mail:"pn@hotmail.com", puntos:100, pass:"123456",faculty_id:0, level_id:nivel2.id,activo:true,admin:false)
 User.find_or_create_by(nombre:"Admin",apellido:"Istrador",mail:"admin@hotmail.com",puntos:10000,pass:"admin",faculty_id:0,level_id:nivel4.id,activo:true,admin:true)
 puts "Fin creacion de usuarios. #{User.count} usuarios"
 
