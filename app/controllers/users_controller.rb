@@ -50,7 +50,11 @@ class UsersController < ApplicationController
       @user = User.find(session[:user_id])
     end
 
-    @userPerfil = User.find(session[:user_id])
+    if session[:user_id]!=0
+      @userPerfil = User.find(session[:user_id])
+    else
+      @userPerfil = User.new(id: 0)
+    end
 
     @preguntas = Question.all.where(user_id: @user.id)
     @answers = Answer.all
