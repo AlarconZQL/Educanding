@@ -61,6 +61,7 @@ function probando() {
       <div class="form-group" style="margin-right: 25px;" data-pg-collapsed>
             <label class="control-label" for="facultad" style="margin-right: 5px;" >Facultad</label>
             <select id="facultad"  name="facultad" class="form-control" style="width:125px;">
+            <%@users=User.all%>
               <%if @users.find(session[:user_id]).faculty_id == 0%>
                 <% @faculties.order(:nombre).each do |facultad| %>
                    <option value=<%=facultad.id%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>

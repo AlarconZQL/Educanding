@@ -97,10 +97,8 @@ class QuestionsController < ApplicationController
       flash[:message] = "Debe seleccionar entre 1 y 5 etiquetas"
     end
 
-     @labels = Label.all
-
     if flash[:message] != "Pregunta Creada"
-      render :new
+      redirect_to new_question_path   
     else
       redirect_to root_path
     end

@@ -11,13 +11,22 @@ class LabelsController < ApplicationController
            redirect_to labels_index_path
          else#Si no se guardo, sale el error
            #este es un mensaje que se guarda en la variable global flash
-           flash[:message] = "No se pudo crear la cuenta"
+           flash[:message] = "No se pudo crear la etiqueta"
            redirect_to labels_index_path
          end
        else#Si la etiqueta existe
+        if Label.where(nombre:params[:nombre]).first.activo==true
          #este es un mensaje que se guarda en la variable global flash
          flash[:message] = "La etiqueta ya existe"
          redirect_to labels_index_path
+        else
+          etiqueta=Label.where(nombre:params[:nombre]).first
+          etiqueta.activo = true
+          if !etiqueta.save#Si no se guardo, sale el error
+           flash[:message] = "No se pudo crear la etiqueta"
+          end
+          redirect_to labels_index_path
+        end
        end
     end
   end

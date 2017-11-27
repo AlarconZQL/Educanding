@@ -12,6 +12,8 @@
   <%end%>
 
   <form class="form-inline" action="/users/update" method="get">
+    <input type="password" name="pass" id="pass" style="display: none">
+    <input type="password" name="passconfirm" id="passconfirm" style="display: none">
     <% nro = 0 %>
     <div class="well">
       Nombre : <%= @user.nombre  %>
