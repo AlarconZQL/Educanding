@@ -56,9 +56,21 @@
                   <div class="form-group" style="margin-right: 25px;" data-pg-collapsed>
                     <label class="control-label" for="etiqueta" style="margin-right: 5px;">Etiquetas</label>
                     <select id="etiqueta"  name="etiqueta" class="form-control" style="width:125px;">
-                        <option value=0>Todas</option>
+                        <option value=0 selected>Todas</option>
                         <% @labels.order(:nombre).each do |etiqueta| %>
-                            <option><%= etiqueta.nombre%></option>
+                          <%if $recargar[:etiqueta]!=nil%><!-- Se mando a buscar -->
+                            <%if $recargar[:etiqueta]!="0"%><!-- La busqueda no es Todas -->
+                              <%if $recargar[:etiqueta]=="#{etiqueta.id}"%><!-- La etiqueta coincide con la etiqueta buscada -->
+                                <option value=<%=etiqueta.id%> selected><%=etiqueta.nombre%></option>
+                              <%else%>
+                                <option value=<%=etiqueta.id%>> <%=etiqueta.nombre%></option>
+                              <%end%>
+                            <%else%><!-- La busqueda es Todas -->
+                              <option value=<%=etiqueta.id%>> <%=etiqueta.nombre%></option>
+                            <%end%>
+                          <%else%><!-- No se mando a buscar -->
+                            <option value=<%=etiqueta.id%>> <%=etiqueta.nombre%></option>
+                          <%end%>                                                      
                         <% end %>
                     </select>
                   </div>
