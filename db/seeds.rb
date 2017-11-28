@@ -22,7 +22,7 @@ puts "Inicio creacion de niveles"
 nivel1=Level.find_or_create_by!(nombre:"Iniciado",puntos:0,activo:true)
 nivel2=Level.find_or_create_by!(nombre:"Experimentado",puntos:100,activo:true)
 nivel3=Level.find_or_create_by!(nombre:"Moderador",puntos:1000,activo:true)
-nivel4=Level.find_or_create_by!(nombre:"Super Administrador",puntos:5000,activo:true)
+nivel4=Level.find_or_create_by!(nombre:"Superadministrador",puntos:5000,activo:true)
 puts "Fin creacion de niveles. #{Level.count} niveles"
 
 puts "Inicio creacion de direcciones"

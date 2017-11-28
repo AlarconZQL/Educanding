@@ -37,30 +37,29 @@ class LevelsController < ApplicationController
     redirect_to levels_index_path
     end
 
-
-
-    end
+  end
 
 
     def update
       level=Level.find(params[:level_id])
-      level.nombre=params[:nombre]
+      level.nombre=params[:nombre].capitalize
       level.puntos=params[:puntos]
       if level.puntos >= 0
-        if Level.where(nombre:params[:nombre]).count==0 && Level.where(puntos:params[:puntos]).count==0 #Si no existe el nivel
-          level.save
-          actualizarpuntosynivel
-          flash[:message] = "El nivel se actualizo"
-        else   #Si el nivel  existe
-          #este es un mensaje que se guarda en la variable global flash
-          flash[:message] = "El nivel ya existe"
+        if Level.where(nombre:params[:nombre]).count==0 || Level.where(nombre:params[:nombre]).first.id==level.id #Si no existe el nombre, o es el nivel que se quiere moodificar
+          if Level.where(puntos:params[:puntos]).count==0 || Level.where(puntos:params[:puntos]).first.id==level.id #Si no existe el puntaje, o es el nivel que se quiere moodificar
+            level.save
+            actualizarpuntosynivel
+            flash[:message] = "El nivel se actualizo"
+          else   #Si el puntaje existe          
+             flash[:message] = "El puntaje ya existe"
+          end
+        else #Si el nivel existe
+            flash[:message] = "El nivel ya existe"
         end
       else   #Si el nivel  existe
         #este es un mensaje que se guarda en la variable global flash
         flash[:message] = "Los puntos del nivel deben ser positivos"
       end
-
-
       redirect_to levels_index_path
     end
 
@@ -77,11 +76,11 @@ class LevelsController < ApplicationController
 
     def actualizarpuntosynivel
 
-    niveles = Level.all.where(activo: true).order(created_at: :DESC) # ordena los niveles de mayor a menor puntuacion en un arreglo
+    niveles = Level.all.where(activo: true).order(puntos: :DESC) # ordena los niveles de mayor a menor puntuacion en un arreglo
 
     User.all.each do |user|
       i = 0
-      while user.puntos < niveles[i].puntos && i<niveles.size do # avanzo a un nivel de menor rango siempre que mis puntos sean menores que los del actual
+      while i<niveles.size && user.puntos < niveles[i].puntos do # avanzo a un nivel de menor rango siempre que mis puntos sean menores que los del actual
          i = i+1
       end # al salir del lazo 'i' me indica la posicion del nivel que me corresponda en el arreglo
       if user.level_id != niveles[i].id # actualizo el nivel si es distinto de mi nivel actual

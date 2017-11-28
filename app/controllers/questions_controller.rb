@@ -120,8 +120,6 @@ class QuestionsController < ApplicationController
       end
     end
 
-
-
     if params.has_key?(:facultad) # Si se clickeo el boton Buscar
       if params[:facultad] != "0" # Si la facultad elegida no es todas
                   if params.has_key?(:busqueda)# Si ingreso algo a buscar, dentro de una facultad
@@ -137,7 +135,29 @@ class QuestionsController < ApplicationController
                     result = Question.all
                   end
       end
+
+      if params[:etiqueta]!="0" # Si la etiqueta elegida no es todas
+        aux =[]
+        i =0
+        preguntasEtiqueta=QuestionLabel.all.where(label_id: params[:etiqueta])
+        preguntasEtiqueta.each do |preg|
+          result.each do |res|
+            if res.id==preg.question_id
+              aux[i]=res
+              i =i+1
+            end
+          end
+        end
+        result=aux
+      else #Si es todas, dejo la busqueda como esta
+        result=result
+      end
+
     end
+
+
+
+
 
     if result.count == 0
       flash[:message] = "No se han encontrado resultados para su busqueda"

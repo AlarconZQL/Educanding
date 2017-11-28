@@ -19,13 +19,13 @@ function Mostrar(level_id)
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <div class="w3-panel w3-blue w3-display-container" style="margin-top: 50px;">
       <span onclick="this.parentElement.style.display='none'"class="w3-button w3-blue w3-large w3-display-topright">&times;</span>
-      <h4>Atención!</h4>
+      <h4  class="mb-1 text-center">Atención!</h4>
       <br>
       <p><%= flash[:message] %></p>
       <%flash[:message]=nil%>
     </div>
   <% end %>
-  
+
   <ul class="list-group" style="">
 
     <%@levels.order(:puntos).each do |level|%>
@@ -50,7 +50,6 @@ function Mostrar(level_id)
             <label for="puntos">Puntos</label>
             <input type="number" class="form-control" name="puntos" id="puntos" style="margin:10px" required>
             <input class="btn btn-lg btn-primary btn-block" type="submit" style="margin-top: 20px;" value ="Crear Nivel">
-
 
           </form>
 
