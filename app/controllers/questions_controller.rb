@@ -166,7 +166,7 @@ class QuestionsController < ApplicationController
 
   def edit
     @user = User.find(session[:user_id])
-    @question = Question.all.where(user_id: session[:user_id]).first
+    @question = Question.find(params[:id])
     @labels = Label.all
     @faculties = Faculty.all
     @directions = Direction.all
