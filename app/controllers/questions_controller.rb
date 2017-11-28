@@ -66,44 +66,43 @@ class QuestionsController < ApplicationController
     etiquetas = params[:etiqueta]
     descripcion = params[:descripcion]
 
-    if params[:question_id] == 0
-    if etiquetas != nil
-      if etiquetas.size >= 1 && etiquetas.size <= 5
-        if params[:pregunta]!=""
-          pregunta=Question.new(num_visitas:0, contenido:params[:pregunta], desc:descripcion, user_id: session[:user_id], faculty_id: params[:facultad])
-          #hay que guardar la pregunta
-          if pregunta.save
-             for i in (0..etiquetas.size-1)
-              etiquetasPregunta=QuestionLabel.new(question_id:pregunta.id,label_id:etiquetas[i])
-              if !etiquetasPregunta.save
-                 break
-              end
-              end
-              if i !=etiquetas.size-1
-                pregunta.destroy
-                flash[:message] = "Error no se creo la pregunta"
-              else
-             flash[:message] = "Pregunta Creada"
-             $recargar=nil
-           end
+    if params[:question_id] == "0"
+      if etiquetas != nil
+        if etiquetas.size >= 1 && etiquetas.size <= 5
+          if params[:pregunta]!=""
+            pregunta=Question.new(num_visitas:0, contenido:params[:pregunta], desc:descripcion, user_id: session[:user_id], faculty_id: params[:facultad])
+            #hay que guardar la pregunta
+            if pregunta.save
+               for i in (0..etiquetas.size-1)
+                etiquetasPregunta=QuestionLabel.new(question_id:pregunta.id,label_id:etiquetas[i])
+                if !etiquetasPregunta.save
+                   break
+                end
+                end
+                if i !=etiquetas.size-1
+                  pregunta.destroy
+                  flash[:message] = "Error no se creo la pregunta"
+                else
+               flash[:message] = "Pregunta Creada"
+               $recargar=nil
+             end
+            else
+               flash[:message] = "Error no se creo la pregunta"
+            end
           else
-             flash[:message] = "Error no se creo la pregunta"
+            flash[:message] = "Debe ingresar una pregunta"
           end
         else
-          flash[:message] = "Debe ingresar una pregunta"
+          flash[:message] = "Debe seleccionar entre 1 y 5 etiquetas"
         end
       else
         flash[:message] = "Debe seleccionar entre 1 y 5 etiquetas"
       end
-    else
-      flash[:message] = "Debe seleccionar entre 1 y 5 etiquetas"
-    end
-
-    if flash[:message] != "Pregunta Creada"
-      redirect_to new_question_path
-    else
-      redirect_to root_path
-    end
+      if flash[:message] != "Pregunta Creada"
+        redirect_to new_question_path
+      else
+        redirect_to root_path
+      end
     else
       update
     end
@@ -227,7 +226,7 @@ class QuestionsController < ApplicationController
         l.save
       end
       @question.save
-      pregunta.destroy      
+      pregunta.destroy
       redirect_to root_path
     end
   end
