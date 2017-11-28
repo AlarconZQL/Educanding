@@ -1,0 +1,75 @@
+<div class="container" style="margin-top:100px">
+  <form method="post" action="/questions/create" style="padding:50px">
+        <input type="hidden" id="question_id" name="question_id" value="<%=@question.id%>">
+        <% if flash[:message] != nil %>
+
+          <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+          <div class="w3-panel w3-blue w3-display-container" style="margin-top: 50px;width:40%">
+          <span onclick="this.parentElement.style.display='none'"class="w3-button w3-blue w3-large w3-display-topright">&times;</span>
+          <h4 class="mb-1 text-center">Atención!</h4>
+          <br>
+          <p><%= flash[:message] %></p>
+          <script type="text/javascript"><!-- Scrip que al terminar de cargar la pagina, carga los valores de la anterior -->
+            window.onload = function()
+            {
+                document.getElementById("pregunta").value = "<%=$recargar[:pregunta]%>";
+                document.getElementById("descripcion").value = "<%=$recargar[:descripcion]%>";               
+
+            }
+           </script>
+           <%$recargar=nil%>
+          <%flash[:message]=nil%>
+          </div>
+
+        <% end %>
+
+      <div class="form-group" >
+        <label for="pregunta" class="control-label">Modifique su pregunta</label>
+        <input type="text" id="pregunta" name="pregunta" class="form-control" style="width:50%;height:75px;margin-top:10px" value="<%=@question.contenido%>">
+      </div>
+      <div class="form-group" >
+        <label for="descripcion" class="control-label">Modifique la descripcion</label>
+        <input type="text" id="descripcion" name="descripcion" class="form-control" style="width:50%;height:75px;margin-top:10px" value="<%=@question.desc%>" >
+      </div>
+      <label for="divEtiquetas" class="control-label" style="margin-top:30px;">Modifique etiquetas</label>
+      <div id="divEtiquetas" class="form-group" style="margin-top:25px;height:200px;width:30%;overflow:auto">
+          <% @labels.order(:nombre).each do |label| %>
+              <%if label.activo == true %>
+                <% preguntasAsociadas = @question_labels.where(label_id: label.id)%>
+                <div class="[ form-group ]">
+                  <% if preguntasAsociadas.where(question_id: @question.id).count != 0 %>
+                    <input type="checkbox" name="etiqueta[]" id="etiqueta<%=label.id%>" checked value= <%=label.id%> />
+                  <%else%>
+                    <input type="checkbox" name="etiqueta[]" id="etiqueta<%=label.id%>" value= <%=label.id%> />
+                  <%end%>
+                    <div class="[ btn-group ]">
+                        <label for="etiqueta<%=label.id%>" class="[ btn btn-primary ]">
+                            <span class="[ glyphicon glyphicon-plus ]"></span>
+                            <span class="[ glyphicon glyphicon-minus ]"></span>
+                        </label>
+                        <label for="etiqueta<%=label.id%>" class="[ btn btn-default active ]">
+                          <%=label.nombre%>
+                        </label>
+                    </div>
+                </div>
+              <%end%>
+          <%end%>
+      </div>
+      <% if @user.faculty_id == 0 %>
+        <div class="form-group" style="margin-right: 25px;" data-pg-collapsed>
+              <label class="control-label" for="facultad" style="margin-right: 5px;" >Modifique facultad</label>
+              <select id="facultad"  name="facultad" class="form-control" style="width:125px">
+                <%if @user.faculty_id == 0%>
+                  <% @faculties.order(:nombre).each do |facultad| %>
+                     <% if facultad.id == @question.faculty_id %>
+                      <option selected value=<%=facultad.id%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                     <%end%>
+                     <option value=<%=facultad.id%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
+                    <%end%>
+                <%end%>
+              </select>
+        </div>
+      <% end %>
+      <button class="btn btn-primary"  type="submit" style="margin-top: 20px;">Guardar cambios</button>
+  </form>
+</div>
