@@ -136,7 +136,7 @@ class QuestionsController < ApplicationController
       end
 
       if params[:etiqueta]!="0" # Si la etiqueta elegida no es todas
-        aux =[]
+        aux = []
         i =0
         preguntasEtiqueta=QuestionLabel.all.where(label_id: params[:etiqueta])
         preguntasEtiqueta.each do |preg|
