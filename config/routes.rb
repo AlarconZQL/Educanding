@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'levels/delete'
   get 'levels/update'
 
-  
+
 
   resources :questions
   get 'users/index'
@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   get 'questions/index'
   post 'questions/create'
+  get 'questions/update'
 
   get 'questions/show'
   get 'users/show'

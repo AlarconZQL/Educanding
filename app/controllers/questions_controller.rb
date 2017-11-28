@@ -65,6 +65,8 @@ class QuestionsController < ApplicationController
     $recargar=params#Si llega a fallar, en $recargar, queda todos los parametros del formulario, para el rellenado
     etiquetas = params[:etiqueta]
     descripcion = params[:descripcion]
+
+    if params[:question_id] == 0
     if etiquetas != nil
       if etiquetas.size >= 1 && etiquetas.size <= 5
         if params[:pregunta]!=""
@@ -98,9 +100,12 @@ class QuestionsController < ApplicationController
     end
 
     if flash[:message] != "Pregunta Creada"
-      redirect_to new_question_path   
+      redirect_to new_question_path
     else
       redirect_to root_path
+    end
+    else
+      update
     end
 
   end
@@ -122,7 +127,7 @@ class QuestionsController < ApplicationController
                   if params.has_key?(:busqueda)# Si ingreso algo a buscar, dentro de una facultad
                     result = Question.all.where("contenido LIKE '%#{params[:busqueda]}%'") # si se esta buscando algo se filtra en base a eso
                     result=result.where(faculty_id: params[:facultad])
-                   else # Mostrar todas las preguntas de una facultad 
+                   else # Mostrar todas las preguntas de una facultad
                     result = Question.all.where(faculty_id: params[:facultad])
                   end
       else
@@ -140,4 +145,70 @@ class QuestionsController < ApplicationController
     result.order(created_at: :desc) # se ordenan las preguntas a mostrar por fecha de creacion de mas reciente a mas antigua
   end
 
+  def edit
+    @user = User.find(session[:user_id])
+    @question = Question.all.where(user_id: session[:user_id]).first
+    @labels = Label.all
+    @faculties = Faculty.all
+    @directions = Direction.all
+    @question_labels = QuestionLabel.all
+  end
+
+  def update
+    $recargar=params#Si llega a fallar, en $recargar, queda todos los parametros del formulario, para el rellenado
+    etiquetas = params[:etiqueta]
+    descripcion = params[:descripcion]
+    @user = User.find(session[:user_id])
+    @question = Question.all.where(user_id: session[:user_id]).first
+
+    if etiquetas != nil
+      if etiquetas.size >= 1 && etiquetas.size <= 5
+        if params[:pregunta]!=""
+          pregunta=Question.new(num_visitas:0, contenido:params[:pregunta], desc:descripcion, user_id: session[:user_id], faculty_id: params[:facultad])
+          #hay que guardar la pregunta
+          if pregunta.save
+             for i in (0..etiquetas.size-1)
+              etiquetasPregunta=QuestionLabel.new(question_id:pregunta.id,label_id:etiquetas[i])
+              if !etiquetasPregunta.save
+                 break
+              end
+              end
+              if i !=etiquetas.size-1
+                pregunta.destroy
+                flash[:message] = "Error no se modifico la pregunta"
+              else
+             flash[:message] = "Pregunta Modificada"
+             $recargar=nil
+           end
+          else
+             flash[:message] = "Error no se modifico la pregunta"
+          end
+        else
+          flash[:message] = "Debe ingresar una pregunta"
+        end
+      else
+        flash[:message] = "Debe seleccionar entre 1 y 5 etiquetas"
+      end
+    else
+      flash[:message] = "Debe seleccionar entre 1 y 5 etiquetas"
+    end
+
+    if flash[:message] != "Pregunta Modificada"
+      redirect_to "/questions/#{@question.id}/edit"
+    else
+      @question.contenido = pregunta.contenido
+      @question.desc = pregunta.desc
+      @question.faculty_id = pregunta.faculty_id
+      QuestionLabel.where(question_id: @question.id).each do |l|
+        l.destroy
+      end
+      QuestionLabel.where(question_id: pregunta.id).each do |l|
+        l.question_id = @question.id
+        l.save
+      end
+      @question.save
+      pregunta.destroy      
+      redirect_to root_path
+    end
+  end
 end
