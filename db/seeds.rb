@@ -19,9 +19,13 @@ etiqueta6=Label.find_or_create_by!(nombre:"Geologia",activo:true)
 puts "Fin creacion de etiquetas. #{Label.count} etiquetas"
 
 puts "Inicio creacion de niveles"
-nivel1=Level.find_or_create_by!(nombre:"Iniciado",puntos:0,activo:true)
-nivel2=Level.find_or_create_by!(nombre:"Experimentado",puntos:100,activo:true)
-nivel3=Level.find_or_create_by!(nombre:"Moderador",puntos:1000,activo:true)
+nivel1=Level.find_or_create_by!(nombre:"Iniciado",puntos:1,activo:true)
+Level.find_or_create_by!(nombre:"Votadorpositivo",puntos:15,activo:true)
+Level.find_or_create_by!(nombre:"Comentador",puntos:20,activo:true)
+nivel2=Level.find_or_create_by!(nombre:"Votadornegativo",puntos:100,activo:true)
+Level.find_or_create_by!(nombre:"Administradoretiqueta",puntos:300,activo:true)
+Level.find_or_create_by!(nombre:"Administradorfacultad",puntos:500,activo:true)
+nivel3=Level.find_or_create_by!(nombre:"Modificador",puntos:1000,activo:true)
 nivel4=Level.find_or_create_by!(nombre:"Superadministrador",puntos:5000,activo:true)
 puts "Fin creacion de niveles. #{Level.count} niveles"
 
@@ -38,7 +42,7 @@ facu3=Faculty.find_or_create_by!(nombre:"Humanidades", direction_id:dire1.id,act
 puts "Fin creacion de facultades. #{Faculty.count} facultades"
 
 puts "Inicio creacion de usuarios"
-usuario1=User.find_or_create_by!(nombre:"Juan", apellido:"Perez", mail:"jp@hotmail.com", puntos:0, pass:"123456", faculty_id:facu2.id, level_id:nivel1.id,activo:true,admin:false)
+usuario1=User.find_or_create_by!(nombre:"Juan", apellido:"Perez", mail:"jp@hotmail.com", puntos:1, pass:"123456", faculty_id:facu2.id, level_id:nivel1.id,activo:true,admin:false)
 usuario2=User.find_or_create_by!(nombre:"Maria", apellido:"Gomez", mail:"mg@hotmail.com", puntos:1000, pass:"123456", faculty_id:facu1.id, level_id:nivel3.id,activo:true,admin:false)
 usuario3=User.find_or_create_by!(nombre:"Pablo", apellido:"Neruda", mail:"pn@hotmail.com", puntos:100, pass:"123456",faculty_id:0, level_id:nivel2.id,activo:true,admin:false)
 User.find_or_create_by(nombre:"Admin",apellido:"Istrador",mail:"admin@hotmail.com",puntos:10000,pass:"admin",faculty_id:0,level_id:nivel4.id,activo:true,admin:true)

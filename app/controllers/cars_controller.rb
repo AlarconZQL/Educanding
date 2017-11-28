@@ -6,14 +6,19 @@ class CarsController < ApplicationController
 
       if params[:votoN]=="1"
       	voto=QuestionVote.new(user_id: session[:user_id],question_id: question_id,tipo: false)
-        @modificacionPuntuacion=-1
+        @modificacionPuntuacion=-2
       end
       if params[:votoP]=="1"
       	voto=QuestionVote.new(user_id: session[:user_id],question_id: question_id,tipo: true)
-        @modificacionPuntuacion=1
+        @modificacionPuntuacion=5
       end
       if voto.save
       	flash[:message]="Voto con exito"
+        usuarioVotante=User.find(session[:user_id])
+        if usuarioVotante.puntos>1
+          usuarioVotante.puntos=usuarioVotante.puntos-1
+          usuarioVotante.save
+        end
         @usuarioPunto= User.find(Question.find(question_id).user_id)
         actualizarpuntosynivel
       else
@@ -25,7 +30,7 @@ class CarsController < ApplicationController
 
   def actualizarpuntosynivel
 
-    if @usuarioPunto.puntos+@modificacionPuntuacion >= 0
+    if @usuarioPunto.puntos+@modificacionPuntuacion > 0
       @usuarioPunto.puntos=@usuarioPunto.puntos+@modificacionPuntuacion
       if @usuarioPunto.save
         niveles = Level.all.where(activo: true).order(puntos: :DESC) # ordena los niveles de mayor a menor puntuacion en un arreglo
