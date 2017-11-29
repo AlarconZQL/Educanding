@@ -136,18 +136,11 @@ class QuestionsController < ApplicationController
       end
 
       if params[:etiqueta]!="0" # Si la etiqueta elegida no es todas
-        aux = []
-        i =0
+        #preguntasEtiqueta=QuestionLabel.joins("INNER JOIN labels ON labels.id = question_labels.label_id AND labels.id=1")
+        #El JOIN queda identico que la linea de abajo
         preguntasEtiqueta=QuestionLabel.all.where(label_id: params[:etiqueta])
-        preguntasEtiqueta.each do |preg|
-          result.each do |res|
-            if res.id==preg.question_id
-              aux[i]=res
-              i =i+1
-            end
-          end
-        end
-        result=aux
+        arregloPreguntasid=preguntasEtiqueta.select(:question_id)
+        result=result.where(id:arregloPreguntasid)
       else #Si es todas, dejo la busqueda como esta
         result=result
       end
