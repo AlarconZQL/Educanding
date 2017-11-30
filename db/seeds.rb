@@ -26,7 +26,7 @@ nivel2=Level.find_or_create_by!(nombre:"Votadornegativo",puntos:100,activo:true)
 Level.find_or_create_by!(nombre:"Administradoretiqueta",puntos:300,activo:true)
 Level.find_or_create_by!(nombre:"Administradorfacultad",puntos:500,activo:true)
 nivel3=Level.find_or_create_by!(nombre:"Modificador",puntos:1000,activo:true)
-nivel4=Level.find_or_create_by!(nombre:"Superadministrador",puntos:5000,activo:true)
+nivel4=Level.find_or_create_by!(nombre:"Administradortotal",puntos:10000,activo:true)
 puts "Fin creacion de niveles. #{Level.count} niveles"
 
 puts "Inicio creacion de direcciones"

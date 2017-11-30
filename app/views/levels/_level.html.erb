@@ -9,16 +9,18 @@
     <p><label><%= "Puntos: #{@level.puntos}" %></p>
 
     </div>
+    <%if @level.puntos > 1%>
 
-    <div class="" style="width:15%;float:left;padding:15px">
-      <button class="btn btn-warning" onclick="Mostrar(<%=@level.id%>)">Modificar</button>
-    </div>
+      <div class="" style="width:15%;float:left;padding:15px">
+        <button class="btn btn-warning" onclick="Mostrar(<%=@level.id%>)">Modificar</button>
+      </div>
 
-    <div class="" style="width:15%;float:left;padding:15px" >
-      <%= link_to levels_delete_path(@level.id) do %>
-        <button class="btn btn-danger">Eliminar</button>
-      <%end%>
-    </div>
+      <div class="" style="width:15%;float:left;padding:15px" >
+        <%= link_to levels_delete_path(@level.id) do %>
+          <button class="btn btn-danger">Eliminar</button>
+        <%end%>
+      </div>
+    <%end%>
 
 
   </div>

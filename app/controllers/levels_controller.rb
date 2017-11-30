@@ -42,23 +42,25 @@ class LevelsController < ApplicationController
 
     def update
       level=Level.find(params[:level_id])
-      level.nombre=params[:nombre].capitalize
-      level.puntos=params[:puntos]
-      if level.puntos >= 0
-        if Level.where(nombre:params[:nombre]).count==0 || Level.where(nombre:params[:nombre]).first.id==level.id #Si no existe el nombre, o es el nivel que se quiere moodificar
-          if Level.where(puntos:params[:puntos]).count==0 || Level.where(puntos:params[:puntos]).first.id==level.id #Si no existe el puntaje, o es el nivel que se quiere moodificar
-            level.save
-            actualizarpuntosynivel
-            flash[:message] = "El nivel se actualizo"
-          else   #Si el puntaje existe          
-             flash[:message] = "El puntaje ya existe"
+      if level.puntos >1#Si el nivel no es el inicial, lo edito
+        level.nombre=params[:nombre].capitalize
+        level.puntos=params[:puntos]
+        if level.puntos >= 0
+          if Level.where(nombre:params[:nombre]).count==0 || Level.where(nombre:params[:nombre]).first.id==level.id #Si no existe el nombre, o es el nivel que se quiere moodificar
+            if Level.where(puntos:params[:puntos]).count==0 || Level.where(puntos:params[:puntos]).first.id==level.id #Si no existe el puntaje, o es el nivel que se quiere moodificar
+              level.save
+              actualizarpuntosynivel
+              flash[:message] = "El nivel se actualizo"
+            else   #Si el puntaje existe          
+               flash[:message] = "El puntaje ya existe"
+            end
+          else #Si el nivel existe
+              flash[:message] = "El nivel ya existe"
           end
-        else #Si el nivel existe
-            flash[:message] = "El nivel ya existe"
+        else   #Si el nivel  existe
+          #este es un mensaje que se guarda en la variable global flash
+          flash[:message] = "Los puntos del nivel deben ser positivos"
         end
-      else   #Si el nivel  existe
-        #este es un mensaje que se guarda en la variable global flash
-        flash[:message] = "Los puntos del nivel deben ser positivos"
       end
       redirect_to levels_index_path
     end
@@ -66,9 +68,12 @@ class LevelsController < ApplicationController
     def delete
       if session[:user_id]!=0 && User.find(session[:user_id]).admin
         level=Level.find(params[:format])
-        level.activo=false
-        level.save
-        actualizarpuntosynivel
+        if level.puntos >1 #Si el nivel no es el inicial, lo borro
+          #level.activo=false #borrado logico
+          #level.save
+          level.destroy#borrado fisico
+          actualizarpuntosynivel
+        end
         redirect_to levels_index_path
       end
     end

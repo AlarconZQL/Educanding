@@ -26,7 +26,7 @@ function Mostrar(level_id)
 
   <ul class="list-group" style="">
 
-    <%@levels.order(:puntos).each do |level|%>
+    <%@levels.where(activo: true).order(:puntos).each do |level|%>
 
       <% @level=level %>
       <%= render 'level'  %>
