@@ -45,7 +45,38 @@
         </div>
 
         <!-- Visualizacion e interaccion de las respuestas -->
+        <!-- Mejor Respuesta primero, si la pregunta tiene mejor respuesta la muestro-->
+        <%if @question.mejor_respuesta !=nil %>
+          <% @resp=@answers.find(@question.mejor_respuesta) %>
+           <div  class="list-group-item list-group-item-action flex-column align-items-start active" style="margin-bottom:10px;background-color: #099e81;">
+            <div style="padding-left: 5%;padding-right: 5%;">
+              <%= render 'answerinfo'%>
+              <%= render 'answerbuttons'%>
+              <!-- Visualizacion e interaccion de comentarios a la pregunta -->
+              <div id="comen<%=@resp.id%>" style="margin-top:20px;height:200px;padding:10px;display:none;overflow:auto;background-color: #3A01DF;border-radius: 5px 10px">
+                <%if @answercomments.where(answer_id:@resp.id).count != 0%> <!-- Si la respuesta tiene comentarios -->
+                  <%@answercomments.where(answer_id:@resp.id).each do |comentario|%> <!-- Recorro todos los comentarios -->
+                    <%@comentarioR = comentario%>
+                    <%=render 'answercommentinfo'%>
+                    <%=render 'answercommentbuttons'%>
+                  <%end%>
+                <%end%>
+              </div>
+            </div>
+           </div>
+           <div id="<%=@resp.id%>" style="margin-bottom:10px;display:none;padding-left: 5%;padding-right: 5%;background-color: #3A01DF;" class="list-group-item list-group-item-action flex-column" >
+             <form action="/answers_comments/create" method="post" style="margin-top:20px;height:150px;">
+               <label style="color:white;" for="comment">Escribir Comentario:</label>
+               <input type="hidden" name="question_id" value=<%= @question.id%>>
+               <input type="hidden" name="answer_id" value=<%= @resp.id%>>
+               <input type="text" id="comentario" name="comentario"  class="form-control" style="width:50%;height:30px;" placeholder="Escriba su comentario..." required>
+               <button class="btn" type="submit" style="margin-top: 10px;">Escribir</button>
+             </form>
+           </div>
+          <%end%>
+        <!-- El resto de las respuestas, si ve que la respuesta que le toca, es la de mejor respuesta, no hace nada y sigue hacia la siguiente respuesta -->
         <% @answers.where(question_id: @question.id).each do |resp| %>
+          <%if @question.mejor_respuesta !=resp.id %>
            <% @resp=resp %>
            <div  class="list-group-item list-group-item-action flex-column align-items-start active" style="margin-bottom:10px;background-color: #099e81;">
             <div style="padding-left: 5%;padding-right: 5%;">
@@ -72,6 +103,7 @@
                <button class="btn" type="submit" style="margin-top: 10px;">Escribir</button>
              </form>
            </div>
+          <%end%>
         <%end%>
       </div>
 </div>
