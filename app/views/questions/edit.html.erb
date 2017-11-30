@@ -57,9 +57,10 @@
                   <% @faculties.order(:nombre).each do |facultad| %>
                      <% if facultad.id == @question.faculty_id %>
                       <option selected value=<%=facultad.id%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
-                     <%end%>
+                     <%else%>
                      <option value=<%=facultad.id%>><%=facultad.nombre%> - <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%></option>
-                    <%end%>
+                     <%end%>
+                  <%end%>
                 <%end%>
               </select>
         </div>
