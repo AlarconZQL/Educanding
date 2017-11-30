@@ -47,10 +47,17 @@ class LabelsController < ApplicationController
   end
   def delete
     if session[:user_id]!=0 #Falta el chequeo de nivel de usuario
-      eti=Label.find(params[:format])
-      eti.activo = false
-      eti.save
+      @eti=Label.find(params[:format])
+      @eti.activo = false
+      @eti.save
+      chekeoSinRelaciones
       redirect_to labels_index_path
+    end
+  end
+
+  def chekeoSinRelaciones
+    if QuestionLabel.all.where(label_id:@eti.id).count==0
+        @eti.destroy
     end
   end
 
