@@ -1,11 +1,12 @@
 <div style="padding:10px;background-color: #3A01DF;border-radius: 5px 10px;">
-  <%valoracion=0%>
+  <%valoracionP=0%>
+  <%valoracionN=0%>
    <%if @answercommentvotes.where(answer_comment_id:@comentarioR.id).count !=0%>
      <% @answercommentvotes.where(answer_comment_id:@comentarioR.id).each do|voto|%>
       <%if voto.tipo%>
-        <%valoracion =valoracion+1%>
+        <%valoracionP =valoracionP+1%>
       <%else%>
-        <%valoracion =valoracion-1%>
+        <%valoracionN =valoracionN+1%>
       <%end%>
      <%end%>
    <%end%>
@@ -15,5 +16,5 @@
   <%end%>
 
   <small> <%= @comentarioR.created_at.strftime("%d/%m/%Y %H:%M:%S")%><br></small>
-  <small>Valoracion: <%= valoracion%><br><br></small>
+  <small>Votos positivos: <%=valoracionP%><br>Votos negativos: <%=valoracionN%><br></small>
 </div>

@@ -53,7 +53,7 @@
   </script>
 </div>
 <form  action="#{questions_path}/#{question_id}" method="get" > <!-- Falta definir a que controller llamar -->
-  <%if @question.user_id == session[:user_id] && @resp.user_id != session[:user_id]  %>
+  <%if @question.user_id == session[:user_id]  %>
     <% if @question.mejor_respuesta == nil %>
       <input type="hidden" name="id" value=<%= @question.id%>>
       <input type="hidden" name="answer_id" value=<%= @resp.id%>>

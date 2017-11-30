@@ -3,12 +3,6 @@
         <input type="hidden" id="question_id" name="question_id" value="<%=@question.id%>">
         <% if flash[:message] != nil %>
 
-          <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-          <div class="w3-panel w3-blue w3-display-container" style="margin-top: 50px;width:40%">
-          <span onclick="this.parentElement.style.display='none'"class="w3-button w3-blue w3-large w3-display-topright">&times;</span>
-          <h4 class="mb-1 text-center">Atención!</h4>
-          <br>
-          <p><%= flash[:message] %></p>
           <script type="text/javascript"><!-- Scrip que al terminar de cargar la pagina, carga los valores de la anterior -->
             window.onload = function()
             {
@@ -17,9 +11,9 @@
 
             }
            </script>
-           <%$recargar=nil%>
-          <%flash[:message]=nil%>
-          </div>
+          <% @color="red" %>
+          <%= render '/mensaje/mensaje'  %>
+          
 
         <% end %>
 
