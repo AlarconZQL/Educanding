@@ -1,5 +1,5 @@
 
-<a href=<%="#{questions_path}/#{@question.id}"%> class="list-group-item list-group-item-action flex-column align-items-start active" style="margin-bottom:10px">
+<a href=<%="#{questions_path}/#{@question.id}"%> class="list-group-item list-group-item-action flex-column align-items-start active" style="background-color: #5a96ba;margin-bottom:10px">
   <div style="padding-left: 10%;padding-right: 10%;">
         <%valoracion=0%>
         <%if @questionvotes.where(question_id:@question.id).count !=0%>

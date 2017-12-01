@@ -16,6 +16,14 @@
           <button type="submit" class="btn btn-danger" onclick="votoNegativoPreg()">
             <span class='glyphicon glyphicon-thumbs-down'></span>
           </button>
+        <%else%>
+          <button  class="btn btn-info" disabled>
+            <%if @questionvotes.where(question_id:@question.id,user_id:session[:user_id]).first.tipo%>
+              <span>Ya votaste positivo</span>
+            <%else%>
+              <span>Ya votaste negativo</span>
+            <%end%>
+          </button>
         <%end%>
         <a type="button" class="btn btn-primary" onclick="verResponderPregunta()"> Responder Pregunta
           <span class='glyphicon glyphicon-share-alt'></span>

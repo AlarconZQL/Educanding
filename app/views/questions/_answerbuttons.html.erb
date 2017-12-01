@@ -14,6 +14,14 @@
           <button type="submit" class="btn btn-danger" onclick="votoNegativo_A(<%=@resp.id%>)">
             <span class='glyphicon glyphicon-thumbs-down'></span>
           </button>
+      <%else%>
+          <button  class="btn btn-info" disabled>
+            <%if @answervotes.where(answer_id:@resp.id,user_id:session[:user_id]).first.tipo%>
+              <span>Ya votaste positivo</span>
+            <%else%>
+              <span>Ya votaste negativo</span>
+            <%end%>
+          </button>
       <%end%>
 
       <a type="button" class="btn btn-success" onclick='verEscribirComentarioResp(<%=@resp.id%>)'> Escribir Comentario
