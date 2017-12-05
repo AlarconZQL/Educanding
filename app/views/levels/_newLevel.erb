@@ -1,0 +1,81 @@
+<li class="list-group-item">
+
+
+
+  <div class="form-group text-center" style="width:40%;padding:40px">
+
+    <h3 style="color:rgb(5,50,150)">Nuevo Nivel</h3>  <br>
+
+
+
+    <form class="form-inline" action="/levels/create" method="post">
+
+      <label for="nombre">Nombre:</label>
+      <input type="text" class="form-control" name="nombre" id="nombre" required style="text-transform: capitalize;margin:10px" pattern="[A-Za-z0-9]+" title="Solo letras y Numeros">
+      <br>
+
+      <label for="puntos">Puntos</label>
+      <input type="number" class="form-control" name="puntos" id="puntos" style="margin:10px" required>
+
+      <script type="text/javascript"><!-- Scrip que al terminar de cargar la pagina, carga los valores de la anterior -->
+
+        function activarMenores(idFunctionality,cantidad)
+        {
+
+          functionality = "funcionalidad" + idFunctionality;
+
+
+          if(document.getElementById(functionality).checked)
+          {
+            cantidad =  idFunctionality;
+
+          valor=true;
+          }
+          else
+          {
+            valor=false;
+
+          }
+          for (var i = 1; i <= cantidad; i++) {
+
+
+            functionality = "funcionalidad" + i;
+            document.getElementById(functionality).checked = valor
+          }
+
+
+        }
+
+       </script>
+
+  <div id="divFuncionalidades" class="form-group" style="margin-top:25px;width:80%;height:250px;overflow:auto">
+
+    <% @functionalities.each do |functionality| %>
+        <input type="checkbox" name="funcionalidades[]" id="funcionalidad<%=functionality.id%>" autocomplete="off" value="<%=functionality.id%>" onclick="activarMenores(<%=functionality.id%>,<%=@functionalities.count%>)"/>
+            <div class="btn-group" style="padding:10px;float:bottom">
+              <label for="funcionalidad<%=functionality.id%>" class="btn btn-primary">
+                  <span class="glyphicon glyphicon-plus"></span>
+                  <span class="glyphicon glyphicon-minus"></span>
+              </label>
+              <label for=id="funcionalidad<%=functionality.id%>" class="btn btn-default active">
+                <%=functionality.nombre%>
+              </label>
+            </div>
+      <% end %>
+
+  </div>
+
+
+
+
+
+
+
+      <input class="btn btn-lg btn-primary btn-block" type="submit" style="margin-top:25px;" value ="Crear Nivel">
+
+    </form>
+
+    </div>
+
+
+</li>

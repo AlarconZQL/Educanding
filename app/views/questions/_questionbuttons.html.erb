@@ -10,27 +10,47 @@
     <div class="btn-group">
       <%if session[:user_id]!=0%>  <!-- Verifica si el usuario esta logeado -->
         <%if (@questionvotes.where(question_id:@question.id,user_id:session[:user_id]).count ==0) && (session[:user_id]!=@question.user_id)%> <!-- Verifica que el usuario no haya votado la pregunta y que no sea quien la hizo -->
-          <button type="submit" class="btn btn-success" onclick="votoPositivoPreg()">
-            <span class='glyphicon glyphicon-thumbs-up'></span>
-          </button>
-          <button type="submit" class="btn btn-danger" onclick="votoNegativoPreg()">
-            <span class='glyphicon glyphicon-thumbs-down'></span>
-          </button>
+
+          <% if Usuario.new(session[:user_id]).getFuncionalidad("Votar Positivo")%>
+            <button type="submit" class="btn btn-success" onclick="votoPositivoPreg()">
+              <span class='glyphicon glyphicon-thumbs-up'></span>
+            </button>
+          <%end%>
+
+          <% if Usuario.new(session[:user_id]).getFuncionalidad("Votar Negativo")%>
+            <button type="submit" class="btn btn-danger" onclick="votoNegativoPreg()">
+              <span class='glyphicon glyphicon-thumbs-down'></span>
+            </button>
+          <%end%>
+
+
         <%else%>
           <button  class="btn btn-info" disabled>
-            <%if @questionvotes.where(question_id:@question.id,user_id:session[:user_id]).first.tipo%>
-              <span>Ya votaste positivo</span>
-            <%else%>
-              <span>Ya votaste negativo</span>
+
+            <%if @questionvotes.where(question_id:@question.id,user_id:session[:user_id]).first != nil %>
+              <%if @questionvotes.where(question_id:@question.id,user_id:session[:user_id]).first.tipo %>
+                <span>Ya votaste positivo</span>
+              <%else%>
+                <span>Ya votaste negativo</span>
+              <%end%>
             <%end%>
+
           </button>
         <%end%>
-        <a type="button" class="btn btn-primary" onclick="verResponderPregunta()"> Responder Pregunta
-          <span class='glyphicon glyphicon-share-alt'></span>
-        </a>
-        <a type="button" class="btn btn-primary" onclick="verEscribirComentario()"> Escribir Comentario
-          <span class='glyphicon glyphicon-comment'></span>
-        </a>
+
+
+        <% if Usuario.new(session[:user_id]).getFuncionalidad("Responder")%>
+          <a type="button" class="btn btn-primary" onclick="verResponderPregunta()"> Responder Pregunta
+            <span class='glyphicon glyphicon-share-alt'></span>
+          </a>
+        <%end%>
+
+        <% if Usuario.new(session[:user_id]).getFuncionalidad("Comentar")%>
+          <a type="button" class="btn btn-primary" onclick="verEscribirComentario()"> Escribir Comentario
+            <span class='glyphicon glyphicon-comment'></span>
+          </a>
+        <%end%>
+
       <%end%>
       <button type="button" class="btn btn-primary" onclick="verComentarios()"> Ver/Ocultar Comentarios
         <span class='glyphicon glyphicon-plus'></span>

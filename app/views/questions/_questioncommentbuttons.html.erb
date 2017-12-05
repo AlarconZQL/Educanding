@@ -9,12 +9,19 @@
      <div class="btn-group">
         <%if session[:user_id]!=0%>
           <%if (@questioncommentvotes.where(question_comment_id:@comentario.id,user_id:session[:user_id]).count ==0) && (session[:user_id]!=@comentario.user_id)%>
-            <button type="submit" class="btn btn-success" onclick='votoPositivoCQ(<%=@comentario.id%>)'>
-              <span class='glyphicon glyphicon-thumbs-up'></span>
-            </button>
-            <button type="submit" class="btn btn-danger" onclick='votoNegativoCQ(<%=@comentario.id%>)'>
-             <span class='glyphicon glyphicon-thumbs-down'></span>
-            </button>
+
+            <% if Usuario.new(session[:user_id]).getFuncionalidad("Votar Positivo")%>
+              <button type="submit" class="btn btn-success" onclick='votoPositivoCQ(<%=@comentario.id%>)'>
+                <span class='glyphicon glyphicon-thumbs-up'></span>
+              </button>
+            <%end%>
+
+            <% if Usuario.new(session[:user_id]).getFuncionalidad("Votar Negativo")%>
+              <button type="submit" class="btn btn-danger" onclick='votoNegativoCQ(<%=@comentario.id%>)'>
+               <span class='glyphicon glyphicon-thumbs-down'></span>
+              </button>
+            <%end%>
+
           <%else%>
           <button  class="btn btn-info" disabled>
             <%if @questioncommentvotes.where(question_comment_id:@comentario.id,user_id:session[:user_id]).first.tipo%>

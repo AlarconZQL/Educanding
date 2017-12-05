@@ -146,7 +146,7 @@ class QuestionsController < ApplicationController
       end
 
     end
-    
+
     if result.count == 0
       flash[:message] = "No se han encontrado resultados para su busqueda"
     end

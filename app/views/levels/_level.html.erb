@@ -2,24 +2,55 @@
 
   <div class="container" style="width:100%;padding:20px">
 
-    <div class="text-center" style="width:15%;float:left">
+    <div class="text-center" style="width:20%;float:left">
 
+    <h4>Nivel</h4>  <br>
     <p><label><%= @level.nombre %></p>
 
     <p><label><%= "Puntos: #{@level.puntos}" %></p>
 
+    <%= render 'tablaFuncionalidades' %>
+
+
+
     </div>
     <%if @level.puntos > 1%>
 
-      <div class="" style="width:15%;float:left;padding:15px">
-        <button class="btn btn-warning" onclick="Mostrar(<%=@level.id%>)">Modificar</button>
+      <div class="" style="width:25%;float:left;padding:15px;margin-left:50px;">
+
+        <div style="padding:15px;">
+
+          <button class="btn btn-warning" onclick="Mostrar(<%=@level.id%>)">Modificar</button>
+
+          <%= link_to levels_delete_path(@level.id) do %>
+            <button class="btn btn-danger" style="margin-left:15px;">Eliminar</button>
+          <%end%>
+
+        </div>
+
+
+          <div class="form-group" id="formUpdate<%=@level.id%>" style="display:none;float:bottom;margin-top:10px;padding:20px">
+
+            <form form class="" action="/levels/update" method="get">
+
+                <input type="hidden" class="form-control" name="level_id" id="level_id" value=<%=@level.id%> >
+
+                <label for="nombre">Nuevo Nombre:</label>
+                <input type="text"  name="nombre" id="nombre" required style="text-transform: capitalize;margin-bottom:10px" pattern="[A-Za-z0-9]+" title="Solo letras y Numeros" value="<%=@level.nombre%>" required>
+
+                <label for="puntos">Nuevo Puntaje:</label>
+                <input type="number"  name="puntos" id="puntos" style="margin-bottom:10px" value="<%=@level.puntos%>" required >
+                <input type="submit" class="btn btn-primary" style="margin-bottom:10px" value="Modificar Nivel">
+
+
+            </form>
+
+          </div>
+
+
       </div>
 
-      <div class="" style="width:15%;float:left;padding:15px" >
-        <%= link_to levels_delete_path(@level.id) do %>
-          <button class="btn btn-danger">Eliminar</button>
-        <%end%>
-      </div>
+
     <%end%>
 
 
@@ -27,23 +58,6 @@
 
 
 
-    <div class="form-group" id="formUpdate<%=@level.id%>" style="display:none;width:25%;float:bottom;margin-top:10px;margin-left:50px;padding:20px">
-
-      <form form class="" action="/levels/update" method="get">
-
-          <input type="hidden" class="form-control" name="level_id" id="level_id" value=<%=@level.id%> >
-
-          <label for="nombre">Nuevo Nombre:</label>
-          <input type="text"  name="nombre" id="nombre" required style="text-transform: capitalize;margin-bottom:10px" pattern="[A-Za-z0-9]+" title="Solo letras y Numeros" value="<%=@level.nombre%>" required>
-
-          <label for="puntos">Nuevo Puntaje:</label>
-          <input type="number"  name="puntos" id="puntos" style="margin-bottom:10px" value="<%=@level.puntos%>" required >
-          <input type="submit" class="btn btn-primary" style="margin-bottom:10px" value="Modificar Nivel">
-
-
-      </form>
-
-    </div>
 
 
 

@@ -8,12 +8,18 @@
           <input type="hidden" name="votoP_A" id="votoP_A<%=@resp.id%>" value="0">
           <input type="hidden" name="votoN_A" id="votoN_A<%=@resp.id%>" value="0">
 
-          <button type="submit" class="btn btn-success" onclick="votoPositivo_A(<%=@resp.id%>)">
-            <span class='glyphicon glyphicon-thumbs-up'></span>
-          </button>
-          <button type="submit" class="btn btn-danger" onclick="votoNegativo_A(<%=@resp.id%>)">
-            <span class='glyphicon glyphicon-thumbs-down'></span>
-          </button>
+          <% if Usuario.new(session[:user_id]).getFuncionalidad("Votar Positivo")%>
+            <button type="submit" class="btn btn-success" onclick="votoPositivo_A(<%=@resp.id%>)">
+              <span class='glyphicon glyphicon-thumbs-up'></span>
+            </button>
+          <%end%>
+
+          <% if Usuario.new(session[:user_id]).getFuncionalidad("Votar Negativo")%>
+            <button type="submit" class="btn btn-danger" onclick="votoNegativo_A(<%=@resp.id%>)">
+              <span class='glyphicon glyphicon-thumbs-down'></span>
+            </button>
+          <%end%>
+
       <%else%>
           <button  class="btn btn-info" disabled>
             <%if @answervotes.where(answer_id:@resp.id,user_id:session[:user_id]).first.tipo%>
@@ -24,9 +30,13 @@
           </button>
       <%end%>
 
-      <a type="button" class="btn btn-success" onclick='verEscribirComentarioResp(<%=@resp.id%>)'> Escribir Comentario
-        <span class='glyphicon glyphicon-comment'></span>
-      </a>
+      <% if Usuario.new(session[:user_id]).getFuncionalidad("Comentar")%>
+        <a type="button" class="btn btn-success" onclick='verEscribirComentarioResp(<%=@resp.id%>)'> Escribir Comentario
+          <span class='glyphicon glyphicon-comment'></span>
+        </a>
+      <%end%>
+
+
     <%end%>
     <button type="button" class="btn btn-success" onclick="verComentariosResp(<%=@resp.id%>)"> Ver/Ocultar Comentarios
       <span class='glyphicon glyphicon-plus'></span>
