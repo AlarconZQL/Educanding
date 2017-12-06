@@ -122,14 +122,14 @@ class QuestionsController < ApplicationController
     if params.has_key?(:facultad) # Si se clickeo el boton Buscar
       if params[:facultad] != "0" # Si la facultad elegida no es todas
                   if params.has_key?(:busqueda)# Si ingreso algo a buscar, dentro de una facultad
-                    result = Question.all.where("contenido LIKE '%#{params[:busqueda]}%'") # si se esta buscando algo se filtra en base a eso
+                    result = Question.all.where("contenido ILIKE ? OR descripcion ILIKE ?","%#{params[:busqueda]}%","%#{params[:busqueda]}%") # si se esta buscando algo se filtra en base a eso
                     result=result.where(faculty_id: params[:facultad])
                    else # Mostrar todas las preguntas de una facultad
                     result = Question.all.where(faculty_id: params[:facultad])
                   end
       else
                   if params.has_key?(:busqueda)# Si ingreso algo a buscar, en todas las facultades
-                    result = Question.all.where("contenido ILIKE '%#{params[:busqueda]}%'") # si se esta buscando algo se filtra en base a eso
+                    result = Question.all.where("contenido ILIKE ? OR descripcion ILIKE ?","%#{params[:busqueda]}%","%#{params[:busqueda]}%") # si se esta buscando algo se filtra en base a eso
                    else # Muestro todas las preguntas
                     result = Question.all
                   end
