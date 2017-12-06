@@ -70,14 +70,14 @@
                             <%end%>
                           <%else%><!-- No se mando a buscar -->
                             <option value=<%=etiqueta.id%>> <%=etiqueta.nombre%></option>
-                          <%end%>                                                      
+                          <%end%>
                         <% end %>
                     </select>
                   </div>
                   <script type="text/javascript"><!-- Script que al terminar de cargar la pagina, carga los valores de la anterior -->
                     window.onload = function()
                     {
-                        document.getElementById("busqueda").value = "<%=$recargar[:busqueda]%>";                           
+                        document.getElementById("busqueda").value = "<%=$recargar[:busqueda]%>";
                     }
                    </script>
                    <%$recargar=nil%>
@@ -86,13 +86,22 @@
                   </div>
                   <button type="submit" class="btn btn-default">Buscar</button>
                 </form>
-                <% if session[:user_id]!=0%>
+
+                <% if Usuario.new(session[:user_id]).getFuncionalidad("Preguntar")%>
+
                   <ul class="nav navbar-nav" style="margin-left:50px">
                       <li >
                           <a href= <%= "#{new_question_path}" %> >Crear Pregunta</a>
                       </li>
                   </ul>
+
                 <%end%>
+
+                <ul class="nav navbar-nav " style="margin-right:25px">
+                    <li>
+                         <a href= <%= "#{root_path}" %>>Mostrar Todas</a>
+                    </li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right" style="margin-right:50px">
                     <li>
                         <a href="#">Manual de Uso</a>

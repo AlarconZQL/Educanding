@@ -1,0 +1,20 @@
+<div class="text-center" style="padding:25px">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="text-center">Funcionalidades</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <%@funcionalidades.each do |funcionalidad|%>
+
+      <tr>
+        <td><%= funcionalidad.nombre %></td>
+      </tr>
+
+      <%end%>
+
+    </tbody>
+  </table>
+</div>

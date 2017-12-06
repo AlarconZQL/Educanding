@@ -9,6 +9,103 @@
 
 
 
+puts "Inicio creacion de funcionalidades"
+funcionalidad1=Functionality.find_or_create_by!(nombre:"Preguntar")
+funcionalidad2=Functionality.find_or_create_by!(nombre:"Responder")
+funcionalidad3=Functionality.find_or_create_by!(nombre:"Votar Positivo")
+funcionalidad4=Functionality.find_or_create_by!(nombre:"Comentar")
+funcionalidad5=Functionality.find_or_create_by!(nombre:"Votar Negativo")
+funcionalidad6=Functionality.find_or_create_by!(nombre:"Administrar Etiquetas")
+funcionalidad7=Functionality.find_or_create_by!(nombre:"Administrar Facultades")
+funcionalidad8=Functionality.find_or_create_by!(nombre:"Modificar Contenidos")
+funcionalidad9=Functionality.find_or_create_by!(nombre:"Administrar Niveles")
+puts "Fin creacion de funcionalidades. #{Functionality.count} funcionalidades"
+
+puts "Inicio creacion de niveles"
+
+#Nivel 1
+
+nivel1=Level.find_or_create_by!(nombre:"Iniciado",puntos:1,activo:true)
+LevelFunctionality.find_or_create_by!(level_id:nivel1.id,functionality_id:1)
+LevelFunctionality.find_or_create_by!(level_id:nivel1.id,functionality_id:2)
+
+#Nivel 2
+
+nivel2=Level.find_or_create_by!(nombre:"Votadorpositivo",puntos:15,activo:true)
+LevelFunctionality.find_or_create_by!(level_id:nivel2.id,functionality_id:1)
+LevelFunctionality.find_or_create_by!(level_id:nivel2.id,functionality_id:2)
+LevelFunctionality.find_or_create_by!(level_id:nivel2.id,functionality_id:3)
+
+#Nivel 3
+
+nivel3=Level.find_or_create_by!(nombre:"Comentador",puntos:20,activo:true)
+LevelFunctionality.find_or_create_by!(level_id:nivel3.id,functionality_id:1)
+LevelFunctionality.find_or_create_by!(level_id:nivel3.id,functionality_id:2)
+LevelFunctionality.find_or_create_by!(level_id:nivel3.id,functionality_id:3)
+LevelFunctionality.find_or_create_by!(level_id:nivel3.id,functionality_id:4)
+
+
+#Nivel 4
+
+nivel4=Level.find_or_create_by!(nombre:"Votadornegativo",puntos:100,activo:true)
+LevelFunctionality.find_or_create_by!(level_id:nivel4.id,functionality_id:1)
+LevelFunctionality.find_or_create_by!(level_id:nivel4.id,functionality_id:2)
+LevelFunctionality.find_or_create_by!(level_id:nivel4.id,functionality_id:3)
+LevelFunctionality.find_or_create_by!(level_id:nivel4.id,functionality_id:4)
+LevelFunctionality.find_or_create_by!(level_id:nivel4.id,functionality_id:5)
+
+#Nivel 5
+
+nivel5=Level.find_or_create_by!(nombre:"Administradoretiqueta",puntos:300,activo:true)
+LevelFunctionality.find_or_create_by!(level_id:nivel5.id,functionality_id:1)
+LevelFunctionality.find_or_create_by!(level_id:nivel5.id,functionality_id:2)
+LevelFunctionality.find_or_create_by!(level_id:nivel5.id,functionality_id:3)
+LevelFunctionality.find_or_create_by!(level_id:nivel5.id,functionality_id:4)
+LevelFunctionality.find_or_create_by!(level_id:nivel5.id,functionality_id:5)
+LevelFunctionality.find_or_create_by!(level_id:nivel5.id,functionality_id:6)
+
+#Nivel 6
+
+nivel6=Level.find_or_create_by!(nombre:"Administradorfacultad",puntos:500,activo:true)
+LevelFunctionality.find_or_create_by!(level_id:nivel6.id,functionality_id:1)
+LevelFunctionality.find_or_create_by!(level_id:nivel6.id,functionality_id:2)
+LevelFunctionality.find_or_create_by!(level_id:nivel6.id,functionality_id:3)
+LevelFunctionality.find_or_create_by!(level_id:nivel6.id,functionality_id:4)
+LevelFunctionality.find_or_create_by!(level_id:nivel6.id,functionality_id:5)
+LevelFunctionality.find_or_create_by!(level_id:nivel6.id,functionality_id:6)
+LevelFunctionality.find_or_create_by!(level_id:nivel6.id,functionality_id:7)
+
+
+#Nivel 7
+
+nivel7=Level.find_or_create_by!(nombre:"Modificador",puntos:1000,activo:true)
+LevelFunctionality.find_or_create_by!(level_id:nivel7.id,functionality_id:1)
+LevelFunctionality.find_or_create_by!(level_id:nivel7.id,functionality_id:2)
+LevelFunctionality.find_or_create_by!(level_id:nivel7.id,functionality_id:3)
+LevelFunctionality.find_or_create_by!(level_id:nivel7.id,functionality_id:4)
+LevelFunctionality.find_or_create_by!(level_id:nivel7.id,functionality_id:5)
+LevelFunctionality.find_or_create_by!(level_id:nivel7.id,functionality_id:6)
+LevelFunctionality.find_or_create_by!(level_id:nivel7.id,functionality_id:7)
+LevelFunctionality.find_or_create_by!(level_id:nivel7.id,functionality_id:8)
+
+#Nivel 8
+
+nivel8=Level.find_or_create_by!(nombre:"Administradortotal",puntos:10000,activo:true)
+LevelFunctionality.find_or_create_by!(level_id:nivel8.id,functionality_id:1)
+LevelFunctionality.find_or_create_by!(level_id:nivel8.id,functionality_id:2)
+LevelFunctionality.find_or_create_by!(level_id:nivel8.id,functionality_id:3)
+LevelFunctionality.find_or_create_by!(level_id:nivel8.id,functionality_id:4)
+LevelFunctionality.find_or_create_by!(level_id:nivel8.id,functionality_id:5)
+LevelFunctionality.find_or_create_by!(level_id:nivel8.id,functionality_id:6)
+LevelFunctionality.find_or_create_by!(level_id:nivel8.id,functionality_id:7)
+LevelFunctionality.find_or_create_by!(level_id:nivel8.id,functionality_id:8)
+LevelFunctionality.find_or_create_by!(level_id:nivel8.id,functionality_id:9)
+
+puts "Fin creacion de niveles. #{Level.count} niveles"
+
+
+
+
 puts "Inicio creacion de etiquetas"
 etiqueta1=Label.find_or_create_by!(nombre:"Matematica",activo:true)
 etiqueta2=Label.find_or_create_by!(nombre:"Fisica",activo:true)
@@ -18,16 +115,6 @@ etiqueta5=Label.find_or_create_by!(nombre:"Geografia",activo:true)
 etiqueta6=Label.find_or_create_by!(nombre:"Geologia",activo:true)
 puts "Fin creacion de etiquetas. #{Label.count} etiquetas"
 
-puts "Inicio creacion de niveles"
-nivel1=Level.find_or_create_by!(nombre:"Iniciado",puntos:1,activo:true)
-Level.find_or_create_by!(nombre:"Votadorpositivo",puntos:15,activo:true)
-Level.find_or_create_by!(nombre:"Comentador",puntos:20,activo:true)
-nivel2=Level.find_or_create_by!(nombre:"Votadornegativo",puntos:100,activo:true)
-Level.find_or_create_by!(nombre:"Administradoretiqueta",puntos:300,activo:true)
-Level.find_or_create_by!(nombre:"Administradorfacultad",puntos:500,activo:true)
-nivel3=Level.find_or_create_by!(nombre:"Modificador",puntos:1000,activo:true)
-nivel4=Level.find_or_create_by!(nombre:"Superadministrador",puntos:5000,activo:true)
-puts "Fin creacion de niveles. #{Level.count} niveles"
 
 puts "Inicio creacion de direcciones"
 dire1=Direction.find_or_create_by!(calle:"9 de Julio", ciudad:"Buenos Aires",activo:true)
@@ -116,5 +203,3 @@ puts "Inicio asignacion de votos a comentarios de respuestas"
 AnswerCommentVote.find_or_create_by!(tipo:false, user_id:usuario1.id, answer_comment_id:respuestacoment1.id)
 AnswerCommentVote.find_or_create_by!(tipo:true, user_id:usuario3.id, answer_comment_id:respuestacoment2.id)
 puts "Fin asignacion de votos a comentarios de respuestas. #{AnswerCommentVote.count} votos de comentarios de respuestas"
-
-

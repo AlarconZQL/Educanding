@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20171206164728) do
+=======
+ActiveRecord::Schema.define(version: 20171205201142) do
+>>>>>>> 60dcbbb9cc769849bf1432be98cb017106706fd7
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,11 +67,24 @@ ActiveRecord::Schema.define(version: 20171206164728) do
     t.boolean "activo"
   end
 
+  create_table "functionalities", force: :cascade do |t|
+    t.string "nombre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "labels", force: :cascade do |t|
     t.string "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "activo"
+  end
+
+  create_table "level_functionalities", force: :cascade do |t|
+    t.integer "level_id"
+    t.integer "functionality_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "levels", force: :cascade do |t|

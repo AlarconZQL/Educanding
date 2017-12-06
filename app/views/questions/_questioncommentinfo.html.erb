@@ -1,10 +1,11 @@
-<%valoracion=0%>
+<%valoracionP=0%>
+<%valoracionN=0%>
  <%if @questioncommentvotes.where(question_comment_id:@comentario.id).count !=0%>
    <% @questioncommentvotes.where(question_comment_id:@comentario.id).each do|voto|%>
     <%if voto.tipo%>
-      <%valoracion =valoracion+1%>
+      <%valoracionP =valoracionP+1%>
     <%else%>
-      <%valoracion =valoracion-1%>
+      <%valoracionN =valoracionN+1%>
     <%end%>
    <%end%>
  <%end%>
@@ -13,4 +14,4 @@
   <kbd> <%= @users.find(@comentario.user_id).nombre%> <%= @users.find(@comentario.user_id).apellido%><br></kbd>
 <%end%>
 <small> <%= @comentario.created_at.strftime("%d/%m/%Y %H:%M:%S")%><br></small>
-<small>Valoracion: <%= valoracion%><br><br></small>
+<small>Votos positivos: <%=valoracionP%><br>Votos negativos: <%=valoracionN%><br></small>
