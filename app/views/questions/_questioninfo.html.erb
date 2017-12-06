@@ -10,8 +10,8 @@
   <%end%>
 <%end%>
 <h4 class="mb-1 text-center"><%= @question.contenido %> </h4>
-<% if @question.desc != ""%>
-  <h5 class="mb-1 text-center"><%= @question.desc %> </h5>
+<% if @question.descripcion != ""%>
+  <h5 class="mb-1 text-center"><%= @question.descripcion %> </h5>
 <% end %>
 <%= link_to users_show_path(@question.user_id) do %>
   <kbd>

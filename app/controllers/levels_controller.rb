@@ -16,7 +16,7 @@ class LevelsController < ApplicationController
           nombreFormato=params[:nombre].capitalize
           if params[:puntos].to_i >= 0
             if Level.where(nombre:nombreFormato).count==0 && Level.where(puntos:params[:puntos]).count==0 #Si no existe el nivel
-              level=Level.new(nombre: nombreFormato,puntos: params[:puntos],activo: true)
+              level=Level.new(nombre: nombreFormato,puntos: params[:puntos])
               if level.save#si se puede guardar
 
                 i = 0
@@ -90,8 +90,6 @@ class LevelsController < ApplicationController
       if session[:user_id]!=0 && User.find(session[:user_id]).admin
         level=Level.find(params[:format])
         if level.puntos >1 #Si el nivel no es el inicial, lo borro
-          #level.activo=false #borrado logico
-          #level.save
           level.destroy#borrado fisico
           actualizarpuntosynivel
         end
@@ -102,7 +100,7 @@ class LevelsController < ApplicationController
 
     def actualizarpuntosynivel
 
-    niveles = Level.all.where(activo: true).order(puntos: :DESC) # ordena los niveles de mayor a menor puntuacion en un arreglo
+    niveles = Level.all.order(puntos: :DESC) # ordena los niveles de mayor a menor puntuacion en un arreglo
 
     User.all.each do |user|
       i = 0

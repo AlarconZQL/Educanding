@@ -25,17 +25,17 @@
 
 
         <%else%>
-          <button  class="btn btn-info" disabled>
-
+          <% if (session[:user_id]!=@question.user_id)%>
             <%if @questionvotes.where(question_id:@question.id,user_id:session[:user_id]).first != nil %>
-              <%if @questionvotes.where(question_id:@question.id,user_id:session[:user_id]).first.tipo %>
-                <span>Ya votaste positivo</span>
-              <%else%>
-                <span>Ya votaste negativo</span>
+            <button  class="btn btn-info" disabled>
+                <%if @questionvotes.where(question_id:@question.id,user_id:session[:user_id]).first.tipo %>
+                  <span>Ya votaste positivo</span>
+                <%else%>
+                  <span>Ya votaste negativo</span>
+                <%end%>
+                </button>
               <%end%>
-            <%end%>
-
-          </button>
+          <%end%>
         <%end%>
 
 

@@ -25,20 +25,20 @@ puts "Inicio creacion de niveles"
 
 #Nivel 1
 
-nivel1=Level.find_or_create_by!(nombre:"Iniciado",puntos:1,activo:true)
+nivel1=Level.find_or_create_by!(nombre:"Iniciado",puntos:1)
 LevelFunctionality.find_or_create_by!(level_id:nivel1.id,functionality_id:1)
 LevelFunctionality.find_or_create_by!(level_id:nivel1.id,functionality_id:2)
 
 #Nivel 2
 
-nivel2=Level.find_or_create_by!(nombre:"Votadorpositivo",puntos:15,activo:true)
+nivel2=Level.find_or_create_by!(nombre:"Votadorpositivo",puntos:15)
 LevelFunctionality.find_or_create_by!(level_id:nivel2.id,functionality_id:1)
 LevelFunctionality.find_or_create_by!(level_id:nivel2.id,functionality_id:2)
 LevelFunctionality.find_or_create_by!(level_id:nivel2.id,functionality_id:3)
 
 #Nivel 3
 
-nivel3=Level.find_or_create_by!(nombre:"Comentador",puntos:20,activo:true)
+nivel3=Level.find_or_create_by!(nombre:"Comentador",puntos:20)
 LevelFunctionality.find_or_create_by!(level_id:nivel3.id,functionality_id:1)
 LevelFunctionality.find_or_create_by!(level_id:nivel3.id,functionality_id:2)
 LevelFunctionality.find_or_create_by!(level_id:nivel3.id,functionality_id:3)
@@ -47,7 +47,7 @@ LevelFunctionality.find_or_create_by!(level_id:nivel3.id,functionality_id:4)
 
 #Nivel 4
 
-nivel4=Level.find_or_create_by!(nombre:"Votadornegativo",puntos:100,activo:true)
+nivel4=Level.find_or_create_by!(nombre:"Votadornegativo",puntos:100)
 LevelFunctionality.find_or_create_by!(level_id:nivel4.id,functionality_id:1)
 LevelFunctionality.find_or_create_by!(level_id:nivel4.id,functionality_id:2)
 LevelFunctionality.find_or_create_by!(level_id:nivel4.id,functionality_id:3)
@@ -56,7 +56,7 @@ LevelFunctionality.find_or_create_by!(level_id:nivel4.id,functionality_id:5)
 
 #Nivel 5
 
-nivel5=Level.find_or_create_by!(nombre:"Administradoretiqueta",puntos:300,activo:true)
+nivel5=Level.find_or_create_by!(nombre:"Administradoretiqueta",puntos:300)
 LevelFunctionality.find_or_create_by!(level_id:nivel5.id,functionality_id:1)
 LevelFunctionality.find_or_create_by!(level_id:nivel5.id,functionality_id:2)
 LevelFunctionality.find_or_create_by!(level_id:nivel5.id,functionality_id:3)
@@ -66,7 +66,7 @@ LevelFunctionality.find_or_create_by!(level_id:nivel5.id,functionality_id:6)
 
 #Nivel 6
 
-nivel6=Level.find_or_create_by!(nombre:"Administradorfacultad",puntos:500,activo:true)
+nivel6=Level.find_or_create_by!(nombre:"Administradorfacultad",puntos:500)
 LevelFunctionality.find_or_create_by!(level_id:nivel6.id,functionality_id:1)
 LevelFunctionality.find_or_create_by!(level_id:nivel6.id,functionality_id:2)
 LevelFunctionality.find_or_create_by!(level_id:nivel6.id,functionality_id:3)
@@ -78,7 +78,7 @@ LevelFunctionality.find_or_create_by!(level_id:nivel6.id,functionality_id:7)
 
 #Nivel 7
 
-nivel7=Level.find_or_create_by!(nombre:"Modificador",puntos:1000,activo:true)
+nivel7=Level.find_or_create_by!(nombre:"Modificador",puntos:1000)
 LevelFunctionality.find_or_create_by!(level_id:nivel7.id,functionality_id:1)
 LevelFunctionality.find_or_create_by!(level_id:nivel7.id,functionality_id:2)
 LevelFunctionality.find_or_create_by!(level_id:nivel7.id,functionality_id:3)
@@ -90,7 +90,7 @@ LevelFunctionality.find_or_create_by!(level_id:nivel7.id,functionality_id:8)
 
 #Nivel 8
 
-nivel8=Level.find_or_create_by!(nombre:"Administradortotal",puntos:10000,activo:true)
+nivel8=Level.find_or_create_by!(nombre:"Administradortotal",puntos:10000)
 LevelFunctionality.find_or_create_by!(level_id:nivel8.id,functionality_id:1)
 LevelFunctionality.find_or_create_by!(level_id:nivel8.id,functionality_id:2)
 LevelFunctionality.find_or_create_by!(level_id:nivel8.id,functionality_id:3)
@@ -132,7 +132,7 @@ puts "Inicio creacion de usuarios"
 usuario1=User.find_or_create_by!(nombre:"Juan", apellido:"Perez", mail:"jp@hotmail.com", puntos:1, pass:"123456", faculty_id:facu2.id, level_id:nivel1.id,activo:true,admin:false)
 usuario2=User.find_or_create_by!(nombre:"Maria", apellido:"Gomez", mail:"mg@hotmail.com", puntos:1000, pass:"123456", faculty_id:facu1.id, level_id:nivel3.id,activo:true,admin:false)
 usuario3=User.find_or_create_by!(nombre:"Pablo", apellido:"Neruda", mail:"pn@hotmail.com", puntos:100, pass:"123456",faculty_id:0, level_id:nivel2.id,activo:true,admin:false)
-User.find_or_create_by(nombre:"Admin",apellido:"Istrador",mail:"admin@hotmail.com",puntos:10000,pass:"admin",faculty_id:0,level_id:nivel4.id,activo:true,admin:true)
+User.find_or_create_by(nombre:"Admin",apellido:"Istrador",mail:"admin@hotmail.com",puntos:10000,pass:"admin",faculty_id:0,level_id:nivel8.id,activo:true,admin:true)
 puts "Fin creacion de usuarios. #{User.count} usuarios"
 
 puts "Inicio creacion de preguntas"

@@ -21,6 +21,8 @@
           <%end%>
 
       <%else%>
+        <% if (session[:user_id]!=@resp.user_id)%>
+          <%if @answervotes.where(answer_id:@resp.id,user_id:session[:user_id]).first != nil %>
           <button  class="btn btn-info" disabled>
             <%if @answervotes.where(answer_id:@resp.id,user_id:session[:user_id]).first.tipo%>
               <span>Ya votaste positivo</span>
@@ -28,6 +30,8 @@
               <span>Ya votaste negativo</span>
             <%end%>
           </button>
+          <%end%>
+        <%end%>
       <%end%>
 
       <% if Usuario.new(session[:user_id]).getFuncionalidad("Comentar")%>

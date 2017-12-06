@@ -70,7 +70,7 @@ class QuestionsController < ApplicationController
       if etiquetas != nil
         if etiquetas.size >= 1 && etiquetas.size <= 5
           if params[:pregunta]!=""
-            pregunta=Question.new(num_visitas:0, contenido:params[:pregunta], desc:descripcion, user_id: session[:user_id], faculty_id: params[:facultad])
+            pregunta=Question.new(num_visitas:0, contenido:params[:pregunta], descripcion:descripcion, user_id: session[:user_id], faculty_id: params[:facultad])
             #hay que guardar la pregunta
             if pregunta.save
                for i in (0..etiquetas.size-1)
@@ -122,11 +122,7 @@ class QuestionsController < ApplicationController
     if params.has_key?(:facultad) # Si se clickeo el boton Buscar
       if params[:facultad] != "0" # Si la facultad elegida no es todas
                   if params.has_key?(:busqueda)# Si ingreso algo a buscar, dentro de una facultad
-<<<<<<< HEAD
                     result = Question.all.where("contenido ILIKE ? OR descripcion ILIKE ?","%#{params[:busqueda]}%","%#{params[:busqueda]}%") # si se esta buscando algo se filtra en base a eso
-=======
-                    result = Question.all.where("contenido ILIKE '%#{params[:busqueda]}%'") # si se esta buscando algo se filtra en base a eso
->>>>>>> 60dcbbb9cc769849bf1432be98cb017106706fd7
                     result=result.where(faculty_id: params[:facultad])
                    else # Mostrar todas las preguntas de una facultad
                     result = Question.all.where(faculty_id: params[:facultad])
@@ -176,7 +172,7 @@ class QuestionsController < ApplicationController
     if etiquetas != nil
       if etiquetas.size >= 1 && etiquetas.size <= 5
         if params[:pregunta]!=""
-          pregunta=Question.new(num_visitas:0, contenido:params[:pregunta], desc:descripcion, user_id: session[:user_id], faculty_id: params[:facultad])
+          pregunta=Question.new(num_visitas:0, contenido:params[:pregunta], descripcion:descripcion, user_id: session[:user_id], faculty_id: params[:facultad])
           #hay que guardar la pregunta
           if pregunta.save
              for i in (0..etiquetas.size-1)
@@ -209,7 +205,7 @@ class QuestionsController < ApplicationController
       redirect_to "/questions/#{@question.id}/edit"
     else
       @question.contenido = pregunta.contenido
-      @question.desc = pregunta.desc
+      @question.descripcion = pregunta.descripcion
       @question.faculty_id = pregunta.faculty_id
       QuestionLabel.where(question_id: @question.id).each do |l|
         l.destroy
