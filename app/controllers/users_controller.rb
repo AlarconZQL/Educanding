@@ -43,6 +43,7 @@ class UsersController < ApplicationController
   end
 
   def show
+
     flash[:auxVerPerfil] = "1"
     if params[:format]!=nil
       @user = User.find(params[:format])
@@ -55,7 +56,8 @@ class UsersController < ApplicationController
     else
       @userPerfil = User.new(id: 0)
     end
-
+    @functionalities = Functionality.all
+    @level_functionalities = LevelFunctionality.all
     @preguntas = Question.all.where(user_id: @user.id)
     @answers = Answer.all
     @niveles = Level.all

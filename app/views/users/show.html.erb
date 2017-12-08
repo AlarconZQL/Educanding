@@ -60,6 +60,23 @@
     </div>
 
     <% if @user.id == @userPerfil.id %>
+      <div class="well">
+        <table class="table-condensed">
+          <thead>
+            <tr>
+              <th>Funcionalidades:</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @level_functionalities.where(level_id: @user.level_id).each do |func| %>
+              <tr>
+                <td><span class="badge"><%= @functionalities.find(func.functionality_id).nombre %></span></td>
+              </tr>
+            <%end%>
+
+          </tbody>
+        </table>
+      </div>
       <button id="startbutton" type="button" class="btn" onclick="mostrarBotones(<%=nro%>)">Editar mi perfil</button>
     <% end %>
 
