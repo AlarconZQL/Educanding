@@ -43,6 +43,12 @@ Rails.application.routes.draw do
 
   get 'labels/delete'
   get 'labels/update'
+  
+  get 'faculties/index'
+  get 'faculties/delete'
+  post 'faculties/create'
+  get 'faculties/update'
+
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

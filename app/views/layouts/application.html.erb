@@ -44,8 +44,6 @@
               <li class="navIR">
                 <%= link_to 'Registrarse',users_index_path %>
               </li>
-
-
             </ol>
           <% end %>
 
@@ -72,7 +70,7 @@
 
           <% if Usuario.new(session[:user_id]).getFuncionalidad("Administrar Facultades")%>
             <li class="navIR">
-              <%= link_to 'Facultades',sessions_destroy_path %>
+              <%= link_to 'Facultades',faculties_index_path %>
             </li>
           <%end%>
 

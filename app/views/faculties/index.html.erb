@@ -1,0 +1,52 @@
+<%flash[:auxVerPerfil] = nil%>
+<ul class="list-group">
+<script type="text/javascript">
+function Mostrar(faculty_id)
+{
+    formUpdate= "formUpdate" + faculty_id;
+    if(document.getElementById(formUpdate).style.display!="block")
+      document.getElementById(formUpdate).style.display="block"
+    else
+      document.getElementById(formUpdate).style.display="none"
+}
+</script>
+
+
+  <%@faculties.order(:nombre).each do |facultad|%>
+  <%if facultad.activo == true %>
+    <li class="list-group-item">
+    <%= facultad.nombre %>
+    <button type="button" class="btn btn-warning" onclick="Mostrar(<%=facultad.id%>)">Modificar</button>
+    <%= link_to faculties_delete_path(facultad.id) do %>
+      <button type="button" class="btn btn-danger">Eliminar</button>
+    <%end%>
+    <form form class="" action="/faculties/update" id="formUpdate<%=facultad.id%>" method="get" style="display:none;margin-top:10px">
+      <div class="form-group">
+        <label for="nombre">Nuevo Nombre:</label>
+        <input type="text"  name="nombre" id="nombre" required style="text-transform: capitalize">
+        <button class="btn  btn-primary" type="submit" >Modificar Facultad</button>
+        <input type="hidden" class="form-control" name="faculty_id" id="faculty_id" value=<%=facultad.id%>>
+      </div>
+    </form>
+    </li>
+  <%end%>
+  <%end%>
+<% if session[:user_id] != 0 %>
+  <li class="list-group-item">
+        <form class="form-inline" action="/faculties/create" method="post">
+          <div class="form-group">
+           <label for="nombre">Nombre:</label>
+           <input type="text" class="form-control" name="nombre" id="nombre" style="text-transform: capitalize" pattern="[A-Za-z0-9]+" title="Solo letras y Numeros">
+           <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-top: 20px;">Crear Facultad</button>
+          </div>
+
+          <% if flash[:message] != nil %>
+           <% @color="red" %>
+           <%= render '/mensaje/mensaje'  %>
+          <% end %>
+
+    </form>
+  </li>
+  <%end%>
+
+</ul>
