@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   get 'faculties/delete'
   post 'faculties/create'
   get 'faculties/update'
+  get 'faculties/show'
 
 
 

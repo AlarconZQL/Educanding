@@ -1,0 +1,15 @@
+<h1>Facultades con mayor cantidad de preguntas</h1>
+
+<ul class="list-group">
+
+	<%@mayores.each do |facultad|%>
+		
+    	<li class="list-group-item">
+		  <%= @faculties.find(facultad[1]).nombre %>
+		  <br>
+		  <%=@directions.find(@faculties.find(facultad[1]).direction_id).ciudad%>, <%=@directions.find(@faculties.find(facultad[1]).direction_id).calle%>
+		  <br>
+		  Cantidad de Preguntas: <%=facultad[0]%>
+ 		</li>
+	<%end%>
+</ul>

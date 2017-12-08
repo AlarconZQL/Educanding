@@ -1,7 +1,12 @@
 class LevelsController < ApplicationController
 
   def index
+    if Usuario.new(session[:user_id]).getFuncionalidad("Administrar Niveles")
     @levels=Level.all
+    else
+      flash[:message]="No tiene acceso a la ruta de recien"
+      redirect_to root_path
+    end
   end
 
 

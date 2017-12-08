@@ -1,6 +1,11 @@
 class LabelsController < ApplicationController
   def index
+    if Usuario.new(session[:user_id]).getFuncionalidad("Administrar Etiquetas")
     @etiquetas=Label.all
+    else
+      flash[:message]="No tiene acceso a la ruta de recien"
+      redirect_to root_path
+    end
   end
 
   def create
@@ -46,7 +51,7 @@ class LabelsController < ApplicationController
     redirect_to labels_index_path
   end
   def delete
-    if session[:user_id]!=0 #Falta el chequeo de nivel de usuario
+    if session[:user_id]!=0 && Usuario.new(session[:user_id]).getFuncionalidad("Administrar Etiquetas")
       @eti=Label.find(params[:format])
       @eti.activo = false
       @eti.save

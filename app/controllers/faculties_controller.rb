@@ -2,6 +2,7 @@ class FacultiesController < ApplicationController
   def index
     if Usuario.new(session[:user_id]).getFuncionalidad("Administrar Facultades")
       @faculties=Faculty.all
+      @directions=Direction.all
     else
       flash[:message]="No tiene acceso a la ruta de recien"
       redirect_to root_path
@@ -39,6 +40,15 @@ class FacultiesController < ApplicationController
   end
 
   def show
+    @faculties=Faculty.all
+    @directions=Direction.all
+    order=[]# Arreglo que contiene cada elemento, en la primer posicion la cantidad de preguntas que tiene una facutad, y como segundo el id de la facultad
+    i=0
+    Faculty.all.each do |facultad|
+      order[i]=[Question.where(faculty_id:facultad.id).count,facultad.id]
+      i=i+1
+    end
+    @mayores=order.sort.reverse
   end
 
   def destroy
@@ -47,18 +57,27 @@ class FacultiesController < ApplicationController
   def update
   end
    def delete
-    if session[:user_id]!=0 #Falta el chequeo de nivel de usuario
+    if session[:user_id]!=0 && Usuario.new(session[:user_id]).getFuncionalidad("Administrar Facultades")
       @facu=Faculty.find(params[:format])
       @facu.activo = false
       @facu.save
-      chekeoSinRelaciones
+      dire=Direction.find(@facu.direction_id)
+      if Faculty.where(direction_id:dire.id).where(activo: true).count == 0#Si la direccion, no esta en ninguna faculta activa
+        dire.activo = false#borrado logico de direccion
+        dire.save
+      end
+      checkeoSinRelaciones
       redirect_to faculties_index_path
     end
   end
 
-  def chekeoSinRelaciones
+  def checkeoSinRelaciones
     if Question.all.where(faculty_id:@facu.id).count==0 && User.all.where(faculty_id:@facu.id).count==0
         @facu.destroy
+        dire=Direction.find(@facu.direction_id)
+        if Faculty.where(direction_id:dire.id).count == 0
+          dire.destroy
+        end
     end
   end
 

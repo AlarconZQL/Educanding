@@ -28,6 +28,8 @@ function Mostrar(faculty_id)
         <input type="hidden" class="form-control" name="faculty_id" id="faculty_id" value=<%=facultad.id%>>
       </div>
     </form>
+    <br>
+    <%=@directions.find(facultad.direction_id).ciudad%>, <%=@directions.find(facultad.direction_id).calle%>
     </li>
   <%end%>
   <%end%>
