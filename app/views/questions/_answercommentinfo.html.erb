@@ -1,20 +1,19 @@
-<div style="padding:10px;background-color: #3A01DF;border-radius: 5px 10px;">
-  <%valoracionP=0%>
-  <%valoracionN=0%>
-   <%if @answercommentvotes.where(answer_comment_id:@comentarioR.id).count !=0%>
-     <% @answercommentvotes.where(answer_comment_id:@comentarioR.id).each do|voto|%>
-      <%if voto.tipo%>
-        <%valoracionP =valoracionP+1%>
-      <%else%>
-        <%valoracionN =valoracionN+1%>
-      <%end%>
-     <%end%>
+<%valoracionP=0%>
+<%valoracionN=0%>
+ <%if @answercommentvotes.where(answer_comment_id:@comentarioR.id).count !=0%>
+   <% @answercommentvotes.where(answer_comment_id:@comentarioR.id).each do|voto|%>
+    <%if voto.tipo%>
+      <%valoracionP =valoracionP+1%>
+    <%else%>
+      <%valoracionN =valoracionN+1%>
+    <%end%>
    <%end%>
-  <h5 class="mb-1 text-center"><%= @comentarioR.contenido %></h5>
-  <%= link_to users_show_path(@comentarioR.user_id) do %>
-    <kbd> <%= @users.find(@comentarioR.user_id).nombre%> <%= @users.find(@comentarioR.user_id).apellido%><br></kbd>
-  <%end%>
+ <%end%>
+<h5 class="mb-1 text-center"><%= @comentarioR.contenido %></h5>
+<%= link_to users_show_path(@comentarioR.user_id) do %>
+  <kbd> <%= @users.find(@comentarioR.user_id).nombre%> <%= @users.find(@comentarioR.user_id).apellido%><br></kbd>
+<%end%>
 
-  <small> <%= @comentarioR.created_at.strftime("%d/%m/%Y %H:%M:%S")%><br></small>
-  <small>Votos positivos: <%=valoracionP%><br>Votos negativos: <%=valoracionN%><br></small>
-</div>
+<small> <%= @comentarioR.created_at.strftime("%d/%m/%Y %H:%M:%S")%><br></small>
+<small>Votos positivos: <%=valoracionP%><br>Votos negativos: <%=valoracionN%><br></small>
+
