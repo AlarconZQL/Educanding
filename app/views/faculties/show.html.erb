@@ -1,15 +1,44 @@
-<h1>Facultades con mayor cantidad de preguntas</h1>
+<div class="container">
+	<h3 class="text-center">Facultades con mayor cantidad de preguntas</h3>
+	<br>
 
-<ul class="list-group">
+	<table class="table table-bordered">
+    <thead>
+      <tr bgcolor="white">
+        <th class="text-center">Posicion</th>
+        <th class="text-center">Facultad</th>
+        <th class="text-center">Ciudad</th>
+				<th class="text-center">Direccion</th>
+				<th class="text-center">Preguntas</th>
+      </tr>
+    </thead>
+    <tbody>
+			<% i = 0 %>
+			<%@mayores.each do |facultad|%>
+					<% i = i+1 %>
+					<tr bgcolor="white">
+						<td class="text-center"><%=i%></td>
+						<td class="text-center"><%= @faculties.find(facultad[1]).nombre %></td>
+						<td class="text-center"><%=@directions.find(@faculties.find(facultad[1]).direction_id).ciudad%></td>
+						<td class="text-center"><%=@directions.find(@faculties.find(facultad[1]).direction_id).calle%></td>
+						<td class="text-center"><%=facultad[0]%></td>
+					</tr>
+			<%end%>
+    </tbody>
+  </table>
+	<!--
+	<ul class="list-group">
 
-	<%@mayores.each do |facultad|%>
-		
-    	<li class="list-group-item">
-		  <%= @faculties.find(facultad[1]).nombre %>
-		  <br>
-		  <%=@directions.find(@faculties.find(facultad[1]).direction_id).ciudad%>, <%=@directions.find(@faculties.find(facultad[1]).direction_id).calle%>
-		  <br>
-		  Cantidad de Preguntas: <%=facultad[0]%>
- 		</li>
-	<%end%>
-</ul>
+		<%@mayores.each do |facultad|%>
+
+	    	<li class="list-group-item">
+			  <%= @faculties.find(facultad[1]).nombre %>
+			  <br>
+			  <%=@directions.find(@faculties.find(facultad[1]).direction_id).ciudad%>, <%=@directions.find(@faculties.find(facultad[1]).direction_id).calle%>
+			  <br>
+			  Cantidad de Preguntas: <%=facultad[0]%>
+	 		</li>
+		<%end%>
+	</ul>
+	-->
+</div>
