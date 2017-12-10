@@ -16,14 +16,14 @@
     </div>
     <%if @level.puntos > 1%>
 
-      <div class="" style="width:25%;float:left;padding:15px;margin-left:50px;">
+      <div class="" style="width:35%;float:left;padding:15px;margin-left:50px;">
 
         <div style="padding:15px;">
 
           <button class="btn btn-warning" onclick="Mostrar(<%=@level.id%>)">Modificar</button>
 
           <%= link_to levels_delete_path(@level.id) do %>
-            <button class="btn btn-danger" style="margin-left:15px;">Eliminar</button>
+            <button class="btn btn-danger" style="margin-left:15px">Eliminar</button>
           <%end%>
 
         </div>

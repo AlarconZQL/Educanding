@@ -10,34 +10,112 @@ class FacultiesController < ApplicationController
   end
 
   def create
-    if params[:nombre]!=""#si no esta vacio
-      nombreFormato=params[:nombre].capitalize
-      if Faculty.where(nombre:nombreFormato).count==0#Si no existe la facultad
 
-         facultad=Faculty.new(nombre: nombreFormato,activo:true)
-         if facultad.save#si se puede guardar
-           redirect_to faculties_index_path
-         else#Si no se guardo, sale el error
-           #este es un mensaje que se guarda en la variable global flash
-           flash[:message] = "No se pudo crear la etiqueta"
-           redirect_to faculties_index_path
-         end
-       else#Si la facultad existe
-        if Faculty.where(nombre:nombreFormato).first.activo==true
-         #este es un mensaje que se guarda en la variable global flash
-         flash[:message] = "La facultad ya existe"
-         redirect_to faculties_index_path
-        else
-          facultad=Faculty.where(nombre:nombreFormato).first
-          facultad.activo = true
-          if !facultad.save#Si no se guardo, sale el error
-           flash[:message] = "No se pudo crear la facultad"
+    if params[:nombre]!="" && params[:ciudad]!="" && params[:direccion]!="" #si no esta vacio
+
+      nombre=params[:nombre].capitalize
+      ciudad=params[:ciudad].capitalize
+      calle=params[:direccion].capitalize
+
+      if Faculty.where(nombre:nombre).count==0#Si no existe la facultad
+
+        if Direction.where(ciudad:ciudad,calle:calle).count==0#Si no existe la facultad
+
+          direccion = Direction.new(ciudad:ciudad,calle:calle)
+          if direccion.save
+            facultad=Faculty.new(nombre: nombre,direction_id:direccion.id,activo:true)
+            if facultad.save#si se puede guardar
+
+              flash[:messageOk] = true
+              flash[:message] = "Facultad creada"
+            else#Si no se guardo, sale el error
+              #este es un mensaje que se guarda en la variable global flash
+              flash[:message] = "No se pudo crear la facultad"
+              flash[:messageError] = true
+
+            end
+          else#Si no se guardo, sale el error
+            #este es un mensaje que se guarda en la variable global flash
+            flash[:message] = "No se pudo crear la facultdad"
+            flash[:messageError] = true
+
           end
-          redirect_to faculties_index_path
+
+        else #Si la direccion existe
+          flash[:message] = "La direccion ingresada ya existe"
+          flash[:messageError] = true
+
         end
-       end
+
+      else#Si la facultad existe
+
+        if Faculty.where(nombre:nombre).first.activo==true
+          #este es un mensaje que se guarda en la variable global flash
+          flash[:message] = "La facultad ya existe"
+          flash[:messageError] = false
+        else
+
+          if Direction.where(ciudad:ciudad,calle:calle).count==0#Si no existe la facultad
+
+            facultad=Faculty.where(nombre:nombre).first
+            facultad.activo = true
+            if facultad.save#Si no se guardo, sale el error
+              direccion = Direction.where(id:facultad.direction_id).first
+              direccion.ciudad = ciudad
+              direccion.calle = calle
+              direccion.activo = true
+              if direccion.save
+                flash[:message] = "Facultdad creada"
+                flash[:messageOk] = true
+                redirect_to faculties_index_path
+              else
+                flash[:message] = "No se pudo crear la facultad"
+                flash[:messageError] = true
+              end
+            else
+              flash[:message] = "No se pudo crear la facultad"
+              flash[:messageError] = true
+            end
+
+          else #Si  la facultad  existe
+
+            direccion = Direction.where(ciudad:ciudad,calle:calle).first
+            facultad=Faculty.where(nombre:nombre,ciudad:ciudad).first
+
+            if direccion.id == facultad.direction_id
+              facultad.activo = true
+              direccion.activo = true
+              if facultad.save && direccion.save #Si no se guardo, sale el error
+                flash[:message] = "Facultad creada"
+                flash[:messageOk] = true
+              else
+                flash[:message] = "No se pudo crear la facultad"
+                flash[:messageError] = true
+              end
+            else
+              flash[:message] = "la direccion ya existe"
+              flash[:messageError] = true
+            end
+
+            flash[:message] = "la direccion ya existe"
+            flash[:messageError] = true
+
+          end
+
+        end
+      end
+
+    else
+      flash[:message] = "Debe completar los campos"
+      flash[:messageError] = true
     end
+
+    redirect_to faculties_index_path
+
+
   end
+
+
 
   def show
     @faculties=Faculty.all
@@ -55,7 +133,95 @@ class FacultiesController < ApplicationController
   end
 
   def update
+
+    if params[:nombre]!="" && params[:ciudad]!="" && params[:direccion]!="" #si no esta vacio
+
+      nombre=params[:nombre].capitalize
+      ciudad=params[:ciudad].capitalize
+      calle=params[:direccion].capitalize
+
+      if Faculty.where(nombre:nombre).count==0#Si no existe la facultad
+
+        if Direction.where(ciudad:ciudad,calle:calle).count==0#Si no existe la facultad
+
+          facultad = Faculty.where(id:params[:faculty_id]).first
+          facultad.nombre = nombre
+          direccion = Direction.where(id:facultad.id).first
+          direccion.calle=calle
+          direccion.ciudad=ciudad
+          if facultad.save && direccion.save
+            flash[:message] = "Facultad modificada"
+            flash[:messageOk] = true
+          else
+            flash[:message] = "No se pudo modificar la facultad"
+            flash[:messageError] = true
+          end
+
+        else
+
+          facultad = Faculty.where(id:params[:faculty_id]).first
+          direccion = Direction.where(id:facultad.id).first
+
+          if Direction.where(ciudad:ciudad,calle:calle).first.id == direccion.id
+            facultad.nombre = nombre
+            if facultad.save
+              flash[:message] = "Facultad modificada"
+              flash[:messageOk] = true
+            else
+              flash[:message] = "No se pudo modificar la facultad"
+              flash[:messageError] = true
+            end
+          else
+            flash[:message] = "La direccion ingresada corresponde a otro facultad"
+            flash[:messageError] = true
+          end
+
+
+        end
+
+      else
+
+        facultad = Faculty.where(id:params[:faculty_id]).first
+        if Faculty.where(nombre:nombre).first.id == facultad.id
+          direccion = Direction.where(id:facultad.id).first
+
+          if Direction.where(ciudad:ciudad,calle:calle).count==0
+            direccion.ciudad=ciudad
+            direccion.calle = calle
+            if direccion.save
+              flash[:message] = "Facultad modificada"
+              flash[:messageOk] = true
+            else
+              flash[:message] = "No se pudo modificar la facultad"
+              flash[:messageError] = true
+            end
+          else
+            if Direction.where(ciudad:ciudad,calle:calle).first.id == direccion.id
+              flash[:message] = "No hay modificaciones para hacer"
+              flash[:messageOk] = true
+            else
+              flash[:message] = "La direccion ingresada pertenece a otra facultdad"
+              flash[:messageError] = true
+            end
+          end
+        else
+          flash[:message] = "El nombre ingresado pertenece a otra facultdad"
+          flash[:messageError] = true
+        end
+      end
+
+    else
+      flash[:message] = "Debe completar los campos"
+      flash[:messageError] = true
+    end
+
+    redirect_to faculties_index_path
+
+
   end
+
+
+
    def delete
     if session[:user_id]!=0 && Usuario.new(session[:user_id]).getFuncionalidad("Administrar Facultades")
       @facu=Faculty.find(params[:format])

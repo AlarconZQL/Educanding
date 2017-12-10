@@ -1,5 +1,5 @@
 <%flash[:auxVerPerfil] = nil%>
-<ul class="list-group">
+
 <script type="text/javascript">
 function Mostrar(faculty_id)
 {
@@ -11,6 +11,18 @@ function Mostrar(faculty_id)
 }
 </script>
 
+<% if flash[:messageError] != nil %>
+  <% @color="red" %>
+  <%= render '/mensaje/mensaje'  %>
+<% end %>
+<% if flash[:messageOk] != nil %>
+  <% @color="green" %>
+  <%= render '/mensaje/mensaje'  %>
+<% end %>
+
+
+<ul class="list-group">
+
 
   <%@faculties.order(:nombre).each do |facultad|%>
   <%if facultad.activo == true %>
@@ -21,11 +33,29 @@ function Mostrar(faculty_id)
       <button type="button" class="btn btn-danger">Eliminar</button>
     <%end%>
     <form form class="" action="/faculties/update" id="formUpdate<%=facultad.id%>" method="get" style="display:none;margin-top:10px">
+
+      <input type="hidden"  name="faculty_id" id="faculty_id" value="<%=facultad.id%>">
+
+
       <div class="form-group">
-        <label for="nombre">Nuevo Nombre:</label>
-        <input type="text"  name="nombre" id="nombre" required style="text-transform: capitalize">
-        <button class="btn  btn-primary" type="submit" >Modificar Facultad</button>
-        <input type="hidden" class="form-control" name="faculty_id" id="faculty_id" value=<%=facultad.id%>>
+
+        <div style="padding:10px">
+          <label for="nombre">Nuevo Nombre:</label>
+          <input type="text"  name="nombre" id="nombre" required style="text-transform: capitalize">
+       </div>
+       <div style="padding:10px;float:bottom">
+          <label for="ciudad">Nueva Ciudad:</label>
+          <input type="text"  name="ciudad" id="ciudad" required style="text-transform: capitalize">
+       </div>
+       <div style="padding:10px;float:bottom">
+          <label for="direccion">Nueva Direccion:</label>
+          <input type="text"  name="direccion" id="direccion" required style="text-transform: capitalize">
+       </div>
+       <div style="padding:10px;float:bottom">
+         <button class="btn  btn-primary" type="submit" >Modificar Facultad</button>
+       </div>
+
+
       </div>
     </form>
     <br>
@@ -34,18 +64,36 @@ function Mostrar(faculty_id)
   <%end%>
   <%end%>
 <% if session[:user_id] != 0 %>
-  <li class="list-group-item">
-        <form class="form-inline" action="/faculties/create" method="post">
+  <li class="list-group-item " style="padding:30px">
+
+      <h3 style="color:rgb(5,50,150)">Nueva Facultad</h3>  <br>
+
+
+        <form class="form-inline" action="/faculties/create" method="post" style="width:50%">
           <div class="form-group">
+          <div style="padding:10px">
            <label for="nombre">Nombre:</label>
            <input type="text" class="form-control" name="nombre" id="nombre" style="text-transform: capitalize" pattern="[A-Za-z0-9]+" title="Solo letras y Numeros">
-           <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-top: 20px;">Crear Facultad</button>
+         </div>
+         <div style="padding:10px;float:bottom">
+           <label for="ciudad">Ciudad:</label>
+           <input type="text" class="form-control" name="ciudad" id="ciudad" style="text-transform: capitalize" pattern="[A-Za-z0-9]+" title="Solo letras y Numeros">
+
+
+         </div>
+         <div style="padding:10px;float:bottom">
+           <label for="direccion">Direccion:</label>
+           <input type="text" class="form-control" name="direccion" id="direccion" style="text-transform: capitalize" pattern="[A-Za-z0-9]+" title="Solo letras y Numeros">
+         </div>
+
+         <div style="padding:10px;float:bottom">
+           <input class="btn btn-lg btn-primary" type="submit" style="" value="Crear Facultad">
+         </div>
+
           </div>
 
-          <% if flash[:message] != nil %>
-           <% @color="red" %>
-           <%= render '/mensaje/mensaje'  %>
-          <% end %>
+
+
 
     </form>
   </li>

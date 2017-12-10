@@ -2,7 +2,7 @@
 
 
 
-  <div class="form-group text-center" style="width:40%;padding:40px">
+  <div class="form-group text-center" style="width:50%;padding:40px;margin:auto">
 
     <h3 style="color:rgb(5,50,150)">Nuevo Nivel</h3>  <br>
 
@@ -48,11 +48,11 @@
 
        </script>
 
-  <div id="divFuncionalidades" class="form-group" style="margin-top:25px;width:80%;height:250px;overflow:auto">
+  <div id="divFuncionalidades" class="form-group" style="margin-top:25px;width:100%;height:250px;overflow:auto">
 
     <% @functionalities.each do |functionality| %>
         <input type="checkbox" name="funcionalidades[]" id="funcionalidad<%=functionality.id%>" autocomplete="off" value="<%=functionality.id%>" onclick="activarMenores(<%=functionality.id%>,<%=@functionalities.count%>)"/>
-            <div class="btn-group" style="padding:10px;float:bottom">
+            <div class="btn-group" style="padding:10px;float:bottom;height:50px">
               <label for="funcionalidad<%=functionality.id%>" class="btn btn-primary">
                   <span class="glyphicon glyphicon-plus"></span>
                   <span class="glyphicon glyphicon-minus"></span>
